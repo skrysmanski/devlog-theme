@@ -1,12 +1,5 @@
-<!-- Stores the current git branch in the page's Scratch object under the key "git-branch".
-     NOTE: Can be overwritten by setting the "gitBranchName" site parameter (useful for pull
-       requests where the branch name can't be read from the git repo itself).
--->
-{{- if site.Params.gitBranchName -}}
-  {{- .Scratch.Set "git-branch" site.Params.gitBranchName -}}
-{{- else -}}
-  {{- .Scratch.Set "git-branch" (chomp (substr (readFile ".git/HEAD") 16)) -}}
-{{- end -}}
+<!-- Stores the current git branch in the page's Scratch object under the key "git-branch". -->
+{{- .Scratch.Set "git-branch" (chomp (substr (readFile ".git/HEAD") 16)) -}}
 
 <!-- Read remote url (origin) and store it in the page's Scratch object under the key "git-repo-url". -->
 {{- $gitConfig := readFile ".git/config" -}}
