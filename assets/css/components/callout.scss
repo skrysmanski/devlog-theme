@@ -1,0 +1,85 @@
+.callout {
+  padding: 18px;
+  line-height: 24px;
+  margin-bottom: 24px;
+
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  border-radius: $block-border-radius;
+
+  .callout-icon {
+    margin-right: 8px;
+  }
+
+  .callout-title {
+    border-radius: 4px 4px 0 0;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .callout-content {
+    & > p:first-child {
+      margin-top: 0;
+    }
+    & > p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/*
+ * Warning
+ */
+.callout-warning {
+  $highlight: #fb7;
+  $background: #fec;
+
+  background: $background;
+  border-color: $highlight;
+
+  .callout-icon {
+    color: $highlight;
+  }
+
+  code {
+    border-color: $highlight;
+  }
+}
+
+/*
+ * Note
+ */
+.callout-note {
+  $highlight: #6be;
+  $background: #e7f2fa;
+
+  background: $background;
+  border-color: $highlight;
+
+  .callout-icon {
+    color: $highlight;
+  }
+
+  code {
+    border-color: $highlight;
+  }
+}
+
+/*
+ * Tip
+ */
+.callout-tip {
+  $highlight: #5a5;
+  $background: #efe;
+
+  background: $background;
+  border-color: $highlight;
+
+  .callout-icon {
+    color: $highlight;
+  }
+
+  code {
+    border-color: $highlight;
+  }
+}

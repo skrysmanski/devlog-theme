@@ -1,0 +1,4 @@
+<div class="callout callout-{{ .Type }}">
+  <div class="callout-title"><span class="callout-icon"><i class="fa-solid fa-{{ .Icon }}"></i></span>{{ .Title }}</div>
+  <div class="callout-content">{{ markdownify .Inner | chomp }}</div>
+</div>

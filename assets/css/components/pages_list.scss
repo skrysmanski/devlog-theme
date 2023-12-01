@@ -1,0 +1,21 @@
+// NOTE: Exists both on a "pages list" as well as one the home page.
+main ul.pages-list {
+  padding: 0;
+
+  & > li {
+    list-style: none;
+    padding: 0.4em 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    & > .item-title {
+      font-weight: bold;
+    }
+
+    & > .page-meta {
+      font-size: 0.7em;
+    }
+  }
+}

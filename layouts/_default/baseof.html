@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} // {{ site.Title }}{{ end }}</title>
+
+    <meta charset="utf-8" />
+    {{ hugo.Generator }}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="{{ site.Params.author }}" />
+
+    <!-- This basically blocks loading anything (images, scripts, style sheets) from any other server - this
+         makes it easier to comply with Europe's data protection regulations (GDPR) - i.e. we can't accidentally
+         make a request to a server hosted in the US.
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'" />
+
+    <!-- Sets the header color in Safari for iOS to the same color as the header.
+         NOTE: On iOS, only works on Safari (but not in Firefox or Chrome). There
+           seems to be no way to achieve this behavior in browsers other than Safari.
+    -->
+    <meta name="theme-color" content="#282a36" />
+
+    <!--
+      CSS
+    -->
+    {{ partial "css.html" (dict "File" "css/main.scss") }}
+    {{ partial "css.html" (dict "File" "css/print.scss" "Media" "print") }}
+
+    <!-- Make Hugo "aware" of the fontawesome fonts. (See: https://gohugo.io/methods/resource/publish/) -->
+    {{- range (resources.Match "node_modules/@fortawesome/fontawesome-free/webfonts/*") -}}
+    {{- .Publish -}}
+    {{- end -}}
+
+    <!--
+      JavaScript
+    -->
+    {{- $jsBuildOptions := newScratch -}}
+    {{- if hugo.IsProduction -}}
+      {{- $jsBuildOptions.Set "minify" true -}}
+    {{- else -}}
+      {{- $jsBuildOptions.Set "sourceMap" "inline" -}}
+    {{- end -}}
+    {{- with resources.Get "js/main.js" | js.Build $jsBuildOptions.Values | fingerprint -}}
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+    {{- end -}}
+
+    <!--
+      FavIcon
+    -->
+    {{ partial "favicon" . }}
+
+    <!--
+      Enable OpenGraph support.
+      See:
+      * https://ogp.me/
+      * https://gohugo.io/templates/internal/#open-graph
+      * https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/opengraph.html
+    -->
+    {{ template "_internal/opengraph.html" . }}
+  </head>
+
+  <body>
+    {{ partial "git-info.html" . }}
+
+    <header id="main-header" class="app-header">
+
+      <div class="main-header-content">
+        <img class="app-header-avatar hide-in-print" src="{{ site.Params.avatar }}" alt="{{ site.Params.author }}" />
+
+        <h1 class="app-header-title"><a href="/">{{ site.Title }}</a></h1>
+
+        <nav class="app-header-menu hide-in-print">
+          <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
+          <a href="/tags" aria-label="All Tags" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
+          <a href="/articles" aria-label="All Pages" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
+        </nav>
+      </div>
+
+      <!-- NOTE: We don't use a <progress> element here as it's very hard to style via CSS. -->
+      <div class="reading-progress-bar hide-in-print" aria-hidden="true">
+        <div class="progress"></div>
+      </div>
+    </header>
+
+    <!-- See CSS for reason we have this "main-container". -->
+    <div class="main-container">
+      <!-- Defines the "main" block. For an explanation of blocks, watch this video: https://gohugo.io/templates/base/ -->
+      {{ block "main" . }}
+        {{ .Content }}
+      {{ end }}
+
+      {{- if in site.Params.mainSections .Type }}
+      <!-- Creates an adjustable gap between the last line of content and the footer. -->
+      <div id="dynamic-end-of-page" class="hide-in-print"></div>
+      {{ else }}
+      <!-- Creates a fixed gap between the last line of content and the footer. -->
+      <div id="static-end-of-page" class="hide-in-print"></div>
+      {{ end }}
+    </div>
+
+    <footer id="main-footer">
+      <div class="copyright">
+        <a href="/terms">Personal site. &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
+      </div>
+
+      <div class="social-links hide-in-print">
+        {{ if site.Params.social.github }}<a href="https://github.com/{{ site.Params.social.github }}" title="Find me on GitHub"><i class="fa-brands fa-github"></i></a>{{ end }}
+        {{ if site.Params.social.mastodon }}<a href="{{ site.Params.social.mastodon }}" title="Find me on Mastodon"><i class="fa-brands fa-mastodon"></i></a>{{ end }}
+      </div>
+    </footer>
+</body>
+</html>

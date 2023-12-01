@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.75;
+  // When clicking links in the TOC, with this the browser scrolls to the
+  // location in a smooth way - instead of just jumping to the location.
+  // For a demo, see: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+  scroll-behavior: smooth;
+}
+
+// NOTE: More styles are defined in "_app.scss".
+body {
+  margin: 0;
+
+  font-family: $main-font;
+  font-size: $main-font-base-size;
+  // Reduce font size if the screen is very narrow (i.e. on mobile).
+  @media (max-width: 400px) {
+    // NOTE: 80% seems to be a good compromise - tested on an actual iPhone.
+    font-size: calc(#{$main-font-base-size} * 0.8);
+  }
+  color: $text-color;
+
+  // Makes long texts break properly - especially on mobile (i.e. small screens).
+  // See: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text/Wrapping_breaking_text#breaking_long_words
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font;
+  color: $heading-color;
+}
+
+h1 {
+  font-size: 2.4rem;
+  @media (max-width: 500px) { // screen is small
+    font-size: 1.8rem;
+  }
+}
+
+a {
+  color: $link-color;
+
+  text-decoration: underline;
+  // NOTE: We make this transparent so that we can animate (via transition) the underline appearing on mouse over.
+  text-decoration-color: transparent;
+
+  transition: text-decoration-color 0.35s;
+
+  &:hover {
+    // NOTE: Use "inherit" here so that it still works if the link has a different color.
+    text-decoration-color: inherit;
+  }
+}
+
+code, pre {
+  font-family: $code-font;
+}
+
+// Only style <code> that's not under a <pre> element.
+:not(pre) > code {
+  font-size: 0.95em;
+  background-color: #f1f1f1;
+  padding: 0.05em 0.2em;
+  border-radius: 0.25rem;
+  border: 1px #e4e4e4 solid;
+}
+
+a > code {
+  color: $link-color;
+}
+
+::selection {
+  background: $selection-color;
+}

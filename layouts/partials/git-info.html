@@ -1,0 +1,9 @@
+<!-- Stores the current git branch in the page's Scratch object under the key "git-branch". -->
+{{- .Scratch.Set "git-branch" (chomp (substr (readFile ".git/HEAD") 16)) -}}
+<!-- Read remote url (origin). -->
+{{- $gitConfig := readFile ".git/config" -}}
+{{- $gitRemoteMatch := findRESubmatch `(?s)\[remote "origin"\].+?url = ([^\r\n]+)` $gitConfig 1 -}}
+{{- if ne (len $gitRemoteMatch) 0 -}}
+{{- $gitRepoUrl := strings.TrimSuffix ".git" (index (index $gitRemoteMatch 0) 1) -}}
+{{- .Scratch.Set "git-repo-url" (chomp $gitRepoUrl) -}}
+{{- end -}}

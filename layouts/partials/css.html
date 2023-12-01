@@ -1,0 +1,9 @@
+{{- $styles := resources.Get .File }}
+{{- if hugo.IsProduction -}}
+  {{- $styles = $styles | toCSS | minify -}}
+{{- else -}}
+  {{- $styles = $styles | toCSS (dict "enableSourceMap" true) -}}
+{{- end -}}
+{{- with $styles | fingerprint -}}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" media="{{ $.Media | default "screen" }}" />
+{{- end -}}

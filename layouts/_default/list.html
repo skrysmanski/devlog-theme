@@ -1,0 +1,15 @@
+{{ define "main" }}
+<main class="pages-list">
+  <header>
+    <h1>All {{ len .Paginator.Pages }} {{ .Title }}</h1>
+  </header>
+
+  <ul class="pages-list">
+    {{ range .Paginator.Pages.ByTitle }}
+    {{ partial "list-item.html" . }}
+    {{ end }}
+  </ul>
+
+  {{ partial "pagination.html" $ }}
+</main>
+{{ end }}

@@ -1,0 +1,31 @@
+@import 'variables.scss';
+
+// Normalize everything
+// IMPORTANT: Do NOT add ".css" to the end or else the file won't be inlined (and thus trigger a CSP violation - at least during dev)!!!
+@import '../node_modules/modern-normalize/modern-normalize';
+
+
+// Define fonts
+@import 'fonts/main-font';
+@import 'fonts/headings-font';
+@import 'fonts/code-font';
+
+// Define icons
+@import 'fonts/fontawesome';
+
+// Base styles
+@import 'base';
+
+// Import mixins
+@import 'mixins/heading_numbers';
+
+// Define all components
+@import 'components/app';
+@import 'components/callout';
+@import 'components/page';
+@import 'components/pages_list';
+@import 'components/pagination';
+@import 'components/page-meta';
+@import 'components/term';
+@import 'components/terms_list';
+@import 'components/tooltips';

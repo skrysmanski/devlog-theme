@@ -1,0 +1,49 @@
+{{ define "main" }}
+<main class="page with-reading-progress">
+
+  {{- if in site.Params.mainSections .Type }}
+  <aside id="page-toc" class="hide-in-print">
+    <header>
+      <h2>What's on this Page</h2>
+    </header>
+
+    <!-- NOTE: This link serves two purposes: first, so that the user can get back to the top of the page. And secondly,
+           so that the page's full title is always visible.
+    -->
+    <nav id="toc-top-link">
+      <!-- NOTE: The anchor "#top" is automatically defined by browsers. -->
+      <a class="top-link" href="#top">{{ .Title }}</a>
+    </nav>
+
+    {{ .TableOfContents }}
+  </aside>
+  {{- end -}}
+
+  <header>
+    <h1 id="page-title">{{ .Title }}</h1>
+
+    {{- if in site.Params.mainSections .Type }}
+    {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
+
+    {{- $pageAge := now.Sub .Date -}}
+    {{- $pageAgeMonths := div (div $pageAge.Hours 24) 30 -}}
+    {{- if gt $pageAgeMonths 18 -}}
+    <div class="old-page">
+      This page is more than 18 months old. Since technology changes rapidly, this content <i>may</i> be out of date.
+    </div>
+    {{- end -}}
+
+    {{- end }}
+
+  </header>
+
+  <article>
+
+    <div id="page-content">
+      {{ .Content }}
+    </div>
+
+  </article>
+
+</main>
+{{ end }}
