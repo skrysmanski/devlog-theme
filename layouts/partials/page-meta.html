@@ -1,7 +1,7 @@
 <div class="page-meta">
   <div class="primary-meta">
 
-    <span>
+    <span aria-label="{{ .Page.Date }}" data-tooltip-dir="top">
       <i class="fa-regular fa-calendar"></i>
       {{ .Page.Date | time.Format site.Params.dateFormat }}
     </span>
