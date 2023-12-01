@@ -100,7 +100,7 @@
 
     <footer id="main-footer">
       <div class="copyright">
-        <a href="/terms">Personal site. &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
+        <a href="{{ site.Params.footer.termsLinks }}">{{ site.Params.footer.copyrightPrefix }} &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
       </div>
 
       <div class="social-links hide-in-print">
