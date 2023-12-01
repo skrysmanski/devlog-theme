@@ -6,7 +6,7 @@
       {{ .Page.Date.Format site.Params.date_format }}
     </span>
 
-    <span aria-label="{{ .FuzzyWordCount }} words" data-tooltip-dir="top">
+    <span aria-label="{{ .Page.FuzzyWordCount }} words" data-tooltip-dir="top">
       <i class="fa-regular fa-clock"></i>
       {{ .Page.ReadingTime }} min read
     </span>
