@@ -3,7 +3,7 @@
 
     <span>
       <i class="fa-regular fa-calendar"></i>
-      {{ .Page.Date.Format site.Params.date_format }}
+      {{ .Page.Date | time.Format site.Params.dateFormat }}
     </span>
 
     <span aria-label="{{ .Page.FuzzyWordCount }} words" data-tooltip-dir="top">
