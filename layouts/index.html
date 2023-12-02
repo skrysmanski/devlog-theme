@@ -22,9 +22,9 @@
            * https://gohugo.io/methods/pages/bypublishdate/
            * https://gohugo.io/functions/collections/where/
            * https://gohugo.io/functions/collections/where/#use-where-with-first
-           * https://gohugo.io/functions/collections/where/#mainsections
+           * https://gohugo.io/methods/site/mainsections/
       -->
-      {{ range first site.Params.indexPageCount (where site.RegularPages.ByPublishDate.Reverse "Type" "in" site.Params.mainSections) }}
+      {{ range first site.Params.indexPageCount (where site.RegularPages.ByPublishDate.Reverse "Type" "in" site.MainSections) }}
       {{ partial "list-item.html" . }}
       {{ end }}
     </ul>

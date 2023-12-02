@@ -89,7 +89,7 @@
         {{ .Content }}
       {{ end }}
 
-      {{- if in site.Params.mainSections .Type }}
+      {{- if in site.MainSections .Type }}
       <!-- Creates an adjustable gap between the last line of content and the footer. -->
       <div id="dynamic-end-of-page" class="hide-in-print"></div>
       {{ else }}

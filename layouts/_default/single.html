@@ -1,7 +1,7 @@
 {{ define "main" }}
 <main class="page with-reading-progress">
 
-  {{- if in site.Params.mainSections .Type }}
+  {{- if in site.MainSections .Type }}
   <aside id="page-toc" class="hide-in-print">
     <header>
       <h2>What's on this Page</h2>
@@ -22,7 +22,7 @@
   <header>
     <h1 id="page-title">{{ .Title }}</h1>
 
-    {{- if in site.Params.mainSections .Type }}
+    {{- if in site.MainSections .Type }}
     {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
 
     {{- $pageAge := now.Sub .Date -}}
