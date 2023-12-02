@@ -152,7 +152,7 @@ main.page > article {
 //
 // Numbered headings
 //
-#page-content {
+main.page-main-section #page-content {
   @include heading-numbers {
     color: $permalink-color;
     font-size: 0.5em;
