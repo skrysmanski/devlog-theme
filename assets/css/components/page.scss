@@ -174,7 +174,7 @@ main.page aside#page-toc {
     // NOTE: This doesn't work if both html and body use "overflow-x: hidden;".
     position: sticky;
     // margin to the browser window's top when scrolling
-    top: 85px;
+    top: 105px;
     grid-row: 1 / span 2;
     grid-column: 2;
     // push it down a little bit when at the top of the page
@@ -203,17 +203,6 @@ main.page aside#page-toc {
 
   header {
     margin-bottom: 0.4em;
-  }
-
-  // Name of the current page
-  #toc-top-link a {
-    font-weight: bold;
-    color: $text-color;
-
-    @media (max-width: $toc_as_sidebar_width_threshold) { // screen is too small
-      // No point in repeating the headline that just appears above this.
-      display: none;
-    }
   }
 
   nav#TableOfContents {

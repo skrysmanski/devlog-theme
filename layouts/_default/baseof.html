@@ -88,6 +88,10 @@
         </nav>
       </div>
 
+      {{ if in site.MainSections .Type -}}
+      <div class="page-title" aria-hidden="true">{{ .Title }}</div>
+      {{- end }}
+
       <!-- NOTE: We don't use a <progress> element here as it's very hard to style via CSS. -->
       <div class="reading-progress-bar hide-in-print" aria-hidden="true">
         <div class="progress"></div>

@@ -25,18 +25,22 @@ body {
 
   background: $header-footer-background;
 
+  @mixin header-content-padding($vertical-padding) {
+    padding: $vertical-padding 1em;
+    @media (min-width: $content-width) { // screen is big enough to hold "content-width"
+      padding: $vertical-padding calc(((100% - #{$content-width}) / 2) + 1em);
+    }
+    @media (min-width: calc(#{$content-width} + #{$toc-sidebar-width})) { // screen is big enough to hold "content-width" + an optional TOC
+      padding: $vertical-padding calc(((100% - (#{$content-width} + #{$toc-sidebar-width})) / 2) + 1em);
+    }
+  }
+
   .main-header-content {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
 
-    padding: $header-content-margin 1em;
-    @media (min-width: $content-width) { // screen is big enough to hold "content-width"
-      padding: $header-content-margin calc(((100% - #{$content-width}) / 2) + 1em);
-    }
-    @media (min-width: calc(#{$content-width} + #{$toc-sidebar-width})) { // screen is big enough to hold "content-width" + an optional TOC
-      padding: $header-content-margin calc(((100% - (#{$content-width} + #{$toc-sidebar-width})) / 2) + 1em);
-    }
+    @include header-content-padding($header-content-margin);
 
     .app-header-avatar {
       height: calc(#{$header-height} - (#{$header-content-margin} * 2));
@@ -84,13 +88,23 @@ body {
     }
   }
 
+  .page-title {
+    background-color: #F0F0F4;
+    border-bottom: 1px solid #cdcdcd;
+    font-size: 0.8em;
+
+    text-align: center;
+
+    @include header-content-padding(0.2em);
+  }
+
   .reading-progress-bar {
     height: $header-footer-separator-line-height;
     @media (max-width: $small-screen-width) {
       height: calc(#{$header-footer-separator-line-height} * #{$small-screen-size-factor});
     }
 
-    background-color: #eee;
+    background-color: #fff;
 
     .progress {
       height: 100%;
