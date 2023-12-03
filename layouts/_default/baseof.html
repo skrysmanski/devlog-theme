@@ -73,10 +73,14 @@
 
         <h1 class="app-header-title"><a href="/">{{ site.Title }}</a></h1>
 
+        <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
         <nav class="app-header-menu hide-in-print">
-          <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
-          <a href="/tags" aria-label="All Tags" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
-          <a href="/articles" aria-label="All Pages" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
+          {{ with site.GetPage "/tags" -}}
+          <a href="{{ .RelPermalink }}" aria-label="All Tags" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
+          {{- end }}
+          {{ with site.GetPage "/articles" -}}
+          <a href="{{ .RelPermalink }}" aria-label="All Pages" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
+          {{- end }}
         </nav>
       </div>
 
@@ -104,7 +108,9 @@
 
     <footer id="main-footer">
       <div class="copyright">
-        <a href="{{ site.Params.footer.termsLinks }}">{{ site.Params.footer.copyrightPrefix }} &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
+        {{ with site.GetPage site.Params.footer.termsLinks -}}
+        <a href="{{ .RelPermalink }}">{{ site.Params.footer.copyrightPrefix }} &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
+        {{- end }}
       </div>
 
       <div class="social-links hide-in-print">
