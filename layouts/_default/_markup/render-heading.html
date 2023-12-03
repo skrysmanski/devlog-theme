@@ -4,4 +4,4 @@
        will get truncated on the left side (though at least no scrollbar will appear). Unfortunately, there doesn't seem to be a solution for this
        problem, so we disable the tooltips altogether. (Users will figure out what the # does.)
 -->
-<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}{{- if in site.MainSections .Page.Type -}}&nbsp;<a class="permalink hide-in-print" href="#{{ .Anchor | safeURL }}" aria-label="Permalink to this section">#</a>{{ end }}</h{{ .Level }}>
+<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}{{- if in site.MainSections .Page.Type -}}&nbsp;<a class="permalink hide-in-print" data-pagefind-ignore href="#{{ .Anchor | safeURL }}" aria-label="Permalink to this section">#</a>{{ end }}</h{{ .Level }}>

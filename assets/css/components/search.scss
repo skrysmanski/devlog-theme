@@ -1,0 +1,98 @@
+.pagefind-ui {
+  // For "position: absolute;" of the drawer.
+  position: relative;
+}
+
+// Used for the results drawer when it's empty.
+.pagefind-ui__hidden {
+  display: none;
+}
+
+.pagefind-ui__form {
+  position: relative;
+  margin: 0 1em;
+
+  .pagefind-ui__search-input {
+    border-radius: $block-border-radius;
+    border: 1px solid #aaa;
+    padding-left: 0.5em;
+
+    max-width: 400px;
+    width: 100%;
+    // NOTE: This padding is automatically added to the search box for the clear button.
+    //   To avoid changes to the width of the search box when the first letter is typed,
+    //   we "pre-declare" this padding here.
+    //   See: https://github.com/CloudCannon/pagefind/issues/362
+    padding-right: 56px;
+
+    // Shrink size if the search box doesn't contain any text and if it's also not focused.
+    &:placeholder-shown:not(:focus) {
+      width: 100px;
+      // Clear "padding-right" that's added by pagefind's JavaScript to the element itself (most likely for the clear button).
+      // See: https://github.com/CloudCannon/pagefind/issues/362
+      padding-right: 0 !important;
+    }
+  }
+
+  .pagefind-ui__search-clear {
+    position: absolute;
+    right: 0;
+    height: 100%;
+
+    background: #ccc;
+    border: none;
+    border-radius: $block-border-radius;
+
+    cursor: pointer;
+
+    &.pagefind-ui__suppressed {
+      display: none;
+    }
+  }
+}
+
+// The result box (drawer).
+.pagefind-ui__drawer {
+  position: absolute;
+  right: 0;
+
+  max-width: 400px;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: $block-border-radius;
+}
+
+.pagefind-ui__results-area {
+  padding: 1em;
+  font-size: 0.8em;
+
+  // X results for <search terms>
+  .pagefind-ui__message {
+    margin-top: 0;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #aaa;
+    font-weight: bold;
+  }
+
+  // The actual results
+  ol.pagefind-ui__results {
+    padding-left: 0;
+    list-style-type: none;
+
+    & > li {
+      border-bottom: 1px solid #ccc;
+
+      .pagefind-ui__result-title {
+        font-weight: bold;
+      }
+
+      .pagefind-ui__result-excerpt mark {
+        font-weight: bold;
+        background: none;
+      }
+    }
+  }
+}

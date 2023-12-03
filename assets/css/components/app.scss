@@ -37,7 +37,7 @@ body {
 
   .main-header-content {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
     align-items: center;
 
     @include header-content-padding($header-content-margin);
@@ -63,6 +63,10 @@ body {
       & > a {
         color: $header-text-color;
       }
+    }
+
+    #search-box {
+      justify-self: end;
     }
 
     .app-header-menu > a {
