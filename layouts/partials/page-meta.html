@@ -1,12 +1,12 @@
 <div class="page-meta">
   <div class="primary-meta">
 
-    <span aria-label="{{ .Page.Date.UTC }}" data-tooltip-dir="top">
+    <span{{ if .IsSinglePage }} aria-label="{{ .Page.Date.UTC }}" data-tooltip-dir="top"{{ end }}>
       <i class="fa-regular fa-calendar"></i>
       {{ .Page.Date | time.Format site.Params.dateFormat }}
     </span>
 
-    <span aria-label="{{ .Page.FuzzyWordCount }} words" data-tooltip-dir="top">
+    <span{{ if .IsSinglePage }} aria-label="{{ .Page.FuzzyWordCount }} words" data-tooltip-dir="top"{{ end }}>
       <i class="fa-regular fa-clock"></i>
       {{ .Page.ReadingTime }} min read
     </span>
