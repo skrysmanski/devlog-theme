@@ -1,4 +1,4 @@
-$small-screen-width: 540px;
+$small-screen-width: 740px;
 $small-screen-size-factor: 0.8;
 
 body {
@@ -37,53 +37,120 @@ body {
 
   .main-header-content {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto;
     align-items: center;
 
     @include header-content-padding($header-content-margin);
 
-    .app-header-avatar {
-      height: calc(#{$header-height} - (#{$header-content-margin} * 2));
-      @media (max-width: $small-screen-width) {
-        height: calc(#{$header-height} * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+    .main-header-title {
+      display: flex;
+      flex-direction: row;
+
+      .app-header-avatar {
+        height: calc(#{$header-height} - (#{$header-content-margin} * 2));
+        @media (max-width: $small-screen-width) {
+          height: calc(#{$header-height} * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+        }
+        border: $header-avatar-border;
+        border-radius: 4px;
+        margin-right: 1em;
       }
-      border: $header-avatar-border;
-      border-radius: 4px;
-      margin-right: 1em;
+
+      .app-header-title {
+        margin: 0;
+
+        font-size: calc(#{$header-height} * 0.7 - (#{$header-content-margin} * 2));
+        @media (max-width: $small-screen-width) {
+          font-size: calc(#{$header-height} * 0.7 * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+        }
+
+        & > a {
+          color: $header-text-color;
+        }
+      }
     }
 
-    .app-header-title {
-      margin: 0;
+    .main-menu-toggle {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
 
-      font-size: calc(#{$header-height} * 0.7 - (#{$header-content-margin} * 2));
-      @media (max-width: $small-screen-width) {
-        font-size: calc(#{$header-height} * 0.7 * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+      color: #fff;
+
+      @media (min-width: $use-burger-menu-screen-width) {
+        display: none;
+      }
+    }
+
+    // This style simply hides the checkbox we use to tracker whether the context menu
+    // is open or not.
+    .menu-state {
+      position: absolute;
+      display: none;
+    }
+
+    // NOTE: Element order in HTML is important for this (i.e. it must match the order here).
+    .menu-state:not(:checked) + .main-menu-toggle {
+      .close-button {
+        display: none;
+      }
+    }
+    .menu-state:checked + .main-menu-toggle {
+      .open-button {
+        display: none;
+      }
+    }
+
+    @media (max-width: $use-burger-menu-screen-width) {
+      .menu-state:not(:checked) ~ .main-header-navigation {
+        display: none;
       }
 
-      & > a {
+      .menu-state:checked ~ .main-header-navigation {
+        grid-column: span 2;
+        grid-row: 2;
+
+        padding-top: 0.5em;
+
+        #search-box {
+          justify-self: stretch;
+        }
+      }
+    }
+
+    .main-header-navigation {
+      grid-column: 2;
+      grid-row: 1;
+
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+
+      #search-box {
+        justify-self: end;
+      }
+
+      .app-header-menu > a {
+        display: inline-block;
         color: $header-text-color;
-      }
-    }
+        font-size: calc(#{$header-height} * 0.7 - (#{$header-content-margin} * 2));
+        @media (max-width: $small-screen-width) {
+          font-size: calc(#{$header-height} * 0.7 * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+        }
 
-    .app-header-menu > a {
-      display: inline-block;
-      color: $header-text-color;
-      font-size: calc(#{$header-height} * 0.7 - (#{$header-content-margin} * 2));
-      @media (max-width: $small-screen-width) {
-        font-size: calc(#{$header-height} * 0.7 * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
-      }
+        width: 2em;
+        text-align: center;
 
-      width: 2em;
-      text-align: center;
+        padding: 0 0.5em;
 
-      padding: 0 0.5em;
+        border-radius: $block-border-radius;
 
-      border-radius: $block-border-radius;
+        transition: background-color 0.35s;
 
-      transition: background-color 0.35s;
-
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
       }
     }
   }

@@ -15,8 +15,9 @@
     <!-- This basically blocks loading anything (images, scripts, style sheets) from any other server - this
          makes it easier to comply with Europe's data protection regulations (GDPR) - i.e. we can't accidentally
          make a request to a server hosted in the US.
+         NOTE: 'wasm-unsafe-eval' is required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'" />
 
     <!-- Sets the header color in Safari for iOS to the same color as the header.
          NOTE: On iOS, only works on Safari (but not in Firefox or Chrome). There
@@ -53,6 +54,9 @@
     -->
     {{ partial "favicon" . }}
 
+    <!-- For static site search. -->
+    <script src="/pagefind/pagefind-ui.js"></script>
+
     <!--
       Enable OpenGraph support.
       See:
@@ -69,23 +73,41 @@
     <header id="main-header" class="app-header">
 
       <div class="main-header-content">
-        <img class="app-header-avatar hide-in-print" src="{{ site.Params.avatar }}" alt="{{ site.Params.author }}" />
 
-        <h1 class="app-header-title"><a href="/">{{ site.Title }}</a></h1>
+        <div class="main-header-title">
+          <img class="app-header-avatar hide-in-print" src="{{ site.Params.avatar }}" alt="{{ site.Params.author }}" />
 
-        <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
-        <nav class="app-header-menu hide-in-print">
-          {{ range $name, $taxonomy := site.Taxonomies -}}
-          {{- with site.GetPage $name -}}
-          <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
-          {{- end -}}
-          {{- end }}
-          {{ range site.MainSections -}}
-          {{- with site.GetPage . -}}
-          <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
-          {{- end -}}
-          {{- end }}
-        </nav>
+          <h1 class="app-header-title"><a href="/">{{ site.Title }}</a></h1>
+        </div>
+
+        <!-- IMPORTANT: Must come BEFORE "main-menu-toggle" or CSS won't work. -->
+        <input type="checkbox" class="menu-state" id="main-menu-state" />
+
+        <!-- NOTE: This must be a label so that clicking it toggles the checkbox. -->
+        <label class="main-menu-toggle hide-in-print" for="main-menu-state">
+          <i class="fa-solid fa-bars open-button"></i>
+          <i class="fa-solid fa-xmark close-button"></i>
+        </label>
+
+        <div class="main-header-navigation">
+
+          <div id="search-box"></div>
+
+          <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
+          <nav class="app-header-menu hide-in-print">
+            {{ range $name, $taxonomy := site.Taxonomies -}}
+            {{- with site.GetPage $name -}}
+            <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
+            {{- end -}}
+            {{- end }}
+            {{ range site.MainSections -}}
+            {{- with site.GetPage . -}}
+            <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
+            {{- end -}}
+            {{- end }}
+          </nav>
+        </div>
+
       </div>
 
       {{ if in site.MainSections .Type -}}
