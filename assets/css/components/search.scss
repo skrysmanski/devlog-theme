@@ -11,13 +11,15 @@
 .pagefind-ui__form {
   position: relative;
   margin: 0 1em;
+  @media (max-width: $use-burger-menu-screen-width) {
+    margin-left: 0;
+  }
 
   .pagefind-ui__search-input {
     border-radius: $block-border-radius;
     border: 1px solid #aaa;
     padding-left: 0.5em;
 
-    max-width: 400px;
     width: 100%;
     // NOTE: This padding is automatically added to the search box for the clear button.
     //   To avoid changes to the width of the search box when the first letter is typed,
@@ -25,12 +27,16 @@
     //   See: https://github.com/CloudCannon/pagefind/issues/362
     padding-right: 56px;
 
-    // Shrink size if the search box doesn't contain any text and if it's also not focused.
-    &:placeholder-shown:not(:focus) {
-      width: 100px;
-      // Clear "padding-right" that's added by pagefind's JavaScript to the element itself (most likely for the clear button).
-      // See: https://github.com/CloudCannon/pagefind/issues/362
-      padding-right: 0 !important;
+    @media (min-width: $use-burger-menu-screen-width) {
+      max-width: 400px;
+
+      // Shrink size if the search box doesn't contain any text and if it's also not focused.
+      &:placeholder-shown:not(:focus) {
+        width: 100px;
+        // Clear "padding-right" that's added by pagefind's JavaScript to the element itself (most likely for the clear button).
+        // See: https://github.com/CloudCannon/pagefind/issues/362
+        padding-right: 0 !important;
+      }
     }
   }
 
@@ -57,6 +63,10 @@
   right: 0;
 
   max-width: 400px;
+  @media (max-width: $use-burger-menu-screen-width) {
+    max-width: 90vw; // Not sure why but this gives the correct width on small screens.
+    left: 0 !important;
+  }
   max-height: 70vh;
   overflow-y: auto;
 
