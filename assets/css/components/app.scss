@@ -30,11 +30,6 @@ body {
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
 
-    height: $header-height;
-    @media (max-width: $small-screen-width) {
-      height: calc(#{$header-height} * #{$small-screen-size-factor});
-    }
-
     padding: $header-content-margin 1em;
     @media (min-width: $content-width) { // screen is big enough to hold "content-width"
       padding: $header-content-margin calc(((100% - #{$content-width}) / 2) + 1em);
