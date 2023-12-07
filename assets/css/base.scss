@@ -15,11 +15,10 @@ body {
   margin: 0;
 
   font-family: $main-font;
-  font-size: $main-font-base-size;
+  font-size: $main-font-size;
   // Reduce font size if the screen is very narrow (i.e. on mobile).
   @media (max-width: 400px) {
-    // NOTE: 80% seems to be a good compromise - tested on an actual iPhone.
-    font-size: calc(#{$main-font-base-size} * 0.8);
+    font-size: $main-font-size-small-screen;
   }
   color: $text-color;
 
@@ -57,11 +56,11 @@ a {
 
 code, pre {
   font-family: $code-font;
+  font-size: 0.95em;
 }
 
 // Only style <code> that's not under a <pre> element.
 :not(pre) > code {
-  font-size: 0.95em;
   background-color: #f1f1f1;
   padding: 0.05em 0.2em;
   border-radius: 0.25rem;
