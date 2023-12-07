@@ -46,7 +46,8 @@
       {{- $jsBuildOptions.Set "sourceMap" "inline" -}}
     {{- end -}}
     {{- with resources.Get "js/main.js" | js.Build $jsBuildOptions.Values | fingerprint -}}
-    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+    <!-- For meaning of "defer", see: https://www.w3schools.com/tags/att_script_defer.asp -->
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer="true"></script>
     {{- end -}}
 
     <!--
