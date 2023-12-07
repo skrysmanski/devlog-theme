@@ -17,7 +17,7 @@ $tooltip-gap-size: 4px;
     position: absolute;
 
     // Show above everything else.
-    z-index: 100;
+    z-index: $z-index-tooltips;
 
     // Use the "aria-label" attribute as content.
     content: attr(aria-label);

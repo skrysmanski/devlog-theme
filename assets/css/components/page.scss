@@ -181,7 +181,7 @@ main.page aside#page-toc {
     @media (min-width: $small-screen-width) {
       top: 85px;
     }
-    z-index: 5;
+    z-index: $z-index-slide-in-toc;
 
     background-color: $background-color; // for slide in TOC - make it non-transparent
 

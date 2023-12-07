@@ -43,3 +43,9 @@ $tags-base-color: lighten($link-color, 25%);
 
 // If the screen is wider than this, the TOC appears as sidebar. If not, the TOC appears inline in the main content.
 $toc_as_sidebar_width_threshold: calc(#{$content-width} + #{$toc-sidebar-width});
+
+$z-index-popup-menu: 10;
+$z-index-backdrop: 20;
+$z-index-slide-in-toc: 25;
+$z-index-header: 30;
+$z-index-tooltips: 100;

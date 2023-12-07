@@ -60,7 +60,7 @@
           position: absolute;
           top: 2em;
           right: calc(-0.3em - 1px);
-          z-index: 50;
+          z-index: $z-index-popup-menu;
 
           border-radius: $block-border-radius;
           background-color: #fff;
