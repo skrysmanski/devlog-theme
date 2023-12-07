@@ -1,6 +1,3 @@
-// If the screen is wider than this, the TOC appears as sidebar. If not, the TOC appears inline in the main content.
-$toc_as_sidebar_width_threshold: calc(#{$content-width} + #{$toc-sidebar-width});
-
 main.page {
   display: grid;
 
@@ -165,10 +162,6 @@ main.page-main-section #page-content {
 // TOC
 //
 main.page aside#page-toc {
-  grid-row: 2;
-  grid-column: 1;
-  margin-top: 1em;
-
   @media (min-width: $toc_as_sidebar_width_threshold) { // screen is big enough
     // magic, magic - makes the sidebar work without any JavaScript
     // NOTE: This doesn't work if both html and body use "overflow-x: hidden;".
@@ -181,24 +174,35 @@ main.page aside#page-toc {
     margin-top: 15px;
     margin-left: $toc-sidebar-spacing;
   }
+  @media (max-width: calc(#{$toc_as_sidebar_width_threshold} - 1px)) { // screen is too small
+    position: fixed;
+    right: 0;
+    top: 65px;
+    @media (min-width: $small-screen-width) {
+      top: 85px;
+    }
+    z-index: 5;
+
+    background-color: $background-color; // for slide in TOC - make it non-transparent
+
+    padding: 1em;
+
+    transform: translateX(100%);
+    transition: transform .2s linear;
+
+    &.is-expanded {
+      transform: translateX(0);
+    }
+  }
 
   font-size: 0.8rem;
-
-  // Separator between TOC and content on mobile.
-  @media (max-width: $toc_as_sidebar_width_threshold) { // screen not big enough
-    padding-bottom: 2em;
-    margin-bottom: 1em;
-    border-bottom: 1px solid $toc-separator-color;
-  }
 
   // "What's on this page"
   header > h2 {
     font-weight: bold;
     margin: 0;
     font-size: 0.8em;
-    @media (min-width: $toc_as_sidebar_width_threshold) { // screen is big enough
-      border-bottom: 1px solid $toc-separator-color;
-    }
+    border-bottom: 1px solid $toc-separator-color;
   }
 
   header {
@@ -225,14 +229,12 @@ main.page aside#page-toc {
       transition: background-color 0.35s ease-out, border-color 0.35s ease-out;
     }
 
-    @media (min-width: $toc_as_sidebar_width_threshold) { // screen is big enough
-      // Highlight the currently viewed section.
-      // NOTE: Only do this if the TOC is displayed as a sidebar. If not, this may cause flickering especially on mobile.
-      a[aria-current] {
-        font-weight: bold;
-        background-color: lighten($link-color, 45%);
-        border-color: $link-color;
-      }
+    // Highlight the currently viewed section.
+    // NOTE: Only do this if the TOC is displayed as a sidebar. If not, this may cause flickering especially on mobile.
+    a[aria-current] {
+      font-weight: bold;
+      background-color: lighten($link-color, 45%);
+      border-color: $link-color;
     }
 
     // Only the outer most list

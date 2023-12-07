@@ -112,7 +112,10 @@
       </div>
 
       {{ if in site.MainSections .Type -}}
-      <div class="page-title" aria-hidden="true">{{ .Title }}</div>
+      <div class="page-title-header-bar" aria-hidden="true">
+        <span class="page-title">{{ .Title }}</span>
+        <span class="toc-toggle-button"><i class="fa-solid fa-list-ul"></i></span>
+      </div>
       {{- end }}
 
       <!-- NOTE: We don't use a <progress> element here as it's very hard to style via CSS. -->
@@ -120,6 +123,8 @@
         <div class="progress"></div>
       </div>
     </header>
+
+    <div id="page-backdrop"></div>
 
     <!-- See CSS for reason we have this "main-container". -->
     <div class="main-container">

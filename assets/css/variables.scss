@@ -1,3 +1,6 @@
+$small-screen-width: 740px;
+$small-screen-size-factor: 0.8;
+
 // Width of the page's content (without any sidebars).
 $content-width: 800px;
 // Width of the TOC (including margins).
@@ -37,3 +40,6 @@ $page-meta-background: #f6f6f6;
 $page-meta-padding: 1em 1.5em;
 
 $tags-base-color: lighten($link-color, 25%);
+
+// If the screen is wider than this, the TOC appears as sidebar. If not, the TOC appears inline in the main content.
+$toc_as_sidebar_width_threshold: calc(#{$content-width} + #{$toc-sidebar-width});

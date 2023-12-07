@@ -1,6 +1,18 @@
 import $ from "./jquery.module.js";
 import { getContentRoot } from "./commons.module.js";
 
+const toggleSlideOutToc = () => {
+    $('.toc-toggle-button').toggleClass('is-expanded');
+    $('#page-toc').toggleClass('is-expanded');
+    $('#page-backdrop').toggleClass('visible');
+};
+
+const hideSlideOutToc = () => {
+    if ($('#page-toc').hasClass('is-expanded')) {
+        toggleSlideOutToc();
+    }
+};
+
 export const initImprovedToc = () => {
     // The section that's located at the page's height in percent will be highlighted in the ToC.
     const tocHighlightedSectionPositionInPercent = 15;
@@ -62,5 +74,9 @@ export const initImprovedToc = () => {
             }
         });
     }
+
+    // For slide out ToC on mobile (small screens)
+    $('.toc-toggle-button').on('click', toggleSlideOutToc);
+    $('#page-toc a').on('click', hideSlideOutToc);
 };
 
