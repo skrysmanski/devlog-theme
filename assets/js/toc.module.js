@@ -1,10 +1,11 @@
 import $ from "./jquery.module.js";
 import { getContentRoot } from "./commons.module.js";
+import { toggleBackdrop } from "./backdrop.module.js";
 
 const toggleSlideOutToc = () => {
     $('.toc-toggle-button').toggleClass('is-expanded');
     $('#page-toc').toggleClass('is-expanded');
-    $('#page-backdrop').toggleClass('visible');
+    toggleBackdrop('content', hideSlideOutToc);
 };
 
 const hideSlideOutToc = () => {

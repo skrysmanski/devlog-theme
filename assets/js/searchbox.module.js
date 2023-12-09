@@ -1,3 +1,17 @@
+import $ from "./jquery.module.js";
+import { showBackdrop, hideBackdrop } from "./backdrop.module.js";
+
+const hideSearchOverlay = () => {
+    $('#search-overlay-container').removeClass('visible');
+    hideBackdrop();
+}
+
+const showSearchOverlay = () => {
+    $('#search-overlay-container').addClass('visible');
+    $('.pagefind-ui__search-input').trigger('focus');
+    showBackdrop('page', hideSearchOverlay);
+}
+
 export const initSearchBox = () => {
     //
     // Initializes the search box.
@@ -12,7 +26,7 @@ export const initSearchBox = () => {
     //
     if (typeof PagefindUI !== 'undefined') {
         new PagefindUI({
-            element: "#search-box",
+            element: "#search-overlay",
             // Don't show multiple results per page.
             showSubResults: false,
             // The number of search results to load at once, before a "Load more" button is shown.
@@ -22,5 +36,7 @@ export const initSearchBox = () => {
             // Removes any inline styles from the generated HTML elements.
             resetStyles: false
         });
+
+        $('#open-search-dialog-button').on('click', showSearchOverlay);
     }
 }

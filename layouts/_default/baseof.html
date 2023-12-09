@@ -81,21 +81,11 @@
           <h1 class="app-header-title"><a href="/">{{ site.Title }}</a></h1>
         </div>
 
-        <!-- IMPORTANT: Must come BEFORE "main-menu-toggle" or CSS won't work. -->
-        <input type="checkbox" class="menu-state" id="main-menu-state" />
-
-        <!-- NOTE: This must be a label so that clicking it toggles the checkbox. -->
-        <label class="main-menu-toggle hide-in-print" for="main-menu-state">
-          <i class="fa-solid fa-bars open-button"></i>
-          <i class="fa-solid fa-xmark close-button"></i>
-        </label>
-
         <div class="main-header-navigation">
-
-          <div id="search-box"></div>
 
           <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
           <nav class="app-header-menu hide-in-print">
+            <button id="open-search-dialog-button" aria-label="Search site" data-tooltip-dir="bottom-right"><i class="fa-solid fa-magnifying-glass"></i></button>
             {{ range $name, $taxonomy := site.Taxonomies -}}
             {{- with site.GetPage $name -}}
             <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
@@ -125,6 +115,10 @@
     </header>
 
     <div id="page-backdrop"></div>
+
+    <div id="search-overlay-container" class="hide-in-print">
+      <div id="search-overlay"></div>
+    </div>
 
     <!-- See CSS for reason we have this "main-container". -->
     <div class="main-container">
