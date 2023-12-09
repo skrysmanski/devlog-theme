@@ -5,4 +5,9 @@ ErrorDocument 404 /404.html
 Header always set X-Frame-Options "DENY"
 
 # Prevent browsers from incorrectly detecting non-scripts as scripts
+# See: https://infosec.mozilla.org/guidelines/web_security#x-content-type-options
 Header always set X-Content-Type-Options: nosniff
+
+# Improve privacy by disabling HTTP referrer headers.
+# See: https://infosec.mozilla.org/guidelines/web_security#referrer-policy
+Header always set Referrer-Policy: no-referrer
