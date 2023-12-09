@@ -5,7 +5,14 @@
 
     <meta charset="utf-8" />
     {{ hugo.Generator }}
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- NOTE: maximum-scale=1 is necessary to prevent the auto zoom feature on iOS when typing into
+           a text box (e.g. the search box).
+           Apparently, this breaks zooming on Android (but not on iOS) - but since we don't have many
+           pictures on this site, there should be rarely any need to zoom here - and this fix is easier
+           than ensuring a minimum text size of 16px on all input boxes (which is the other fix).
+           See: https://weblog.west-wind.com/posts/2023/Apr/17/Preventing-iOS-Safari-Textbox-Zooming
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="author" content="{{ site.Params.author }}" />
 
     {{ with site.Params.robots -}}
