@@ -75,6 +75,7 @@ $search-overlay-width: 800px;
     justify-self: end;
     align-self: stretch;
 
+    color: black; // required on iOS
     background: #ccc;
     border-radius: 0 $block-border-radius $block-border-radius 0;
     border: none;
