@@ -26,6 +26,11 @@
     -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'" />
 
+    <!-- Improve privacy by disabling HTTP referrer headers.
+         https://infosec.mozilla.org/guidelines/web_security#referrer-policy
+    -->
+    <meta http-equiv="Referrer-Policy" content="no-referrer" />
+
     <!-- Sets the header color in Safari for iOS to the same color as the header.
          NOTE: On iOS, only works on Safari (but not in Firefox or Chrome). There
            seems to be no way to achieve this behavior in browsers other than Safari.
