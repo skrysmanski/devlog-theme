@@ -1,1 +1,8 @@
+# Wire up 404 response page
 ErrorDocument 404 /404.html
+
+# See: https://infosec.mozilla.org/guidelines/web_security#x-frame-options
+Header always set X-Frame-Options "DENY"
+
+# Prevent browsers from incorrectly detecting non-scripts as scripts
+Header always set X-Content-Type-Options: nosniff
