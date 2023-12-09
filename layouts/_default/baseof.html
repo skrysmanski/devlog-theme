@@ -4,10 +4,18 @@
     <!-- This basically blocks loading anything (images, scripts, style sheets) from any other server - this
          makes it easier to comply with Europe's data protection regulations (GDPR) - i.e. we can't accidentally
          make a request to a server hosted in the US.
+
+         See:
+         * https://infosec.mozilla.org/guidelines/web_security#content-security-policy
+         * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+
          NOTE 1: This should be the first <meta> element in <head>.
          NOTE 2: 'wasm-unsafe-eval' is required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
+         NOTE 3: 'object-src none' is recommended.
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'" />
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'"
+    />
 
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} // {{ site.Title }}{{ end }}</title>
 
