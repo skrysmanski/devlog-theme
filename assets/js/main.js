@@ -4,7 +4,7 @@ import { initDynamicEndOfPageMargin } from "./dynamic-end-of-page-margin.module.
 import { initCopyButtons } from "./code-copy-button.module.js";
 import { initAutoMenuClose } from "./popup-menu.module.js";
 import { initReadingProgressBar } from "./reading-progress.module.js";
-import { initSearchBox } from "./searchbox.module.js";
+import { initSearch } from "./search.module.js";
 
 // Prints fontawesome license to the browser's dev tools console.
 import "../node_modules/@fortawesome/fontawesome-free/attribution.js";
@@ -32,5 +32,5 @@ $(() => {
     initAutoMenuClose();
     initReadingProgressBar();
     simplifyTopLinks();
-    initSearchBox();
+    initSearch();
 });

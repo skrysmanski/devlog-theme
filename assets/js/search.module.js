@@ -1,5 +1,6 @@
 import $ from "./jquery.module.js";
 import { showBackdrop, hideBackdrop } from "./backdrop.module.js";
+import { registerGlobalKeyboardShortcut } from "./keyboard-shortcuts.module.js";
 
 const hideSearchOverlay = () => {
     $('#search-overlay-container').removeClass('visible');
@@ -12,7 +13,7 @@ const showSearchOverlay = () => {
     showBackdrop('page', hideSearchOverlay);
 }
 
-export const initSearchBox = () => {
+export const initSearch = () => {
     //
     // Initializes the search box.
     //
@@ -38,5 +39,8 @@ export const initSearchBox = () => {
         });
 
         $('#open-search-dialog-button').on('click', showSearchOverlay);
+
+        // Pressing the "." key opens the search UI.
+        registerGlobalKeyboardShortcut('.', showSearchOverlay);
     }
 }

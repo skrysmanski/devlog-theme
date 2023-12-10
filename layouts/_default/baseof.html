@@ -101,7 +101,7 @@
 
           <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
           <nav class="app-header-menu hide-in-print">
-            <button id="open-search-dialog-button" aria-label="Search site" data-tooltip-dir="bottom-right"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button id="open-search-dialog-button" aria-label="Search site - keyboard shortcut: ." data-tooltip-dir="bottom-right"><i class="fa-solid fa-magnifying-glass"></i></button>
             {{ range $name, $taxonomy := site.Taxonomies -}}
             {{- with site.GetPage $name -}}
             <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
