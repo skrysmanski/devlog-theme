@@ -52,7 +52,9 @@ $search-overlay-width: 800px;
     border-radius: $block-border-radius;
     border: none;
     outline: 1px solid #aaa;
-    padding-left: 0.5em;
+    padding-left: 0.7em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 
     width: 100%;
     // NOTE: This padding is automatically added to the search box for the clear button.
