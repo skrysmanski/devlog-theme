@@ -1,5 +1,5 @@
 import $ from "./jquery.module.js";
 
-export const getContentRoot = () => {
+export function getContentRoot() : JQuery<HTMLElement> {
     return $('main.page #page-content');
 }
