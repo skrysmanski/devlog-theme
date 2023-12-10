@@ -42,6 +42,20 @@ export const initSearch = () => {
         });
 
         //
+        // Improve "enter" key on virtual keyboards on iOS.
+        //
+        const $searchBox = $('input.pagefind-ui__search-input');
+        // Replace "search" with "done" as searching is done automatically (and not on hitting return).
+        $searchBox.attr('enterkeyhint', 'done');
+        // Close the virtual keyboard when hitting the "Done" button (unfortunately, this doesn't happen automatically).
+        $searchBox.on('keyup', (e) => {
+            if (e.key === 'Enter') {
+                e.target.blur();
+                e.preventDefault();
+            }
+        });
+
+        //
         // Wire up the search button in the header
         //
         $('#open-search-dialog-button').on('click', showSearchOverlay);
