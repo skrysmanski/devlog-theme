@@ -12,8 +12,8 @@ import "../node_modules/@fortawesome/fontawesome-free/attribution.js";
 //
 // Change "top links" so that they don't leave an anchor in the URL.
 //
-const simplifyTopLinks = () => {
-    $topLinks = $('a.top-link');
+function simplifyTopLinks() {
+    const $topLinks = $('a.top-link');
     if ($topLinks.length > 0) {
         $topLinks.attr('href', '');
         $topLinks.on('click', () => {
@@ -25,7 +25,7 @@ const simplifyTopLinks = () => {
 }
 
 // Execute when DOM is loaded. https://api.jquery.com/ready/
-$(() => {
+$(function () {
     initImprovedToc();
     initDynamicEndOfPageMargin();
     initCopyButtons();
