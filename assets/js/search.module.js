@@ -26,6 +26,9 @@ export const initSearch = () => {
     // 3. Copy the directory "public/pagefind" to the site's "static" directory.
     //
     if (typeof PagefindUI !== 'undefined') {
+        //
+        // Create HTML for pagefind
+        //
         new PagefindUI({
             element: "#search-overlay",
             // Don't show multiple results per page.
@@ -38,9 +41,14 @@ export const initSearch = () => {
             resetStyles: false
         });
 
+        //
+        // Wire up the search button in the header
+        //
         $('#open-search-dialog-button').on('click', showSearchOverlay);
 
-        // Pressing the "." key opens the search UI.
+        //
+        // Pressing the "." key opens the search UI
+        //
         registerGlobalKeyboardShortcut('.', showSearchOverlay);
     }
 }
