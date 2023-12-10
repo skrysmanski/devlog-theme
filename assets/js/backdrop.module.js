@@ -1,31 +1,45 @@
 import $ from "./jquery.module.js";
+import { registerGlobalKeyboardShortcut } from "./keyboard-shortcuts.module.js";
+
+let backdropInitialized = false;
+let currentBackdropCloseHandler = null;
 
 const getBackdropElement = () => {
     return $('#page-backdrop');
 }
 
-export const showBackdrop = (backdropLayer = 'page', backdropClickHandler = undefined) => {
-    $backdropElement = getBackdropElement();
-    $backdropElement.addClass('visible');
-    $backdropElement.attr('data-backdrop-layer', backdropLayer);
-    $backdropElement.off('click');
-    if (backdropClickHandler != undefined) {
-        $backdropElement.on('click', backdropClickHandler);
+const onCloseBackdropEvent = () => {
+    if (currentBackdropCloseHandler != null) {
+        currentBackdropCloseHandler();
     }
 }
 
-export const toggleBackdrop = (backdropLayer = 'page', backdropClickHandler = undefined) => {
+export const showBackdrop = (backdropLayer = 'page', backdropCloseHandler = null) => {
+    $backdropElement = getBackdropElement();
+    $backdropElement.addClass('visible');
+    $backdropElement.attr('data-backdrop-layer', backdropLayer);
+
+    if (!backdropInitialized) {
+        $backdropElement.on('click', onCloseBackdropEvent);
+        registerGlobalKeyboardShortcut(27, onCloseBackdropEvent); // register escape key
+        backdropInitialized = true;
+    }
+
+    currentBackdropCloseHandler = backdropCloseHandler;
+}
+
+export const toggleBackdrop = (backdropLayer = 'page', backdropCloseHandler = null) => {
     $backdropElement = getBackdropElement();
     if ($backdropElement.hasClass('visible')) {
         hideBackdrop();
     }
     else {
-        showBackdrop(backdropLayer, backdropClickHandler);
+        showBackdrop(backdropLayer, backdropCloseHandler);
     }
 }
 
 export const hideBackdrop = () => {
     $backdropElement = getBackdropElement();
     $backdropElement.removeClass('visible');
-    $backdropElement.off('click');
+    currentBackdropCloseHandler = null;
 }
