@@ -1,6 +1,6 @@
 import $ from "./jquery.module.js";
 
-export const initAutoMenuClose = () => {
+export function initAutoMenuClose() {
     //
     // Closes popup menus if the user clicks (outside).
     // NOTE: We need to use $(document) instead of $(window) here or it won't work on iOS.
@@ -11,7 +11,7 @@ export const initAutoMenuClose = () => {
             // NOTE: This condition is important because:
             // * Without it, if the user tries to open the menu, it would close again immediately.
             // * Without it, the menu would not close if the user clicks the "open button" again.
-            if (e.target != value && $(e.target).prop('for') != value.id) {
+            if (<any>e.target !== value && $(e.target).prop('for') != value.id) {
                 $(value).prop('checked', false);
             }
         });

@@ -1,15 +1,15 @@
 import $ from "./jquery.module.js";
 
-let readingProgressContent = null;
+let readingProgressContent: JQuery<HTMLElement> | null = null;
 let readingProgressContentYPosition = 0;
 let visibleHeight = 0;
-let progressElement = null;
+let progressElement: JQuery<HTMLElement> | null = null;
 
-const setReadingProgress = () => {
-    const contentHeight = readingProgressContent.height();
-    const contentScrollOffset = readingProgressContent[0].getBoundingClientRect().top - readingProgressContentYPosition;
+function setReadingProgress() {
+    const contentHeight = readingProgressContent!.height()!;
+    const contentScrollOffset = readingProgressContent![0].getBoundingClientRect().top - readingProgressContentYPosition;
 
-    let progress;
+    let progress: number;
     if (contentHeight <= visibleHeight) {
         // Content is smaller than the window. Thus, there can't be any progress.
         progress = 100;
@@ -31,10 +31,10 @@ const setReadingProgress = () => {
         }
     }
 
-    progressElement.css("width", progress + "%");
+    progressElement!.css("width", progress + "%");
 }
 
-export const initReadingProgressBar = () => {
+export function initReadingProgressBar() {
     // The element we observe for scrolling.
     readingProgressContent = $('main.page.with-reading-progress').closest('.main-container');
 
@@ -44,13 +44,13 @@ export const initReadingProgressBar = () => {
 
         const $mainHeader = $('#main-header');
         const $mainFooter = $('#main-footer');
-        visibleHeight = window.innerHeight - $mainHeader.outerHeight() - $mainFooter.outerHeight();
+        visibleHeight = window.innerHeight - $mainHeader!.outerHeight()! - $mainFooter!.outerHeight()!;
 
         setReadingProgress();
 
         $(window).on('scroll', setReadingProgress);
         $(window).on('resize', () => {
-            visibleHeight = window.innerHeight - $mainHeader.outerHeight() - $mainFooter.outerHeight();
+            visibleHeight = window.innerHeight - $mainHeader!.outerHeight()! - $mainFooter!.outerHeight()!;
         });
     }
 };

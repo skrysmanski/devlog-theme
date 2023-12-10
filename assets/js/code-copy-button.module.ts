@@ -4,7 +4,7 @@ const BUTTON_DEFAULT_TOOLTIP = 'Copy this code block.';
 const BUTTON_COPIED_HTML = '<i class="fa-solid fa-check"></i>';
 const BUTTON_COPIED_TOOLTIP = 'Copied!';
 
-function createCopyButton(highlightDiv) {
+function createCopyButton(highlightDiv: HTMLElement) {
     const button = document.createElement("button");
 
     button.className = "copy-code-button hide-in-print";
@@ -18,10 +18,10 @@ function createCopyButton(highlightDiv) {
     highlightDiv.insertBefore(button, highlightDiv.firstChild);
 }
 
-async function copyCodeToClipboard(button, highlightDiv) {
+async function copyCodeToClipboard(button: HTMLButtonElement, highlightDiv: HTMLElement) {
     // NOTE: We use "textContent" instead of "innerText" here as "innerText" adds
     //   an additional empty line for each line - which is not what we want.
-    const codeToCopy = highlightDiv.querySelector("code:last-child").textContent;
+    const codeToCopy = highlightDiv.querySelector("code:last-child")!.textContent!;
 
     try {
         navigator.clipboard.writeText(codeToCopy);
@@ -31,7 +31,7 @@ async function copyCodeToClipboard(button, highlightDiv) {
     }
 }
 
-function codeWasCopied(button) {
+function codeWasCopied(button: HTMLButtonElement) {
     button.blur();
     button.innerHTML = BUTTON_COPIED_HTML;
     button.setAttribute('aria-label', BUTTON_COPIED_TOOLTIP);
@@ -45,7 +45,7 @@ function codeWasCopied(button) {
     );
 }
 
-export const initCopyButtons = () => {
+export function initCopyButtons() {
     document
         .querySelectorAll("pre")
         .forEach((highlightDiv) => createCopyButton(highlightDiv));

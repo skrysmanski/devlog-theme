@@ -2,31 +2,31 @@ import $ from "./jquery.module.js";
 import { getContentRoot } from "./commons.module.js";
 import { toggleBackdrop } from "./backdrop.module.js";
 
-const toggleSlideOutToc = () => {
+function toggleSlideOutToc() {
     $('.toc-toggle-button').toggleClass('is-expanded');
     $('#page-toc').toggleClass('is-expanded');
     toggleBackdrop('content', hideSlideOutToc);
-};
+}
 
-const hideSlideOutToc = () => {
+function hideSlideOutToc() {
     if ($('#page-toc').hasClass('is-expanded')) {
         toggleSlideOutToc();
     }
-};
+}
 
-export const initImprovedToc = () => {
+export function initImprovedToc() {
     // The section that's located at the page's height in percent will be highlighted in the ToC.
     const tocHighlightedSectionPositionInPercent = 15;
 
     const tocElement = $('nav#TableOfContents');
 
-    const findTocLinkForId = (id) => {
+    function findTocLinkForId(id: string): JQuery<HTMLElement> {
         // NOTE: This query selector return null if the TOC doesn't contain the heading level of this section (e.g. the TOC
         //   only contains level 2 and 3, but this section belongs to a <h4>).
         return $(`a[href="#${id}"]`, tocElement);
-    };
+    }
 
-    let observer;
+    let observer: IntersectionObserver | null;
 
     if (tocElement.length > 0) {
         observer = new IntersectionObserver(
