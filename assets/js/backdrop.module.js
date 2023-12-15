@@ -15,7 +15,7 @@ const onCloseBackdropEvent = () => {
 }
 
 export const showBackdrop = (backdropLayer = 'page', backdropCloseHandler = null) => {
-    $backdropElement = getBackdropElement();
+    const $backdropElement = getBackdropElement();
     $backdropElement.addClass('visible');
     $backdropElement.attr('data-backdrop-layer', backdropLayer);
 
@@ -29,7 +29,7 @@ export const showBackdrop = (backdropLayer = 'page', backdropCloseHandler = null
 }
 
 export const toggleBackdrop = (backdropLayer = 'page', backdropCloseHandler = null) => {
-    $backdropElement = getBackdropElement();
+    const $backdropElement = getBackdropElement();
     if ($backdropElement.hasClass('visible')) {
         hideBackdrop();
     }
@@ -39,7 +39,7 @@ export const toggleBackdrop = (backdropLayer = 'page', backdropCloseHandler = nu
 }
 
 export const hideBackdrop = () => {
-    $backdropElement = getBackdropElement();
+    const $backdropElement = getBackdropElement();
     $backdropElement.removeClass('visible');
     currentBackdropCloseHandler = null;
 }
