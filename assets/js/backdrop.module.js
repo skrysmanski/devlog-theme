@@ -21,7 +21,7 @@ export const showBackdrop = (backdropLayer = 'page', backdropCloseHandler = null
 
     if (!backdropInitialized) {
         $backdropElement.on('click', onCloseBackdropEvent);
-        registerGlobalKeyboardShortcut(27, onCloseBackdropEvent); // register escape key
+        registerGlobalKeyboardShortcut('Escape', onCloseBackdropEvent); // register escape key
         backdropInitialized = true;
     }
 

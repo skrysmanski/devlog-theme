@@ -5,23 +5,28 @@ export const registerGlobalKeyboardShortcut = (key, eventHandler, options = null
     const requireShift = options?.requireShift === true;
     const requireMeta = options?.requireMeta === true;
 
-    const keyCodeToCheck = Number.isInteger(key) && key;
-
     $(document).on('keyup', (event) => {
-        if (event.isComposing || event.keyCode === 229) {
+        if (event.isComposing) {
             // Ignore CJKT composing.
             // See: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
             return;
         }
 
-        if ((keyCodeToCheck && event.which === keyCodeToCheck) || (event.key === key)) {
-            if (   event.ctrlKey === requireCtrl
-                && event.shiftKey === requireShift
-                && event.metaKey === requireMeta
-                && event.target.localName != 'input') {
-                eventHandler();
-                event.preventDefault();
-            }
+        if (event.key !== key) {
+            return;
         }
+
+        if (event.ctrlKey !== requireCtrl || event.shiftKey !== requireShift || event.metaKey !== requireMeta) {
+            // Modifier keys don't match.
+            return;
+        }
+
+        if (event.target.localName?.toLocaleLowerCase() === 'input') {
+            // User is typing in an input field. Don't treat these as global shortcuts.
+            return;
+        }
+
+        eventHandler();
+        event.preventDefault();
     });
 }
