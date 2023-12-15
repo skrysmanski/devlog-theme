@@ -2,18 +2,32 @@ import $ from "./jquery.module.js";
 import { showBackdrop, hideBackdrop } from "./backdrop.module.js";
 import { registerGlobalKeyboardShortcut } from "./keyboard-shortcuts.module.js";
 
-const hideSearchOverlay = () => {
+declare global {
+    interface PagefindUIOptions {
+        element?: string;
+        showSubResults: boolean;
+        pageSize: number;
+        showImages: boolean;
+        resetStyles: boolean;
+    }
+
+    class PagefindUI {
+        constructor(options?: PagefindUIOptions);
+    }
+}
+
+function hideSearchOverlay() {
     $('#search-overlay-container').removeClass('visible');
     hideBackdrop();
 }
 
-const showSearchOverlay = () => {
+function showSearchOverlay() {
     $('#search-overlay-container').addClass('visible');
     $('.pagefind-ui__search-input').trigger('focus');
     showBackdrop('page', hideSearchOverlay);
 }
 
-export const initSearch = () => {
+export function initSearch() {
     //
     // Initializes the search box.
     //

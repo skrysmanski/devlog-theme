@@ -2,19 +2,19 @@ import $ from "./jquery.module.js";
 import { registerGlobalKeyboardShortcut } from "./keyboard-shortcuts.module.js";
 
 let backdropInitialized = false;
-let currentBackdropCloseHandler = null;
+let currentBackdropCloseHandler: (() => void) | null = null;
 
-const getBackdropElement = () => {
+function getBackdropElement(): JQuery<HTMLElement> {
     return $('#page-backdrop');
 }
 
-const onCloseBackdropEvent = () => {
+function onCloseBackdropEvent() {
     if (currentBackdropCloseHandler != null) {
         currentBackdropCloseHandler();
     }
 }
 
-export const showBackdrop = (backdropLayer = 'page', backdropCloseHandler = null) => {
+export function showBackdrop(backdropLayer: string = 'page', backdropCloseHandler: (() => void) | null = null) {
     const $backdropElement = getBackdropElement();
     $backdropElement.addClass('visible');
     $backdropElement.attr('data-backdrop-layer', backdropLayer);
@@ -28,7 +28,7 @@ export const showBackdrop = (backdropLayer = 'page', backdropCloseHandler = null
     currentBackdropCloseHandler = backdropCloseHandler;
 }
 
-export const toggleBackdrop = (backdropLayer = 'page', backdropCloseHandler = null) => {
+export function toggleBackdrop(backdropLayer: string = 'page', backdropCloseHandler: (() => void) | null = null) {
     const $backdropElement = getBackdropElement();
     if ($backdropElement.hasClass('visible')) {
         hideBackdrop();
@@ -38,7 +38,7 @@ export const toggleBackdrop = (backdropLayer = 'page', backdropCloseHandler = nu
     }
 }
 
-export const hideBackdrop = () => {
+export function hideBackdrop() {
     const $backdropElement = getBackdropElement();
     $backdropElement.removeClass('visible');
     currentBackdropCloseHandler = null;

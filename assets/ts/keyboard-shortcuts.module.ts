@@ -1,9 +1,15 @@
-export const registerGlobalKeyboardShortcut = (key, eventHandler, options = null) => {
+interface GlobalKeyboardShortcutOptions {
+    requireCtrl?: boolean;
+    requireShift?: boolean;
+    requireMeta?: boolean;
+}
+
+export function registerGlobalKeyboardShortcut(key: string, eventHandler: () => void, options?: GlobalKeyboardShortcutOptions) {
     const requireCtrl = options?.requireCtrl === true;
     const requireShift = options?.requireShift === true;
     const requireMeta = options?.requireMeta === true;
 
-    document.addEventListener('keyup', (event) => {
+    document.addEventListener('keyup', function (event) {
         if (event.isComposing) {
             // Ignore CJKT composing.
             // See: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
@@ -19,7 +25,7 @@ export const registerGlobalKeyboardShortcut = (key, eventHandler, options = null
             return;
         }
 
-        if (event.target.localName?.toLocaleLowerCase() === 'input') {
+        if (event.target instanceof HTMLElement && event.target.localName?.toLocaleLowerCase() === 'input') {
             // User is typing in an input field. Don't treat these as global shortcuts.
             return;
         }
