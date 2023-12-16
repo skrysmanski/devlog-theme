@@ -1,5 +1,6 @@
 main.page aside#page-toc {
-  @media (min-width: $toc_as_sidebar_width_threshold) { // screen is big enough
+  // Screen is big enough - show ToC as sidebar.
+  @media (min-width: $toc_as_sidebar_width_threshold) {
     // magic, magic - makes the sidebar work without any JavaScript
     // NOTE: This doesn't work if both html and body use "overflow-x: hidden;".
     position: sticky;
@@ -11,7 +12,9 @@ main.page aside#page-toc {
     margin-top: 15px;
     margin-left: $toc-sidebar-spacing;
   }
-  @media (max-width: calc(#{$toc_as_sidebar_width_threshold} - 1px)) { // screen is too small
+
+  // Screen is too small - show ToC as slide in ToC.
+  @media (max-width: calc(#{$toc_as_sidebar_width_threshold} - 1px)) {
     position: fixed;
     right: 0;
     top: 65px;
@@ -23,6 +26,7 @@ main.page aside#page-toc {
     background-color: $background-color; // for slide in TOC - make it non-transparent
 
     padding: 1em;
+    border-bottom-left-radius: $block-border-radius;
 
     transform: translateX(100%);
     transition: transform .2s linear;

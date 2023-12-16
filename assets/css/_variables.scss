@@ -3,11 +3,6 @@ $small-screen-size-factor: 0.8;
 
 // Width of the page's content (without any sidebars).
 $content-width: 800px;
-// Width of the TOC (including margins).
-$toc-sidebar-width: 400px;
-// Space between content and the TOC sidebar.
-$toc-sidebar-spacing: 100px;
-$toc-separator-color: rgb(224, 224, 224);
 
 // NOTE: When changing this, also change the "theme-color" meta for the site.
 $header-footer-background: #282a36;
@@ -40,6 +35,11 @@ $page-meta-padding: 1em 1.5em;
 
 $tags-base-color: lighten($link-color, 25%);
 
+// Width of the TOC (including margins).
+$toc-sidebar-width: 400px;
+// Space between content and the TOC sidebar.
+$toc-sidebar-spacing: 100px;
+$toc-separator-color: rgb(224, 224, 224);
 // If the screen is wider than this, the TOC appears as sidebar. If not, the TOC appears inline in the main content.
 $toc_as_sidebar_width_threshold: calc(#{$content-width} + #{$toc-sidebar-width});
 
