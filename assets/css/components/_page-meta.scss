@@ -2,9 +2,17 @@
   font-size: 0.8em;
 
   display: grid;
+
   // First column: primary-meta
   // Second column: secondary-meta
-  grid-template-columns: minmax(0, 1fr) auto;
+  @media (max-width: calc(479px)) {
+    grid-template-rows: auto auto;
+    row-gap: 0.5em;
+  }
+  @media (min-width: calc(480px)) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1em;
+  }
 
   // Give meta data with tooltips a help mouse cursor.
   div[aria-label] {
@@ -19,6 +27,10 @@
   }
 
   .secondary-meta {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 1em;
+    row-gap: 0.5em;
 
     .git-meta {
       display: inline-block;
