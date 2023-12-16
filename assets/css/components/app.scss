@@ -183,6 +183,8 @@ body {
   // For iOS; see: https://caniuse.com/css-backdrop-filter
   -webkit-backdrop-filter: blur(2px);
 
+  // NOTE: I also tried a fade out animation (instead of just a fade in animation) but
+  //   it didn't look good - so I dropped the fade out animation again.
   transition: background-color 0.2s;
 
   visibility: hidden;
