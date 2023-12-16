@@ -176,15 +176,19 @@ body {
 
   z-index: $z-index-backdrop;
 
-  background-color: black;
+  background-color: rgba(0,0,0,0);
+  // NOTE: backdrop-filter doesn't work when "opacity" is used. So we need to make the
+  //   transparency via the background color.
+  backdrop-filter: blur(2px);
+  // For iOS; see: https://caniuse.com/css-backdrop-filter
+  -webkit-backdrop-filter: blur(2px);
 
-  opacity: 0;
-  transition: opacity 0.2s;
+  transition: background-color 0.2s;
 
   visibility: hidden;
 
   &.visible {
-    opacity: 0.7;
+    background-color: rgba(0,0,0,.7);
     visibility: visible;
   }
 
