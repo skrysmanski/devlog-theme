@@ -51,8 +51,9 @@ $search-overlay-width: 800px;
 
     border-radius: $block-border-radius;
     border: none;
-    outline: 1px solid #aaa;
-    padding-left: 0.7em;
+    outline: none;
+    // So big because of the search icon
+    padding-left: 2em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 
@@ -64,8 +65,26 @@ $search-overlay-width: 800px;
     padding-right: 56px;
 
     &:focus {
-      outline: 3px solid $link-color;
+      outline: none;
     }
+
+    &::placeholder {
+      color: #a4a7b0;
+    }
+  }
+
+  //
+  // The search icon
+  //
+  .search-icon {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: start;
+    align-self: center;
+
+    margin-left: 0.5em;
+
+    color: lighten($link-color, 20%);
   }
 
   //
@@ -77,12 +96,20 @@ $search-overlay-width: 800px;
     justify-self: end;
     align-self: stretch;
 
-    color: black; // required on iOS
-    background: #ccc;
-    border-radius: 0 $block-border-radius $block-border-radius 0;
+    padding-right: 0.5em;
+    padding-left: 0.5em; // for hover background
+
+    color: rgb(101, 109, 118);
+    background: none;
+    border-radius: $block-border-radius;
     border: none;
 
     cursor: pointer;
+
+    &:hover {
+      color: black;
+      background-color: #eee;
+    }
 
     &.pagefind-ui__suppressed {
       display: none;
@@ -130,8 +157,6 @@ $search-overlay-width: 800px;
     & > li {
       border-bottom: 1px solid #ccc;
 
-      transition: background-color 0.35s;
-
       .pagefind-ui__result-title {
         font-weight: bold;
         font-size: 1.2em;
@@ -144,10 +169,6 @@ $search-overlay-width: 800px;
       .pagefind-ui__result-excerpt mark {
         font-weight: bold;
         background: none;
-      }
-
-      &:hover {
-        background-color: lighten($link-color, 45%);
       }
     }
   }

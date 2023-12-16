@@ -56,18 +56,30 @@ export function initSearch() {
         });
 
         //
-        // Improve "enter" key on virtual keyboards on iOS.
+        // Improve search box
         //
         const $searchBox = $('input.pagefind-ui__search-input');
-        // Replace "search" with "done" as searching is done automatically (and not on hitting return).
+        // Replace placeholder text.
+        $searchBox.attr('placeholder', 'Search content...')
+        // iOS: Replace "search" with "done" as searching is done automatically (and not on hitting return).
         $searchBox.attr('enterkeyhint', 'done');
-        // Close the virtual keyboard when hitting the "Done" button (unfortunately, this doesn't happen automatically).
+        // iOS: Close the virtual keyboard when hitting the "Done" button (unfortunately, this doesn't happen automatically).
         $searchBox.on('keyup', (e) => {
             if (e.key === 'Enter') {
                 e.target.blur();
                 e.preventDefault();
             }
         });
+        // Add search icon.
+        $searchBox.after('<i class="fa-solid fa-magnifying-glass search-icon"></i>');
+
+        //
+        // Improve clear button
+        //
+        const $clearButton = $('.pagefind-ui__search-clear');
+        $clearButton.html('<i class="fa-solid fa-circle-xmark"></i>');
+        $clearButton.attr('aria-label', 'Clear');
+        $clearButton.attr('data-tooltip-dir', 'left');
 
         //
         // Wire up the search button in the header
