@@ -5,14 +5,10 @@
 
   // First column: primary-meta
   // Second column: secondary-meta
-  @media (max-width: calc(479px)) {
-    grid-template-rows: auto auto;
-    row-gap: 0.5em;
-  }
-  @media (min-width: calc(480px)) {
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 1em;
-  }
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  column-gap: 1em;
+  align-items: start;
 
   // Give meta data with tooltips a help mouse cursor.
   div[aria-label] {
@@ -28,9 +24,8 @@
 
   .secondary-meta {
     display: flex;
-    flex-flow: row wrap;
-    column-gap: 1em;
-    row-gap: 0.5em;
+    flex-direction: row;
+    column-gap: 0.3em;
 
     .git-meta {
       display: inline-block;
@@ -42,10 +37,6 @@
       &:hover {
         background-color: lighten($page-meta-background, 20%);
         box-shadow: 0 0 0.15em #777;
-
-        .menu-header {
-          border-left: 1px solid #ccc !important;
-        }
       }
 
       nav.popup-menu {
@@ -53,18 +44,23 @@
         display: inline-block;
 
         .menu-header {
-          color: black;
+          color: $text-color;
           font-weight: bold;
           padding: 0 0.4em;
 
           cursor: pointer;
-          border-left: 1px solid transparent; // separator
 
           &::selection {
             background-color: transparent; // don't show a selection if the user accidentally double clicks the button
           }
           &:hover {
-            color: $link-color;
+            color: black;
+          }
+
+          & * {
+            // Disable all mouse events for all child items. Allowing pointer events breaks the
+            // "click the button to close the menu" functionality.
+            pointer-events: none;
           }
         }
 

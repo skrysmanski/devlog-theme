@@ -42,26 +42,22 @@
 
     {{- if hasSuffix (lower $parsedGitRepoUrl.Hostname) "github.com" -}}
     <span class="git-meta hide-in-print">
-      <i class="fa-brands fa-github"></i>
-      <!-- IMPORTANT: For the "sha256" calculation below, this must be without(!) leading "/"!!! -->
-      {{- $relativePagePath := (print "content/" (path.Clean .Page.File.Path)) -}}
-      <a href="{{ $gitRepoUrl }}/blob/{{ $gitBranch }}/{{ $relativePagePath }}" target="_blank">Source</a>
-
       <nav class="popup-menu auto-close">
         <!-- NOTE: This must be a label so that clicking it toggles the checkbox. -->
-        <label class="menu-header" for="git-meta-menu-state">⋮</label>
+        <label class="menu-header" for="git-meta-menu-state" aria-label="Page Tools" data-tooltip-dir="top"><i class="fa-solid fa-ellipsis-vertical"></i></label>
         <input type="checkbox" class="menu-state" id="git-meta-menu-state" />
 
         <ul class="menu-items">
           <li>
-            <a href="{{ $gitRepoUrl }}/commits/{{ $gitBranch }}/{{ $relativePagePath }}" target="_blank">
-              Page History
-            </a>
+            <!-- IMPORTANT: For the "sha256" calculation below, this must be without(!) leading "/"!!! -->
+            {{- $relativePagePath := (print "content/" (path.Clean .Page.File.Path)) -}}
+            <a href="{{ $gitRepoUrl }}/blob/{{ $gitBranch }}/{{ $relativePagePath }}?plain=1" target="_blank">Source</a>
           </li>
           <li>
-            <a href="{{ $gitRepoUrl }}/commit/{{ .Page.GitInfo.Hash }}#diff-{{ sha256 $relativePagePath }}" target="_blank">
-              Latest Commit
-            </a>
+            <a href="{{ $gitRepoUrl }}/commits/{{ $gitBranch }}/{{ $relativePagePath }}" target="_blank">Page History</a>
+          </li>
+          <li>
+            <a href="{{ $gitRepoUrl }}/commit/{{ .Page.GitInfo.Hash }}#diff-{{ sha256 $relativePagePath }}" target="_blank">Latest Commit</a>
           </li>
         </ul>
       </nav>
