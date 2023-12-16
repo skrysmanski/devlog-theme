@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import '_variables';
 
 // Normalize everything
 // IMPORTANT: Do NOT add ".css" to the end or else the file won't be inlined (and thus trigger a CSP violation - at least during dev)!!!
@@ -6,15 +6,15 @@
 
 
 // Define fonts
-@import 'fonts/main-font';
-@import 'fonts/headings-font';
-@import 'fonts/code-font';
+@import 'fonts/_main-font';
+@import 'fonts/_headings-font';
+@import 'fonts/_code-font';
 
 // Define icons
 @import 'fonts/fontawesome';
 
 // Base styles
-@import 'base';
+@import '_base';
 
 
 //
