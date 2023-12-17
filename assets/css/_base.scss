@@ -74,3 +74,17 @@ a > code {
 ::selection {
   background: $selection-color;
 }
+
+//
+// Print
+//
+@media screen {
+  .only-in-print {
+    display: none;
+  }
+}
+@media print {
+  .hide-in-print {
+    display: none;
+  }
+}
