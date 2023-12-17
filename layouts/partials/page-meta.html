@@ -1,9 +1,9 @@
 <div class="page-meta">
   <div class="primary-meta">
 
-    <span{{ if .IsSinglePage }} aria-label="{{ .Page.Date.UTC }}" data-tooltip-dir="top"{{ end }}>
+    <span{{ if .IsSinglePage }} data-date="{{ .Page.Date.UTC }}" data-date-target-attrib="aria-label" aria-label="{{ .Page.Date.UTC }}" data-tooltip-dir="top"{{ end }}>
       <i class="fa-regular fa-calendar"></i>
-      {{ .Page.Date | time.Format site.Params.dateFormat }}
+      <span data-date="{{ .Page.Date.UTC }}" data-date-type="date-ago">{{ .Page.Date | time.Format site.Params.dateFormat }}</span>
     </span>
 
     <span{{ if .IsSinglePage }} aria-label="{{ .Page.FuzzyWordCount }} words" data-tooltip-dir="top"{{ end }}>

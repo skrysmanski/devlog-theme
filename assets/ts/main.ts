@@ -5,6 +5,7 @@ import { initCopyButtons } from "./code-copy-button.module.js";
 import { initAutoMenuClose } from "./popup-menu.module.js";
 import { initReadingProgressBar } from "./reading-progress.module.js";
 import { initSearch } from "./search.module.js";
+import { renderDates } from "./date-time-utils.module.js";
 
 // Prints fontawesome license to the browser's dev tools console.
 import "../node_modules/@fortawesome/fontawesome-free/attribution.js";
@@ -33,4 +34,6 @@ $(function () {
     initReadingProgressBar();
     simplifyTopLinks();
     initSearch();
+
+    renderDates();
 });
