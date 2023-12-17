@@ -63,7 +63,7 @@
     {{- end -}}
     {{- with resources.Get "ts/main.ts" | js.Build $jsBuildOptions.Values | fingerprint -}}
     <!-- For meaning of "defer", see: https://www.w3schools.com/tags/att_script_defer.asp -->
-    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer="true"></script>
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
     {{- end -}}
 
     <!--
@@ -72,7 +72,7 @@
     {{ partial "favicon" . }}
 
     <!-- For static site search. -->
-    <script src="/pagefind/pagefind-ui.js" defer="true"></script>
+    <script src="/pagefind/pagefind-ui.js" defer></script>
 
     <!--
       Enable OpenGraph support.
