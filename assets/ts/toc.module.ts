@@ -2,6 +2,9 @@ import $ from "./jquery.module.js";
 import { getContentRoot } from "./commons.module.js";
 import { toggleBackdrop } from "./backdrop.module.js";
 
+// The section that's located at the page's height in percent will be highlighted in the ToC.
+const tocHighlightedSectionPositionInPercent = 20;
+
 function toggleSlideOutToc() {
     $('.toc-toggle-button').toggleClass('is-expanded');
     $('#page-toc').toggleClass('is-expanded');
@@ -15,9 +18,6 @@ function hideSlideOutToc() {
 }
 
 export function initImprovedToc() {
-    // The section that's located at the page's height in percent will be highlighted in the ToC.
-    const tocHighlightedSectionPositionInPercent = 15;
-
     const tocElement = $('nav#TableOfContents');
 
     function findTocLinkForId(id: string): JQuery<HTMLElement> {
