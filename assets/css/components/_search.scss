@@ -161,14 +161,25 @@ $search-overlay-width: 800px;
         font-weight: bold;
         font-size: 1.2em;
 
-        // For hover highlight - to avoid a blank spot above the heading.
-        margin-top: 0;
-        padding-top: 0.5em;
+        margin-bottom: 0.3em;
       }
 
-      .pagefind-ui__result-excerpt mark {
-        font-weight: bold;
-        background: none;
+      .pagefind-ui__result-excerpt {
+        margin-top: 0;
+        color: rgb(113, 119, 125);
+
+        &::before {
+          content: "… ";
+        }
+        &::after {
+          content: " …";
+        }
+
+        mark {
+          font-weight: bold;
+          background: none;
+          color: inherit;
+        }
       }
     }
   }
