@@ -37,7 +37,8 @@
       <a href="{{ $gitRepoUrl }}/discussions?discussions_q={{ with .Page.Slug }}{{ . }}{{ else }}{{ .Page.File.BaseFileName }}{{ end }}"
          target="_blank"
          aria-label="Discuss on GitHub"
-         data-tooltip-dir="top">Discuss</a>
+         data-tooltip-dir="top"
+         rel="noopener noreferrer">Discuss</a>
     </div>
     {{- end -}}
 
@@ -52,13 +53,13 @@
           <li>
             <!-- IMPORTANT: For the "sha256" calculation below, this must be without(!) leading "/"!!! -->
             {{- $relativePagePath := (print "content/" (path.Clean .Page.File.Path)) -}}
-            <a href="{{ $gitRepoUrl }}/blob/{{ $gitBranch }}/{{ $relativePagePath }}?plain=1" target="_blank">Source</a>
+            <a href="{{ $gitRepoUrl }}/blob/{{ $gitBranch }}/{{ $relativePagePath }}?plain=1" target="_blank" rel="noopener noreferrer">Source</a>
           </li>
           <li>
-            <a href="{{ $gitRepoUrl }}/commits/{{ $gitBranch }}/{{ $relativePagePath }}" target="_blank">Page History</a>
+            <a href="{{ $gitRepoUrl }}/commits/{{ $gitBranch }}/{{ $relativePagePath }}" target="_blank" rel="noopener noreferrer">Page History</a>
           </li>
           <li>
-            <a href="{{ $gitRepoUrl }}/commit/{{ .Page.GitInfo.Hash }}#diff-{{ sha256 $relativePagePath }}" target="_blank">Latest Commit</a>
+            <a href="{{ $gitRepoUrl }}/commit/{{ .Page.GitInfo.Hash }}#diff-{{ sha256 $relativePagePath }}" target="_blank" rel="noopener noreferrer">Latest Commit</a>
           </li>
         </ul>
       </nav>
