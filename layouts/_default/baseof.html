@@ -10,11 +10,12 @@
          * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
          NOTE 1: This should be the first <meta> element in <head>.
-         NOTE 2: 'wasm-unsafe-eval' is required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
-         NOTE 3: 'object-src none' is recommended.
+         NOTE 2: style-src 'wasm-unsafe-eval' is required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
+         NOTE 3: object-src 'none' is recommended as we don't need any browser plugins.
+         NOTE 4: style-src 'unsafe-inline' is required for the inline <script> tags.
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'"
+          content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'"
     />
 
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} // {{ site.Title }}{{ end }}</title>
@@ -62,8 +63,8 @@
       {{- $jsBuildOptions.Set "sourceMap" "inline" -}}
     {{- end -}}
     {{- with resources.Get "ts/main.ts" | js.Build $jsBuildOptions.Values | fingerprint -}}
-    <!-- For meaning of "defer", see: https://www.w3schools.com/tags/att_script_defer.asp -->
-    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+    <!-- IMPORTANT: We can't use "defer" here because we need to execute one of the methods before the page is rendered (see script tag below). -->
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
     {{- end -}}
 
     <!--
@@ -72,6 +73,7 @@
     {{ partial "favicon" . }}
 
     <!-- For static site search. -->
+    <!-- For meaning of "defer", see: https://www.w3schools.com/tags/att_script_defer.asp -->
     <script src="/pagefind/pagefind-ui.js" defer></script>
 
     <!--
@@ -164,5 +166,12 @@
         {{ if site.Params.social.mastodon }}<a href="{{ site.Params.social.mastodon }}" title="Find me on Mastodon"><i class="fa-brands fa-mastodon"></i></a>{{ end }}
       </div>
     </footer>
+
+    <script>
+      // IMPORTANT: Must be here to avoid flickering when rewriting dates (i.e. the user first sees the unchanged date and then, some milliseconds later,
+      //   the date is rewritten to the final result). It seems, using an inline script tag is the only way to achieve this.
+      //   See: https://stackoverflow.com/a/5642299/614177
+      window.renderDates();
+    </script>
 </body>
 </html>

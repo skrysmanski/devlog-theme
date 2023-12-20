@@ -34,6 +34,7 @@ $(function () {
     initReadingProgressBar();
     simplifyTopLinks();
     initSearch();
-
-    renderDates();
 });
+
+// Export renderDates() so that it can be called from a script tag.
+(<any>window).renderDates = renderDates;
