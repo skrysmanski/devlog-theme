@@ -11,6 +11,7 @@ main ul.pages-list {
     }
 
     & > .item-title {
+      font-family: $heading-font;
       font-weight: bold;
     }
 
