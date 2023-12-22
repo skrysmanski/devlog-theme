@@ -6,7 +6,8 @@
   </header>
 
   <ul class="pages-list">
-    {{ range .Paginator.Pages.ByTitle }}
+    {{ $paginator := .Paginate .Pages.ByTitle 10 }}
+    {{ range $paginator.Pages }}
     {{ partial "list-item.html" . }}
     {{ end }}
   </ul>
