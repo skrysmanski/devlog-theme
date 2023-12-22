@@ -22,11 +22,12 @@
     {{- if in site.MainSections .Type }}
     {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
 
+    {{- $PAGE_IS_OLD_MONTHS := 18 -}}
     {{- $pageAge := now.Sub .Date -}}
     {{- $pageAgeMonths := div (div $pageAge.Hours 24) 30 -}}
-    {{- if gt $pageAgeMonths 18 -}}
+    {{- if gt $pageAgeMonths $PAGE_IS_OLD_MONTHS -}}
     <div class="old-page">
-      This page is <b>more than 18 months old</b>. Since technology changes rapidly, this content <i>may</i> be out of date.
+      This page is <b>more than {{ $PAGE_IS_OLD_MONTHS }} months old</b>. Since technology changes rapidly, this content <i>may</i> be out of date.
     </div>
     {{- end -}}
 
