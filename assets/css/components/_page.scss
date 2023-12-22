@@ -148,9 +148,11 @@ main.page > article {
   // Regular tables
   //
   table {
+    font-size: 90%;
+
     border-spacing: 0;
 
-    font-size: 90%;
+    margin-bottom: 1.5em;
 
     thead {
       th {
