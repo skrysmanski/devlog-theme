@@ -8,6 +8,7 @@ This folder contains the HTML template for the site:
 
 Additional useful links:
 
+* Template lookup: https://gohugo.io/templates/lookup-order/
 * The "blocks" concept: https://gohugo.io/templates/base/
 * Context (aka "the dot"): https://gohugo.io/templates/introduction/#the-dot
   * NOTE: "$." (aka "global context") is not(!) passed to partials
