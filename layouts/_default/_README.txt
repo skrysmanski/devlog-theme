@@ -4,6 +4,7 @@ This folder contains the HTML template for the site:
 * single.html : The template used for single pages
 * list.html : The template used for list page (i.e. a list of pages)
 * terms.html : The template used when browsing a single term (e.g. a single tag)
+* index.hmtl : The home/start page
 
 Additional useful links:
 
