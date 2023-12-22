@@ -65,6 +65,11 @@ code, pre {
   padding: 0.05em 0.2em;
   border-radius: 0.25rem;
   border: 1px #e4e4e4 solid;
+
+  // Keep inline code together in one line, if possible.
+  // Especially useful in tables where column space is often small.
+  white-space: nowrap;
+  overflow-wrap: break-word;
 }
 
 a > code {
