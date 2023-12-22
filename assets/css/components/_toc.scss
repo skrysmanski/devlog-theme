@@ -38,6 +38,10 @@ main.page aside#page-toc {
 
   font-size: 0.8rem;
 
+  // Make sure long ToCs are scrollable.
+  max-height: 80vh;
+  overflow-y: auto;
+
   // "What's on this page"
   header > h2 {
     font-weight: bold;
