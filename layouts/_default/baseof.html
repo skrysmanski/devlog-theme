@@ -120,7 +120,7 @@
 
       </div>
 
-      {{ if in site.MainSections .Type -}}
+      {{ if and .IsPage (in site.MainSections .Type) -}}
       <div class="page-title-header-bar hide-in-print" aria-hidden="true">
         <span class="page-title">{{ .Title }}</span>
         <span class="toc-toggle-button"><i class="fa-solid fa-list-ul"></i></span>
