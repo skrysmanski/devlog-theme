@@ -26,7 +26,7 @@
     {{- $pageAgeMonths := div (div $pageAge.Hours 24) 30 -}}
     {{- if gt $pageAgeMonths 18 -}}
     <div class="old-page">
-      This page is more than 18 months old. Since technology changes rapidly, this content <i>may</i> be out of date.
+      This page is <b>more than 18 months old</b>. Since technology changes rapidly, this content <i>may</i> be out of date.
     </div>
     {{- end -}}
 
