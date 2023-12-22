@@ -143,6 +143,31 @@ main.page > article {
   img {
     max-width: 100%;
   }
+
+  //
+  // Regular tables
+  //
+  table {
+    border-spacing: 0;
+
+    font-size: 90%;
+
+    thead {
+      th {
+        padding: 0 0.8em;
+        text-align: left;
+        font-family: $heading-font;
+        border-bottom: 1px solid $text-color;
+      }
+    }
+
+    tbody {
+      td {
+        padding: 0.4em 0.8em;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
 }
 
 
