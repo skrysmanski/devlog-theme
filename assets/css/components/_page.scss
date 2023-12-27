@@ -152,7 +152,7 @@ main.page > article {
 
     border-spacing: 0;
 
-    margin-bottom: 1.5em;
+    margin: 2em auto 3em;
 
     thead {
       th {
@@ -167,6 +167,10 @@ main.page > article {
       td {
         padding: 0.4em 0.8em;
         border-bottom: 1px solid #ddd;
+      }
+
+      tr:last-child > td {
+        border-bottom: 1px solid $text-color;
       }
     }
   }
