@@ -54,6 +54,11 @@ a {
   }
 }
 
+dl > dt {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 code, pre {
   font-family: $code-font;
   font-size: 0.95em;
