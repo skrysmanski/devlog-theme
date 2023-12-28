@@ -1,6 +1,6 @@
 <a class="term" href="{{ .Link }}">
   <i class="tag-icon fa-solid fa-tag"></i>
-  <span class="name{{ with .TermCount }} with-count{{ end }}">{{ .Name | strings.FirstUpper }}</span>
+  <span class="name{{ with .TermCount }} with-count{{ end }}">{{ partial "term-name.html" .Name }}</span>
   {{ with .TermCount }}
   <span class="count">{{ . }}</span>
   {{ end }}
