@@ -19,9 +19,10 @@
           content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'"
     />
 
+    <meta charset="utf-8" />
+
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} // {{ site.Title }}{{ end }}</title>
 
-    <meta charset="utf-8" />
     {{ hugo.Generator }}
     <!-- NOTE: maximum-scale=1 is necessary to prevent the auto zoom feature on iOS when typing into
            a text box (e.g. the search box).
@@ -31,17 +32,16 @@
            See: https://weblog.west-wind.com/posts/2023/Apr/17/Preventing-iOS-Safari-Textbox-Zooming
     -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="author" content="{{ site.Params.author }}" />
-
-    {{ with site.Params.robots -}}
-    <meta name="robots" content="{{ . }}" />
-    {{- end }}
-
     <!-- Sets the header color in Safari for iOS to the same color as the header.
          NOTE: On iOS, only works on Safari (but not in Firefox or Chrome). There
            seems to be no way to achieve this behavior in browsers other than Safari.
     -->
     <meta name="theme-color" content="#282a36" />
+
+    <meta name="author" content="{{ site.Params.author }}" />
+    {{ with site.Params.robots -}}
+    <meta name="robots" content="{{ . }}" />
+    {{- end }}
 
     <!--
       CSS
