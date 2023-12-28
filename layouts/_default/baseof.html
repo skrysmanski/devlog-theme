@@ -91,14 +91,8 @@
     <!-- For meaning of "defer", see: https://www.w3schools.com/tags/att_script_defer.asp -->
     <script src="/pagefind/pagefind-ui.js" defer></script>
 
-    <!--
-      Enable OpenGraph support.
-      See:
-      * https://ogp.me/
-      * https://gohugo.io/templates/internal/#open-graph
-      * https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/opengraph.html
-    -->
-    {{ template "_internal/opengraph.html" . }}
+    <!-- Enable OpenGraph support. -->
+    {{ partial "opengraph.html" . }}
   </head>
 
   <body>
