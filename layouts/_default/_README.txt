@@ -17,3 +17,7 @@ Additional useful links:
     * IsPage: https://gohugo.io/methods/page/ispage/
 * The ".Site" object: https://gohugo.io/variables/site/
 * Pass variables to partials: https://mertbakir.gitlab.io/hugo/pass-arguments-in-partials-hugo/
+
+To print a slice or map, use:
+
+    <pre>{{ debug.Dump .Data }}</pre>
