@@ -46,11 +46,13 @@
     <!-- Specify canonical URL
          See: https://ahrefs.com/blog/canonical-tags/
     -->
-    {{ with .Paginator -}}
+    {{ if .IsHome -}}
+    <link rel="canonical" href="{{ partial "permalink.html" . }}" />
+    {{- else if .Paginator -}}
     <!-- NOTE: If the current page is paged, we need to use the ".Paginator" to figure out the
            url - "permalink.html" will always point to page 1.
     -->
-    <link rel="canonical" href="{{ strings.TrimSuffix "/" .URL }}" />
+    <link rel="canonical" href="{{ strings.TrimSuffix "/" .Paginator.URL }}" />
     {{- else -}}
     <link rel="canonical" href="{{ partial "permalink.html" . }}" />
     {{- end }}

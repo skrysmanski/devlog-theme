@@ -1,1 +1,1 @@
-{{- strings.TrimSuffix "/" .RelPermalink -}}
+{{ if .IsHome }}{{ .RelPermalink }}{{ else }}{{- strings.TrimSuffix "/" .RelPermalink }}{{ end -}}
