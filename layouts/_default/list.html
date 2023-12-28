@@ -2,7 +2,19 @@
 {{ define "main" }}
 <main class="pages-list">
   <header>
-    <h1>All {{ len .Pages }} {{ .Title }}</h1>
+    {{ if eq .Kind "term" -}}
+    <h1>
+      <span class="list-type">{{ strings.FirstUpper .Data.Singular }}</span>
+      <span>{{ partial "term-name.html" .Name }}</span>
+    </h1>
+    {{- else -}}
+    <h1>All {{ .Title }}</h1>
+    {{- end }}
+
+    <div class="page-count">
+      {{ $pageCount := len .Pages -}}
+      <span>{{ if ne $pageCount 1 }}{{ $pageCount }} Articles{{ else }}1 Article{{ end }}</span>
+    </div>
   </header>
 
   <ul class="pages-list">
