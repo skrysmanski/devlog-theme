@@ -1,5 +1,12 @@
+#
 # Wire up 404 response page
+#
 ErrorDocument 404 /404.html
+
+
+#
+# Set security headers
+#
 
 # See: https://infosec.mozilla.org/guidelines/web_security#x-frame-options
 Header always set X-Frame-Options "DENY"
