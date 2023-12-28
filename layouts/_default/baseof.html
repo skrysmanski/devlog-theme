@@ -62,16 +62,7 @@
     <!--
       JavaScript
     -->
-    {{- $jsBuildOptions := newScratch -}}
-    {{- if hugo.IsProduction -}}
-      {{- $jsBuildOptions.Set "minify" true -}}
-    {{- else -}}
-      {{- $jsBuildOptions.Set "sourceMap" "inline" -}}
-    {{- end -}}
-    {{- with resources.Get "ts/main.ts" | js.Build $jsBuildOptions.Values | fingerprint -}}
-    <!-- IMPORTANT: We can't use "defer" here because we need to execute one of the methods before the page is rendered (see script tag below). -->
-    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
-    {{- end -}}
+    {{ partial "js.html" "ts/main.ts" }}
 
     <!--
       FavIcon
