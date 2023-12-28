@@ -21,7 +21,7 @@
 
     <meta charset="utf-8" />
 
-    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} // {{ site.Title }}{{ end }}</title>
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ partial "page-title.html" . }} // {{ site.Title }}{{ end }}</title>
 
     {{ hugo.Generator }}
     <!-- NOTE: maximum-scale=1 is necessary to prevent the auto zoom feature on iOS when typing into

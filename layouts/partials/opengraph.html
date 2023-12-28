@@ -7,7 +7,7 @@
 
   TIP: The easiest way to test this is to paste a page link into the WhatsApp desktop app.
 -->
-<meta property="og:title" content="{{ .Title }}" />
+<meta property="og:title" content="{{ partial "page-title.html" . }}" />
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}" />
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
 <meta property="og:url" content="{{ partial "permalink-abs.html" . }}" />
