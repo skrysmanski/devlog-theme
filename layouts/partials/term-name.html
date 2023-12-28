@@ -1,1 +1,2 @@
-{{ strings.Title (strings.Replace . "-" " ") }}
+{{- /* NOTE: Only change name if it's all lower case - otherwise assume its name is already cleaned up. */ -}}
+{{ if eq . (lower .) }}{{ strings.Title (strings.Replace . "-" " ") }}{{ else }}{{ . }}{{ end }}
