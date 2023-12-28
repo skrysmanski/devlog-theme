@@ -43,6 +43,18 @@
     <meta name="robots" content="{{ . }}" />
     {{- end }}
 
+    <!-- Specify canonical URL
+         See: https://ahrefs.com/blog/canonical-tags/
+    -->
+    {{ with .Paginator -}}
+    <!-- NOTE: If the current page is paged, we need to use the ".Paginator" to figure out the
+           url - "permalink.html" will always point to page 1.
+    -->
+    <link rel="canonical" href="{{ strings.TrimSuffix "/" .URL }}" />
+    {{- else -}}
+    <link rel="canonical" href="{{ partial "permalink.html" . }}" />
+    {{- end }}
+
     <!--
       CSS
     -->
@@ -107,12 +119,12 @@
             <button id="open-search-dialog-button" aria-label="Search site - keyboard shortcut: ." data-tooltip-dir="bottom-right"><i class="fa-solid fa-magnifying-glass"></i></button>
             {{ range $name, $taxonomy := site.Taxonomies -}}
             {{- with site.GetPage $name -}}
-            <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
+            <a href="{{ partial "permalink.html" . }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
             {{- end -}}
             {{- end }}
             {{ range site.MainSections -}}
             {{- with site.GetPage . -}}
-            <a href="{{ .RelPermalink }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
+            <a href="{{ partial "permalink.html" . }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
             {{- end -}}
             {{- end }}
           </nav>
@@ -158,7 +170,7 @@
     <footer id="main-footer">
       <div class="copyright">
         {{ with site.GetPage site.Params.footer.termsLinks -}}
-        <a href="{{ .RelPermalink }}">{{ site.Params.footer.copyrightPrefix }} &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
+        <a href="{{ partial "permalink.html" . }}">{{ site.Params.footer.copyrightPrefix }} &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
         {{- end }}
       </div>
 

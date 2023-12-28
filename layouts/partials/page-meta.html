@@ -16,7 +16,7 @@
     <span>
       {{- range (sort .) -}}
         {{ with site.GetPage (printf "/%s/%s" "tags" . ) }}
-          {{ partial "term.html" ( dict "Link" .RelPermalink "Name" .Title "Taxonomy" "Tag" ) }}
+          {{ partial "term.html" ( dict "Link" (strings.TrimSuffix "/" .RelPermalink) "Name" .Title "Taxonomy" "Tag" ) }}
         {{- end }}
       {{- end }}
     </span>
