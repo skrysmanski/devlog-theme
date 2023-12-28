@@ -12,14 +12,14 @@
       {{ .Page.ReadingTime }} min read
     </span>
 
-    {{- with .Page.Params.tags }}
+    {{- range $taxonomyName, $taxonomy := site.Taxonomies -}}
+    {{- with $.Page.GetTerms $taxonomyName }}
     <span>
       {{- range (sort .) -}}
-        {{ with site.GetPage (printf "/%s/%s" "tags" . ) }}
-          {{ partial "term.html" ( dict "Link" (strings.TrimSuffix "/" .RelPermalink) "Name" .Title "Taxonomy" "Tag" ) }}
-        {{- end }}
+        {{ partial "term.html" ( dict "Term" . ) }}
       {{- end }}
     </span>
+    {{- end -}}
     {{- end }}
 
   </div>

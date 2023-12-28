@@ -33,7 +33,7 @@
   <ul class="terms-list">
     {{- range $terms_in_group }}
     <li>
-      {{ partial "term.html" ( dict "Link" (strings.TrimSuffix "/" .RelPermalink) "Name" .Name "Taxonomy" ($.Data.Singular | strings.FirstUpper) "TermCount" (len .Pages) ) }}
+      {{ partial "term.html" ( dict "Term" . "WithTermCount" true ) }}
     </li>
     {{- end }}
   </ul>

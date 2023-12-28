@@ -1,7 +1,7 @@
-<a class="term" href="{{ .Link }}">
+<a class="term" href="{{ partial "permalink-rel.html" .Term }}">
   <i class="tag-icon fa-solid fa-tag"></i>
-  <span class="name{{ with .TermCount }} with-count{{ end }}">{{ partial "term-name.html" .Name }}</span>
-  {{ with .TermCount }}
-  <span class="count">{{ . }}</span>
+  <span class="name{{ if .WithTermCount }} with-count{{ end }}">{{ partial "term-name.html" .Term.Name }}</span>
+  {{ if .WithTermCount }}
+  <span class="count">{{ len .Term.Pages }}</span>
   {{ end }}
 </a>
