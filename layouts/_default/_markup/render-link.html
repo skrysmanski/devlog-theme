@@ -1,21 +1,34 @@
-<!--
+{{- /*
   Converts local ".md" links into proper links (not supported out-of-the-box by Hugo).
+
   Also adds 'target="_blank"' to external links.
+
+  Also fixes local links (i.e. to files other than images) that won't work out-of-the-box
+  because we trim trailing slashes from URLs and thus relative links become invalid otherwise
+  (i.e. the browser uses "../parent-folder/attach.zip" instead of "../parent-folder/my-article/attach.zip").
+
   Source:
   * https://github.com/bep/portable-hugo-links
   * https://github.com/bep/portable-hugo-links/blob/master/layouts/_default/_markup/render-link.html
--->
+*/ -}}
 {{- $link := .Destination -}}
 {{- $isExternal := strings.HasPrefix $link "http" -}}
 {{- if not $isExternal -}}
-  {{- $url := urls.Parse $link -}}
-  {{- if $url.Path -}}
-    {{- $fragment := "" -}}
-    {{- with $url.Fragment -}}
-      {{- $fragment = printf "#%s" . -}}
-    {{- end -}}
-    {{- with site.GetPage $url.Path -}}
-      {{- $link = printf "%s%s" .RelPermalink $fragment -}}
+  {{- with .Page.Resources.GetMatch .Destination -}}
+    {{- /* Resource, not a page. */ -}}
+    {{- $link = .RelPermalink -}}
+  {{- else -}}
+    {{- /* Parse URL to get URL without fragment (e.g. "#my-anchor"): $url.Path */ -}}
+    {{- $url := urls.Parse $link -}}
+    {{- if $url.Path -}}
+      {{- with site.GetPage $url.Path -}}
+      {{- $fragment := "" -}}
+        {{- with $url.Fragment -}}
+          {{- /* Prefix fragment with # */ -}}
+          {{- $fragment = printf "#%s" . -}}
+        {{- end -}}
+        {{- $link = printf "%s%s" (strings.TrimSuffix "/" .RelPermalink) $fragment -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
