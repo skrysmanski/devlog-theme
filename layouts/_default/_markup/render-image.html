@@ -1,4 +1,10 @@
-<figure>
+{{- /*
+  Unfortunately, we can't use <figure> here as this creates invalid HTML - basically because
+  the image render hook can't/must not create block elements like <figure>. Thus, we must
+  ONLY USE INLINE ELEMENTS!
+  See: https://github.com/gohugoio/hugo/issues/6748
+*/ -}}
+<span class="figure">
   {{- /*
     By default, .Destination is simply the image name. And since we strip the trailing slash from
     URLs, browser will use the wrong URL when fetching images (i.e. "../parent-folder/image.png" instead
@@ -13,6 +19,6 @@
   {{- end }}
   <img src="{{ $imageUrl | safeURL }}" />
   {{- with .Text }}
-  <figcaption>{{ . | safeHTML }}</figcaption>
+  <span class="figcaption">{{ . | safeHTML }}</span>
   {{- end }}
-</figure>
+</span>

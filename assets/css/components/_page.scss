@@ -140,7 +140,7 @@ main.page > article {
 
   @import 'components/code_block';
 
-  figure {
+  .figure {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,7 +148,7 @@ main.page > article {
     & > img {
       max-width: 100%;
     }
-    figcaption {
+    .figcaption {
       display: block;
       margin-top: 0.7em;
       color: lighten($text-color, 15%);
