@@ -1,5 +1,17 @@
 <figure>
-  <img src="{{ .Destination | safeURL }}" />
+  {{- /*
+    By default, .Destination is simply the image name. And since we strip the trailing slash from
+    URLs, browser will use the wrong URL when fetching images (i.e. "../parent-folder/image.png" instead
+    of "../parent-folder/my-article/image.png"). So we make the url "absolute" here.
+  */ -}}
+  {{- $imageUrl := .Destination -}}
+  {{- $isExternal := strings.HasPrefix $imageUrl "http" -}}
+  {{- if not $isExternal -}}
+    {{- with .Page.Resources.GetMatch .Destination -}}
+      {{- $imageUrl = .RelPermalink -}}
+    {{- end -}}
+  {{- end }}
+  <img src="{{ $imageUrl | safeURL }}" />
   {{- with .Text }}
   <figcaption>{{ . | safeHTML }}</figcaption>
   {{- end }}
