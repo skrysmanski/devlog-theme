@@ -26,6 +26,40 @@ function simplifyTopLinks() {
 }
 
 //
+// Adds the "standalone" class to all images that are don't have any surrounding text.
+//
+// NOTE: This is necessary because Hugo doesn't allows us to differentiate between inline and
+//   block images and also because there seem to be no way of differentiating between these two
+//   in CSS. This seemingly promising ":only-child" selector doesn't take text into account
+//   (see https://stackoverflow.com/q/38259813/614177).
+//
+function detectStandaloneImages() {
+    function isNonEmptyTextNode(this: HTMLElement | Document | Text | Comment) : boolean {
+        return this.nodeType === Node.TEXT_NODE
+            && !!this.textContent
+            && this.textContent.trim().length > 0;
+    }
+
+    $('.figure').each((_, figureElement) => {
+        const parentElement = figureElement.parentElement;
+        if (!parentElement) {
+            return;
+        }
+
+        const isOnlyChild = parentElement.childElementCount === 1;
+        if (isOnlyChild) {
+            // This element is the only child element.
+            // NOTE: Even if it's the only child element, it may still be surrounded by text nodes.
+            //   So we have to check for them next.
+            const isStandalone = $(parentElement).contents().filter(isNonEmptyTextNode).length === 0;
+            if (isStandalone) {
+                $(figureElement).addClass('standalone');
+            }
+        }
+    });
+}
+
+//
 // "Main" function. Executed when the "ready" event is triggered.
 //
 // NOTE: The page is often already visible to the user when this function is executed.
@@ -54,6 +88,7 @@ function onPageIsLoaded() {
 //
 function fixupHtmlBeforeShow() {
     renderDates();
+    detectStandaloneImages();
 }
 
 // Execute when DOM is loaded. https://api.jquery.com/ready/

@@ -140,7 +140,15 @@ main.page > article {
 
   @import 'components/code_block';
 
+  // Inline images
   .figure {
+    .figcaption {
+      // Hide for inline images.
+      display: none;
+    }
+  }
+  // Block images
+  .figure.standalone {
     display: flex;
     flex-direction: column;
     align-items: center;

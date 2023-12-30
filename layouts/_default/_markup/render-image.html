@@ -3,6 +3,12 @@
   the image render hook can't/must not create block elements like <figure>. Thus, we must
   ONLY USE INLINE ELEMENTS!
   See: https://github.com/gohugoio/hugo/issues/6748
+
+  SIDE NOTE: Images may sometimes be used inline - so it would actually be bad to return
+    a block element in this case.
+
+  NOTE: This code doesn't differentiate between inline and block images (there doesn't seem to
+    be a way). So, this differentiation is done in JavaScript.
 */ -}}
 <span class="figure">
   {{- /*
