@@ -18,8 +18,8 @@
   {{- $compactUriPrefix := "" -}}
 
   {{- if ne (len $compactUriMatch) 0 -}}
-    {{ $compactUriPrefix = index (index $compactUriMatch 0) 1 }}
-    {{ $isExternal = true }}
+    {{- $compactUriPrefix = index (index $compactUriMatch 0) 1 -}}
+    {{- $isExternal = true -}}
   {{- end -}}
 
   {{- if $isExternal -}}
