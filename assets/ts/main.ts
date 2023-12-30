@@ -25,8 +25,14 @@ function simplifyTopLinks() {
     }
 }
 
-// Execute when DOM is loaded. https://api.jquery.com/ready/
-$(function () {
+//
+// "Main" function. Executed when the "ready" event is triggered.
+//
+// NOTE: The page is often already visible to the user when this function is executed.
+//   If you need to do something before the page is visible, use "fixupHtmlBeforeShow()"
+//   instead.
+//
+function onPageIsLoaded() {
     initImprovedToc();
     initDynamicEndOfPageMargin();
     initCopyButtons();
@@ -34,7 +40,24 @@ $(function () {
     initReadingProgressBar();
     simplifyTopLinks();
     initSearch();
-});
+}
 
-// Export renderDates() so that it can be called from a script tag.
-(<any>window).renderDates = renderDates;
+//
+// Fixes up the HTML content before it's displayed to the user.
+//
+// NOTE: The browser's render process is halted until this method has returned. Thus, it should
+//   be quick to execute and should only contain code that alters the page's content in a way
+//   that's **visible on page load**.
+//
+// NOTE: Unlike "onPageIsLoaded()", this function is executed before(!) the page is
+//   shown to the user.
+//
+function fixupHtmlBeforeShow() {
+    renderDates();
+}
+
+// Execute when DOM is loaded. https://api.jquery.com/ready/
+$(onPageIsLoaded);
+
+// Export fixupHtmlBeforeShow() so that it can be called from a script tag.
+(<any>window).fixupHtmlBeforeShow = fixupHtmlBeforeShow;

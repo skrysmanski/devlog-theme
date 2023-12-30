@@ -159,10 +159,11 @@
     </footer>
 
     <script>
-      // IMPORTANT: Must be here to avoid flickering when rewriting dates (i.e. the user first sees the unchanged date and then, some milliseconds later,
-      //   the date is rewritten to the final result). It seems, using an inline script tag is the only way to achieve this.
-      //   See: https://stackoverflow.com/a/5642299/614177
-      window.renderDates();
+      // IMPORTANT: This method must be called here - instead of in the "ready" event - to avoid "flickering" when changing the
+      //   HTML content (i.e. the user first sees the unchanged content and then, some milliseconds later, the updated content).
+      //
+      //   It seems, using an inline script tag is the only way to achieve this. See: https://stackoverflow.com/a/5642299/614177
+      window.fixupHtmlBeforeShow();
     </script>
 </body>
 </html>
