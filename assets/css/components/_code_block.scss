@@ -12,6 +12,10 @@ pre {
   // Required for "position: absolute" of the copy button and the language name.
   position: relative;
 
+  &::selection, *::selection {
+    background-color: $code-block-selection-color;
+  }
+
   & > code {
     // Required because "code" is usually an inline element - which can't have a "width" element.
     display: block;

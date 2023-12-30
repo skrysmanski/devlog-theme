@@ -5,7 +5,7 @@ $text-color: rgb(81, 81, 81);
 $background-color: #fff;
 $heading-color: #313131;
 $link-color: #268bd2;
-$selection-color: rgba(#afbac4, .25);
+$selection-color: lighten(#268bd2, 35%);
 
 
 //
@@ -49,6 +49,7 @@ $permalink-color-target: $link-color;
 // NOTE: These two colors need to be copied over from the highlighting scheme that's used.
 $code-block-text-color: rgb(248, 248, 242);
 $code-block-background-color: #282a36;
+$code-block-selection-color: rgba(#afbac4, .3);
 
 $page-meta-background: #f6f6f6;
 $page-meta-padding: 1em 1.5em;
