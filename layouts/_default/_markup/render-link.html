@@ -12,9 +12,32 @@
   * https://github.com/bep/portable-hugo-links/blob/master/layouts/_default/_markup/render-link.html
 */ -}}
 {{- $link := .Destination -}}
-{{- $isExternal := strings.HasPrefix $link "http" -}}
+{{- $isExternal := false -}}
 {{- if $link -}}
-  {{- if not $isExternal -}}
+  {{- $compactUriMatch := findRESubmatch `^([a-zA-Z0-9]+):(.+)$` $link -}}
+  {{- $compactUriPrefix := "" -}}
+
+  {{- if ne (len $compactUriMatch) 0 -}}
+    {{ $compactUriPrefix = index (index $compactUriMatch 0) 1 }}
+    {{ $isExternal = true }}
+  {{- end -}}
+
+  {{- if $isExternal -}}
+    {{- if not (strings.HasPrefix $compactUriPrefix "http") -}}
+      {{- /*
+        It's an actual compact uri.
+        NOTE: This is based on the proposed CURIE draft (https://en.wikipedia.org/wiki/CURIE) which unfortunately
+          isn't supported by browsers (as of Dec 2023).
+      */ -}}
+      {{- $compactUris := site.Params.compactUris -}}
+      {{- $baseCompactUri := index $compactUris $compactUriPrefix -}}
+      {{- if $baseCompactUri -}}
+        {{- $link = printf "%s%s" $baseCompactUri (index (index $compactUriMatch 0) 2) -}}
+      {{- else -}}
+        {{- warnf "Page '%v': Compact URI prefix '%v' is not defined (for '%v')." .Page.File.Path $compactUriPrefix .Destination -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
     {{- with .Page.Resources.GetMatch .Destination -}}
       {{- /* Resource, not a page. */ -}}
       {{- $link = .RelPermalink -}}
