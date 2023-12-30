@@ -159,6 +159,9 @@ main.page > article {
     .figcaption {
       display: block;
       margin-top: 0.7em;
+      max-width: 80%; // make the caption a little bit smaller than the full page width
+      text-align: center; // only relevant if the text spans multiple lines
+
       color: lighten($text-color, 15%);
     }
   }
