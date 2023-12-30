@@ -46,9 +46,11 @@ $heading-background-target: #ffefce;
 $permalink-color: #878e94;
 $permalink-color-target: $link-color;
 
-// NOTE: These two colors need to be copied over from the highlighting scheme that's used.
-$code-block-text-color: rgb(248, 248, 242);
-$code-block-background-color: #282a36;
+// For color scheme: catppuccin-macchiato
+// IMPORTANT: The next two colors need to be copied over from the highlighting scheme that's used.
+//   There are just for code blocks without(!) highlighting.
+$code-block-text-color: #cad3f5;
+$code-block-background-color: #24273a;
 $code-block-selection-color: rgba(#afbac4, .3);
 
 $page-meta-background: #f6f6f6;
