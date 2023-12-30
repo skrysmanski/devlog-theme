@@ -4,7 +4,8 @@ $small-screen-size-factor: 0.8;
 // Width of the page's content (without any sidebars).
 $content-width: 800px;
 
-// NOTE: When changing this, also change the "theme-color" meta for the site.
+// NOTE: When changing this, also change the "theme-color" meta for the
+//   site (in baseof.html) and the "theme_color" value in the "site.webmanifest" file.
 $header-footer-background: #282a36;
 $header-footer-separator-line-height: 4px;
 $header-footer-separator-line-color: #268bd2;
