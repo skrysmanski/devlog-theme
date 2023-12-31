@@ -13,7 +13,7 @@
 */ -}}
 
 {{- $link := .Destination -}}
-{{- $isExternal := false -}}
+{{- $openInNewTab := false -}}
 {{- $cssClass := "" -}}
 
 {{- if $link -}}
@@ -21,12 +21,11 @@
   {{- $compactUriPrefix := "" -}}
 
   {{- if ne (len $compactUriMatch) 0 -}}
+    {{- /* Either a regular external link or a compact URI link. */ -}}
     {{- $compactUriPrefix = index (index $compactUriMatch 0) 1 -}}
-    {{- $isExternal = true -}}
-  {{- end -}}
-
-  {{- if $isExternal -}}
+    {{- $openInNewTab = true -}}
     {{- $cssClass = "external" -}}
+
     {{- if not (strings.HasPrefix $compactUriPrefix "http") -}}
 
       {{- /*
@@ -49,6 +48,11 @@
       {{- /* Resource, not a page. */ -}}
       {{- $link = .RelPermalink -}}
       {{- $cssClass = "resource" -}}
+
+      {{- if eq .ResourceType "text" -}}
+        {{- /* Make sure the browser doesn't "overwrite" the current page with the resource. */ -}}
+        {{- $openInNewTab = true -}}
+      {{- end -}}
 
     {{- else -}}
       {{- /* Parse URL to get URL without fragment (e.g. "#my-anchor"): $url.Path */ -}}
@@ -89,4 +93,4 @@
   {{- $text = htmlEscape .Destination -}}
 {{- end -}}
 
-<a href="{{ $link | safeURL }}" class="{{ $cssClass }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>
+<a href="{{ $link | safeURL }}" class="{{ $cssClass }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $openInNewTab }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>
