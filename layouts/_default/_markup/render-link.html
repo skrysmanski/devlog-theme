@@ -78,4 +78,10 @@
   {{- warnf "Page '%v': Found empty link." .Page.File.Path -}}
 {{- end -}}
 
-<a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- $text := .Text -}}
+{{- if not $text -}}
+  {{- /* Use destination as text if non is set. */ -}}
+  {{- $text = htmlEscape .Destination -}}
+{{- end -}}
+
+<a href="{{ $link | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>
