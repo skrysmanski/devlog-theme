@@ -1,8 +1,9 @@
 {{- /* See: https://gohugo.io/templates/single-page-templates/ */ -}}
 {{ define "main" }}
-<main class="page{{- if in site.MainSections .Type }} page-main-section with-reading-progress{{- end -}}">
+{{- $isPrimaryContent := in site.MainSections .Type -}}
+<main class="page{{ if $isPrimaryContent }} page-main-section with-reading-progress{{ end }}">
 
-  {{- if and (in site.MainSections .Type) (gt (len .Fragments.HeadingsMap) 1) }}
+  {{- if and ($isPrimaryContent) (gt (len .Fragments.HeadingsMap) 1) }}
   <aside id="page-toc" class="hide-in-print">
     <header>
       <h2>What's on this Page</h2>
@@ -19,7 +20,7 @@
     -->
     <h1 id="page-title" data-pagefind-body data-pagefind-meta="title">{{ .Title }}</h1>
 
-    {{- if in site.MainSections .Type }}
+    {{- if $isPrimaryContent }}
     {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
 
     {{- $PAGE_IS_OLD_MONTHS := 18 -}}
