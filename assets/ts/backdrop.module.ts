@@ -8,10 +8,15 @@ function getBackdropElement(): JQuery<HTMLElement> {
     return $('#page-backdrop');
 }
 
-function onCloseBackdropEvent() {
-    if (currentBackdropCloseHandler != null) {
-        currentBackdropCloseHandler();
+function onCloseBackdropEvent() : boolean {
+    if (currentBackdropCloseHandler === null) {
+        // Backdrop is either not currently visible or no close handler has been registered.
+        // Either way, treat this as "not handled".
+        return true;
     }
+
+    currentBackdropCloseHandler();
+    return false;
 }
 
 export function showBackdrop(backdropLayer: string = 'page', backdropCloseHandler: (() => void) | null = null) {
@@ -21,7 +26,7 @@ export function showBackdrop(backdropLayer: string = 'page', backdropCloseHandle
 
     if (!backdropInitialized) {
         $backdropElement.on('click', onCloseBackdropEvent);
-        registerGlobalKeyboardShortcut('Escape', onCloseBackdropEvent); // register escape key
+        registerGlobalKeyboardShortcut('Escape', onCloseBackdropEvent, 5);
         backdropInitialized = true;
     }
 

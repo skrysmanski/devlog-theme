@@ -6,24 +6,10 @@ import { initAutoMenuClose } from "./popup-menu.module.js";
 import { initReadingProgressBar } from "./reading-progress.module.js";
 import { initSearch } from "./search.module.js";
 import { renderDates } from "./date-time-utils.module.js";
+import { initAnchorManagementModule } from "./anchor-management.module.js";
 
 // Prints fontawesome license to the browser's dev tools console.
 import "../node_modules/@fortawesome/fontawesome-free/attribution.js";
-
-//
-// Change "top links" so that they don't leave an anchor in the URL.
-//
-function simplifyTopLinks() {
-    const $topLinks = $('a.top-link');
-    if ($topLinks.length > 0) {
-        $topLinks.attr('href', '');
-        $topLinks.on('click', () => {
-            history.pushState("", "", window.location.pathname + window.location.search); // remove anchor from location bar
-            $("#page-title")[0].scrollIntoView();
-            return false;
-        });
-    }
-}
 
 //
 // Adds the "standalone" class to all images that are don't have any surrounding text.
@@ -72,7 +58,7 @@ function onPageIsLoaded() {
     initCopyButtons();
     initAutoMenuClose();
     initReadingProgressBar();
-    simplifyTopLinks();
+    initAnchorManagementModule();
     initSearch();
 }
 

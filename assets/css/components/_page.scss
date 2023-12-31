@@ -102,7 +102,7 @@ main.page > article {
   }
 
   // If the heading/section is targeted via "#...".
-  section:target {
+  section:target:not(.target-cleared) {
     > h2, > h3, > h4, > h5, > h6 { // after sections have been created
       border-top: none;
       padding: 0.2em 0.6em;
@@ -115,7 +115,7 @@ main.page > article {
     }
   }
   h2, h3, h4, h5, h6 { // before sections are created
-    &:target {
+    &:target:not(.target-cleared) {
       border-top: none;
       padding: 0.2em 0.6em;
       background-color: $heading-background-target;

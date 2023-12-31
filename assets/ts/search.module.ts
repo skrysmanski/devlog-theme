@@ -21,10 +21,18 @@ function hideSearchOverlay() {
     hideBackdrop();
 }
 
-function showSearchOverlay() {
-    $('#search-overlay-container').addClass('visible');
+function showSearchOverlay() : boolean {
+    const $container = $('#search-overlay-container');
+    if ($container.hasClass('visible')) {
+        // Already visible
+        return true;
+    }
+
+    $container.addClass('visible');
     $('.pagefind-ui__search-input').trigger('focus');
     showBackdrop('page', hideSearchOverlay);
+
+    return false;
 }
 
 export function initSearch() {
