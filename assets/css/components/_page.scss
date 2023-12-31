@@ -49,6 +49,9 @@ main.page > article {
 // Page Content
 //
 #page-content {
+  //
+  // Headings and sections
+  //
   h2, h3, h4, h5, h6 {
     border-top: 1px solid #dfdfdf;
     margin-top: 2em;
@@ -98,9 +101,7 @@ main.page > article {
     border-top: none;
   }
 
-  //
   // If the heading/section is targeted via "#...".
-  //
   section:target {
     > h2, > h3, > h4, > h5, > h6 { // after sections have been created
       border-top: none;
@@ -127,6 +128,9 @@ main.page > article {
   }
 
 
+  //
+  // Other elements
+  //
   blockquote {
     border-left: 6px solid #bbb;
     margin: 1em 0em;
@@ -138,8 +142,24 @@ main.page > article {
     }
   }
 
+  a.resource:before {
+    @extend %fa-icon;
+    @extend .fa-solid;
+    content: fa-content($fa-var-paperclip);
+
+    margin-right: 0.3em;
+    font-size: 80%;
+  }
+
+  //
+  // Code blocks
+  //
   @import 'components/code_block';
 
+
+  //
+  // Images
+  //
   // Inline images
   .figure {
     .figcaption {

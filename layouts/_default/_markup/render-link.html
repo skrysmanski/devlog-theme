@@ -14,6 +14,7 @@
 
 {{- $link := .Destination -}}
 {{- $isExternal := false -}}
+{{- $cssClass := "" -}}
 
 {{- if $link -}}
   {{- $compactUriMatch := findRESubmatch `^([a-zA-Z0-9]+):(.+)$` $link -}}
@@ -25,6 +26,7 @@
   {{- end -}}
 
   {{- if $isExternal -}}
+    {{- $cssClass = "external" -}}
     {{- if not (strings.HasPrefix $compactUriPrefix "http") -}}
 
       {{- /*
@@ -46,6 +48,7 @@
     {{- with .Page.Resources.GetMatch .Destination -}}
       {{- /* Resource, not a page. */ -}}
       {{- $link = .RelPermalink -}}
+      {{- $cssClass = "resource" -}}
 
     {{- else -}}
       {{- /* Parse URL to get URL without fragment (e.g. "#my-anchor"): $url.Path */ -}}
@@ -54,6 +57,7 @@
       {{- /* Check if .Destination actually points to another page and isn't just a fragment (e.g. just "#my-anchor"). */ -}}
       {{- if $url.Path -}}
 
+      {{- $cssClass = "page" -}}
         {{- with site.GetPage $url.Path -}}
           {{- $fragment := "" -}}
           {{- with $url.Fragment -}}
@@ -67,6 +71,7 @@
 
       {{- else -}}
         {{- /* Just a fragment (e.g. just "#my-anchor"). */ -}}
+        {{- $cssClass = "anchor" -}}
         {{- if not (.Page.Fragments.Identifiers.Contains $url.Fragment) -}}
           {{- warnf "Page '%v': Could not locate target anchor '%v'." .Page.File.Path .Destination -}}
         {{- end -}}
@@ -84,4 +89,4 @@
   {{- $text = htmlEscape .Destination -}}
 {{- end -}}
 
-<a href="{{ $link | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>
+<a href="{{ $link | safeURL }}" class="{{ $cssClass }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>
