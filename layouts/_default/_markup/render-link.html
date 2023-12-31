@@ -13,6 +13,7 @@
 */ -}}
 
 {{- $link := .Destination -}}
+{{- $text := .Text -}}
 {{- $openInNewTab := false -}}
 {{- $cssClass := "" -}}
 
@@ -78,6 +79,9 @@
         {{- $cssClass = "anchor" -}}
         {{- if not (.Page.Fragments.Identifiers.Contains $url.Fragment) -}}
           {{- warnf "Page '%v': Could not locate target anchor '%v'." .Page.File.Path .Destination -}}
+        {{- else if not $text -}}
+          {{- $targetHeading := index .Page.Fragments.HeadingsMap $url.Fragment -}}
+          {{- $text = $targetHeading.Title -}}
         {{- end -}}
       {{- end -}}
     {{- end -}}
@@ -87,7 +91,6 @@
   {{- warnf "Page '%v': Found empty link." .Page.File.Path -}}
 {{- end -}}
 
-{{- $text := .Text -}}
 {{- if not $text -}}
   {{- /* Use destination as text if non is set. */ -}}
   {{- $text = htmlEscape .Destination -}}
