@@ -47,7 +47,7 @@
     {{- with .Page.Resources.GetMatch .Destination -}}
       {{- /* Resource, not a page. */ -}}
       {{- $link = .RelPermalink -}}
-      {{- $cssClass = "resource" -}}
+      {{- $cssClass = printf "resource resource-%s" .ResourceType -}}
 
       {{- if eq .ResourceType "text" -}}
         {{- /* Make sure the browser doesn't "overwrite" the current page with the resource. */ -}}
