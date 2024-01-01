@@ -78,12 +78,12 @@
 
           {{- if not $text -}}
             {{- /* Provide link text based on target. */ -}}
-            {{- if $url.Fragment -}}
-              {{- $targetHeading := index .Fragments.HeadingsMap $url.Fragment -}}
-              {{- $text = $targetHeading.Title -}}
-            {{- else -}}
-              {{- $text = .Title -}}
-            {{- end -}}
+            {{- /* NOTE: If the URL contains a fragment we could(!) extract the heading's title as text here.
+                     However, this often creates a worse title since headings are often named to make sense
+                     within an article but not to make sense on the whole site. Thus, we always use the
+                     target page's title - no matter whether a fragment is present or not.
+            */ -}}
+            {{- $text = .Title -}}
           {{- end -}}
 
         {{- else -}}
