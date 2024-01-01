@@ -80,6 +80,8 @@
   <body>
     {{ partial "git-info.html" . }}
 
+    {{- $isPrimaryContent := and .IsPage (in site.MainSections .Type) -}}
+
     <header id="main-header" class="app-header">
 
       <div class="main-header-content">
@@ -110,7 +112,7 @@
 
       </div>
 
-      {{ if and .IsPage (in site.MainSections .Type) -}}
+      {{ if $isPrimaryContent -}}
       <div class="page-title-header-bar hide-in-print" aria-hidden="true">
         <span class="page-title">{{ .Title }}</span>
         <span class="toc-toggle-button"><i class="fa-solid fa-list-ul"></i></span>
@@ -118,7 +120,7 @@
       {{- end }}
 
       <!-- NOTE: We don't use a <progress> element here as it's very hard to style via CSS. -->
-      <div class="reading-progress-bar hide-in-print" aria-hidden="true">
+      <div class="reading-progress-bar hide-in-print{{ if $isPrimaryContent }} enabled{{ end }}" aria-hidden="true">
         <div class="progress"></div>
       </div>
     </header>
@@ -136,7 +138,7 @@
         {{ .Content }}
       {{ end }}
 
-      {{- if in site.MainSections .Type }}
+      {{- if $isPrimaryContent }}
       <!-- Creates an adjustable gap between the last line of content and the footer. -->
       <div id="dynamic-end-of-page" class="hide-in-print"></div>
       {{ else }}

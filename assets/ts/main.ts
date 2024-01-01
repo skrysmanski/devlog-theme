@@ -57,7 +57,12 @@ function onPageIsLoaded() {
     initDynamicEndOfPageMargin();
     initCopyButtons();
     initAutoMenuClose();
+
+    // NOTE: While we would ideally have this in fixupHtmlBeforeShow(), the problem is that
+    //   the content height isn't correct at this point (leading to a wrongly calculated
+    //   reading progress). So we leave it here.
     initReadingProgressBar();
+
     initAnchorManagementModule();
     initSearch();
 }

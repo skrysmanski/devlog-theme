@@ -35,11 +35,11 @@ function setReadingProgress() {
 }
 
 export function initReadingProgressBar() {
-    // The element we observe for scrolling.
-    readingProgressContent = $('main.page.with-reading-progress').closest('.main-container');
-
-    if (readingProgressContent.length > 0) {
+    if ($('.reading-progress-bar').hasClass('enabled')) {
         progressElement = $('.reading-progress-bar > .progress');
+
+        // The element we observe for scrolling.
+        readingProgressContent = $('main.page').closest('.main-container');
         readingProgressContentYPosition = readingProgressContent.position().top;
 
         const $mainHeader = $('#main-header');
@@ -52,5 +52,7 @@ export function initReadingProgressBar() {
         $(window).on('resize', () => {
             visibleHeight = window.innerHeight - $mainHeader!.outerHeight()! - $mainFooter!.outerHeight()!;
         });
+
+        $('.reading-progress-bar').addClass('initialized');
     }
 };

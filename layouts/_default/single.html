@@ -3,7 +3,7 @@
 {{- $isPrimaryContent := in site.MainSections .Type -}}
 {{- $includeOnlyPrimaryContentInSearch := default true site.Params.search.includeOnlyMainSections -}}
 {{- $includeInSearch := or $isPrimaryContent (not $includeOnlyPrimaryContentInSearch) -}}
-<main class="page{{ if $isPrimaryContent }} page-main-section with-reading-progress{{ end }}">
+<main class="page{{ if $isPrimaryContent }} page-main-section{{ end }}">
 
   {{- if and ($isPrimaryContent) (gt (len .Fragments.HeadingsMap) 1) }}
   <aside id="page-toc" class="hide-in-print">

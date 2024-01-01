@@ -161,6 +161,16 @@ body {
       height: 100%;
       background-color: $header-footer-separator-line-color;
     }
+
+    // We do this to reduce flickering of the progress bar between when the page is loaded and when the
+    // progress bar is initialized.
+    &.enabled .progress {
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    &.enabled.initialized .progress {
+      opacity: 1;
+    }
   }
 }
 
