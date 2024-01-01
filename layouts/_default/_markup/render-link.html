@@ -61,8 +61,8 @@
 
       {{- /* Check if .Destination actually points to another page and isn't just a fragment (e.g. just "#my-anchor"). */ -}}
       {{- if $url.Path -}}
-
-      {{- $cssClass = "page" -}}
+        {{- /* Not just a fragment. */ -}}
+        {{- $cssClass = "page" -}}
         {{- with site.GetPage $url.Path -}}
           {{- $fragment := "" -}}
           {{- with $url.Fragment -}}
@@ -73,7 +73,6 @@
         {{- else -}}
           {{- warnf "Page '%v': Could not locate link target '%v'." .Page.File.Path .Destination -}}
         {{- end -}}
-
       {{- else -}}
         {{- /* Just a fragment (e.g. just "#my-anchor"). */ -}}
         {{- $cssClass = "anchor" -}}
@@ -84,6 +83,7 @@
           {{- $text = $targetHeading.Title -}}
         {{- end -}}
       {{- end -}}
+
     {{- end -}}
   {{- end -}}
 
