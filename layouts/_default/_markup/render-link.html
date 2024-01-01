@@ -63,7 +63,14 @@
       {{- if $url.Path -}}
         {{- /* Not just a fragment. */ -}}
         {{- $cssClass = "page" -}}
-        {{- with site.GetPage $url.Path -}}
+
+        {{- $targetPage := site.GetPage $url.Path -}}
+        {{- if and (not $targetPage) (strings.HasPrefix $url.Path "/") -}}
+          {{- /* Page not found. Try prepending source page's section (e.g. convert "/cpp/my-article.md" in "/articles/cpp/my-article.md"). */ -}}
+          {{- $targetPage = site.GetPage (printf "/%s%s" .Page.Section $url.Path) -}}
+        {{- end -}}
+
+        {{- with $targetPage -}}
 
           {{- $fragment := "" -}}
           {{- if $url.Fragment -}}
