@@ -64,12 +64,25 @@
         {{- /* Not just a fragment. */ -}}
         {{- $cssClass = "page" -}}
         {{- with site.GetPage $url.Path -}}
+
           {{- $fragment := "" -}}
           {{- with $url.Fragment -}}
             {{- /* Prefix fragment with # */ -}}
             {{- $fragment = printf "#%s" . -}}
           {{- end -}}
+
           {{- $link = printf "%s%s" (strings.TrimSuffix "/" .RelPermalink) $fragment -}}
+
+          {{- if not $text -}}
+            {{- /* Provide link text based on target. */ -}}
+            {{- if $url.Fragment -}}
+              {{- $targetHeading := index .Fragments.HeadingsMap $url.Fragment -}}
+              {{- $text = $targetHeading.Title -}}
+            {{- else -}}
+              {{- $text = .Title -}}
+            {{- end -}}
+          {{- end -}}
+
         {{- else -}}
           {{- warnf "Page '%v': Could not locate link target '%v'." .Page.File.Path .Destination -}}
         {{- end -}}
@@ -79,6 +92,7 @@
         {{- if not (.Page.Fragments.Identifiers.Contains $url.Fragment) -}}
           {{- warnf "Page '%v': Could not locate target anchor '%v'." .Page.File.Path .Destination -}}
         {{- else if not $text -}}
+          {{- /* Provide link text based on target. */ -}}
           {{- $targetHeading := index .Page.Fragments.HeadingsMap $url.Fragment -}}
           {{- $text = $targetHeading.Title -}}
         {{- end -}}
