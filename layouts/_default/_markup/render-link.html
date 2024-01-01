@@ -66,9 +66,12 @@
         {{- with site.GetPage $url.Path -}}
 
           {{- $fragment := "" -}}
-          {{- with $url.Fragment -}}
+          {{- if $url.Fragment -}}
             {{- /* Prefix fragment with # */ -}}
-            {{- $fragment = printf "#%s" . -}}
+            {{- $fragment = printf "#%s" $url.Fragment -}}
+            {{- if not (.Fragments.Identifiers.Contains $url.Fragment) -}}
+              {{- warnf "Page '%v': Could not locate target anchor '%v' in '%v' for link '%v'." $.Page.File.Path $fragment .File.Path $link -}}
+            {{- end -}}
           {{- end -}}
 
           {{- $link = printf "%s%s" (strings.TrimSuffix "/" .RelPermalink) $fragment -}}
