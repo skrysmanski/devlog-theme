@@ -4,18 +4,10 @@ pre {
   margin: 0;
   padding: 0;
 
-  // NOTE: These colors are just for code blocks without(!) highlighting.
-  color: $code-block-text-color;
-  background-color: $code-block-background-color;
-
-  border-radius: $block-border-radius;
-
   // Required for "position: absolute" of the copy button and the language name.
   position: relative;
 
-  &::selection, *::selection {
-    background-color: $code-block-selection-color;
-  }
+  @import 'components/_code_block_highlighting';
 
   & > code {
     // Required because "code" is usually an inline element - which can't have a "width" element.
@@ -29,6 +21,8 @@ pre {
     // NOTE: Especially the bottom padding is necessary when there is a horizontal scroll bar (which
     //   otherwise would overlap the content).
     padding: 1em;
+
+    border-radius: $block-border-radius;
 
     // Displays the language of the code block.
     &[data-lang]::before {
@@ -45,49 +39,48 @@ pre {
       color: #ff7a18;
     }
   }
+
+  .copy-code-button {
+    // The frame of reference here is the outer "pre" element because it has a position other than static.
+    // See: https://stackoverflow.com/a/46318225/614177
+    position: absolute;
+    top: 0.1em;
+    right: 0.2em;
+    // Show above code block and language text.
+    z-index: 3;
+
+    margin: 0;
+    padding: 4px 6px;
+
+    // The next 3 lines create a "fade out" animation.
+    // See also: https://stackoverflow.com/a/20910008/614177
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.35s, opacity 0.35s;
+
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap;
+
+    color: #ccc;
+    background-color: rgba($code-block-background-color, 0.8);
+    border-radius: $block-border-radius;
+
+    border: 0;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:active:hover {
+      color: white;
+    }
+  }
 }
 
 > pre, .highlight {
   margin: 1em 0;
-}
-
-.copy-code-button {
-  // The frame of reference here is the outer "pre" element because it has a position other than static.
-  // See: https://stackoverflow.com/a/46318225/614177
-  position: absolute;
-  top: 0.1em;
-  right: 0.2em;
-  // Show above code block and language text.
-  z-index: 3;
-
-  margin: 0;
-  padding: 4px 6px;
-
-  // The next 3 lines create a "fade out" animation.
-  // See also: https://stackoverflow.com/a/20910008/614177
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 0.35s, opacity 0.35s;
-
-  font-size: 18px;
-  font-weight: bold;
-  white-space: nowrap;
-
-  color: #ccc;
-  background-color: rgba($code-block-background-color, 0.8);
-  border-radius: $block-border-radius;
-
-  border: 0;
-
-  cursor: pointer;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &:active:hover {
-    //background-color: #b3b3b3;
-    color: white;
-  }
 }
 
 pre:hover .copy-code-button {
