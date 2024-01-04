@@ -1,0 +1,6 @@
+{{- $lang := .Type -}}
+{{- if transform.CanHighlight $lang -}}
+{{ highlight .Inner $lang }}
+{{- else -}}
+<pre><code data-lang="{{ $lang }}">{{ .Inner }}</code></pre>
+{{ end }}
