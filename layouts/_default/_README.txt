@@ -21,3 +21,7 @@ Additional useful links:
 To print a slice or map, use:
 
     <pre>{{ debug.Dump .Data }}</pre>
+
+Or:
+
+    <pre>{{ .Data | jsonify }}</pre>
