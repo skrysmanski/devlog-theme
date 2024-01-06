@@ -26,7 +26,7 @@ pre {
     // Displays the language of the code block.
     &[data-lang]::before {
       position: absolute;
-      top: 0.3em;
+      top: 0.7em;
       right: 1em;
       // Show above code block.
       z-index: 2;
@@ -36,6 +36,12 @@ pre {
 
       font-size: 0.7em;
       color: #ff7a18;
+
+      // Background for line highlighting or other code content that appears below the language name.
+      background-color: rgba($code-block-background-color, 0.7);
+      border-radius: $block-border-radius;
+      line-height: 1.4em;
+      padding-left: 0.3em;
     }
   }
 
