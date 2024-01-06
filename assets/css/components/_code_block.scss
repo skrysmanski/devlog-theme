@@ -27,7 +27,7 @@ pre {
     &[data-lang]::before {
       position: absolute;
       top: 0.7em;
-      right: 1em;
+      right: 0.7em;
       // Show above code block.
       z-index: 2;
 
@@ -41,7 +41,7 @@ pre {
       background-color: rgba($code-block-background-color, 0.7);
       border-radius: $block-border-radius;
       line-height: 1.4em;
-      padding-left: 0.3em;
+      padding: 0 0.3em;
     }
   }
 
