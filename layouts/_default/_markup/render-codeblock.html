@@ -1,9 +1,9 @@
 {{- $lang := .Type -}}
 {{- if transform.CanHighlight $lang -}}
-{{- /* For options, see: https://gohugo.io/functions/transform/highlight/#options */ -}}
-{{- $opts := dict "noClasses" false -}}
-{{- $highlightingResult := transform.HighlightCodeBlock . $opts -}}
-<pre><code class="chroma" data-lang="{{ $lang }}">{{ $highlightingResult.Inner }}</code></pre>
+  {{- /* For options, see: https://gohugo.io/functions/transform/highlight/#options */ -}}
+  {{- $opts := dict "noClasses" false -}}
+  {{- $highlightingResult := transform.HighlightCodeBlock . $opts -}}
+  <pre><code class="chroma" data-lang="{{ $lang }}">{{ $highlightingResult.Inner }}</code></pre>
 {{- else -}}
-<pre><code class="bg" data-lang="{{ $lang }}">{{ .Inner }}</code></pre>
+  <pre><code class="bg" data-lang="{{ $lang }}">{{ .Inner }}</code></pre>
 {{ end }}
