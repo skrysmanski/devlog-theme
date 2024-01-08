@@ -33,8 +33,14 @@
 {{- if $supportedLanguage -}}
   {{- $codeBlockHtml = highlight .Inner $originalLang $overrideOptions -}}
 {{- else -}}
-  {{- $codeBlockHtml = highlight .Inner "text" $overrideOptions -}}
-  {{- $codeBlockHtml = replace $codeBlockHtml "data-lang=\"text\"" (printf "data-lang=\"%s\"" $originalLang) -}}
+  {{- $overrideLanguage := "text" -}}
+
+  {{- if eq $originalLang "c++/cli" -}}
+    {{- $overrideLanguage = "c++" -}}
+  {{- end -}}
+
+  {{- $codeBlockHtml = highlight .Inner $overrideLanguage $overrideOptions -}}
+  {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $overrideLanguage) (printf "data-lang=\"%s\"" $originalLang) -}}
 {{- end -}}
 
 {{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
