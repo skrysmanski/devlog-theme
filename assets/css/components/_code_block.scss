@@ -17,14 +17,16 @@ div.highlight {
         padding-left: 0.5em;
 
         &::before {
+          content: counter(line-numbering);
+          counter-increment: line-numbering;
+
           // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
           // will shrink to its minimum.
           // NOTE: The surrounding line requires "display: flex" so that line highlights span the
           //   whole code block width (and not just the line's length).
           flex-shrink: 0;
 
-          content: counter(line-numbering);
-          counter-increment: line-numbering;
+          color: $code-block-line-number-color;
 
           margin-right: .8em;
           width: 1.5em;
@@ -48,7 +50,7 @@ div.highlight {
 
       .line {
         // NOTE: We define the horizontal padding here so that line highlights extend the full width.
-        padding: 0 1em;
+        padding: 0 1.2em;
       }
 
       // Displays the language of the code block.

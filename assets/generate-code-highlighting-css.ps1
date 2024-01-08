@@ -11,6 +11,7 @@ $THEME = 'catppuccin-macchiato'
 # Adopt these colors from the selected theme.
 $BACKGROUND_COLOR = '#24273a'
 $TEXT_COLOR = '#cad3f5'
+$LINE_NUMBER_COLOR = '#8087a2'
 $COMMENT_SELECTION_COLOR = 'white'
 
 ####################################################################################
@@ -33,6 +34,7 @@ $cssFileContents = @"
 //
 
 `$code-block-background-color: $BACKGROUND_COLOR;
+`$code-block-line-number-color: $LINE_NUMBER_COLOR;
 
 &::selection, *::selection {
   background-color: rgba($TEXT_COLOR, .3);
