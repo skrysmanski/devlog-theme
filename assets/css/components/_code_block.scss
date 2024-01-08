@@ -1,47 +1,69 @@
-pre {
-  font-size: 0.9em;
-  line-height: 1.4em;
-  padding: 0;
-
+div.highlight {
   // Required for "position: absolute" of the copy button and the language name.
   position: relative;
 
   @import 'components/_code_block_highlighting';
 
-  & > code {
-    // Required because "code" is usually an inline element - which can't have a "width" element.
-    display: block;
-    // IMPORTANT: Without this, "overflow: auto" won't cause any scrolling.
-    width: 100%;
-    // IMPORTANT: This must be defined here (rather than on the outer pre element) because otherwise:
-    // 1. it would hide the tooltip from the copy button.
-    // 2. the copy button would not stay in place when scrolling horizontally.
-    overflow: auto;
-    // NOTE: Especially the bottom padding is necessary when there is a horizontal scroll bar (which
-    //   otherwise would overlap the content).
-    padding: 1em;
+  & > pre {
+    font-size: 0.9em;
+    line-height: 1.4em;
+
+    padding: 0;
 
     border-radius: $block-border-radius;
 
-    // Displays the language of the code block.
-    &[data-lang]::before {
-      position: absolute;
-      top: 0.7em;
-      right: 0.7em;
-      // Show above code block.
-      z-index: 2;
+    &.with-line-numbers > code {
+      counter-reset: line-numbering;
+      & > .line::before {
+        display: inline-block;
+        // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
+        // will shrink to its minimum.
+        // NOTE: The surrounding line requires "display: flex" so that line highlights span the
+        //   whole code block width (and not just the line's length).
+        flex-shrink: 0;
 
-      content: attr(data-lang);
-      text-transform: uppercase;
+        content: counter(line-numbering);
+        counter-increment: line-numbering;
 
-      font-size: 0.7em;
-      color: #ff7a18;
+        margin-right: .8em;
+        width: 2em;
+        text-align: right;
+      }
+    }
 
-      // Background for line highlighting or other code content that appears below the language name.
-      background-color: rgba($code-block-background-color, 0.7);
-      border-radius: $block-border-radius;
-      line-height: 1.4em;
-      padding: 0 0.3em;
+    & > code {
+      // Required because "code" is usually an inline element - which can't have a "width" element.
+      display: block;
+      // IMPORTANT: Without this, "overflow: auto" won't cause any scrolling.
+      width: 100%;
+      // IMPORTANT: This must be defined here (rather than on the outer pre element) because otherwise:
+      // 1. it would hide the tooltip from the copy button.
+      // 2. the copy button would not stay in place when scrolling horizontally.
+      overflow: auto;
+      // NOTE: Especially the bottom padding is necessary when there is a horizontal scroll bar (which
+      //   otherwise would overlap the content).
+      padding: 1em;
+
+      // Displays the language of the code block.
+      &[data-lang]::before {
+        position: absolute;
+        top: 0.7em;
+        right: 0.7em;
+        // Show above code block.
+        z-index: 2;
+
+        content: attr(data-lang);
+        text-transform: uppercase;
+
+        font-size: 0.7em;
+        color: #ff7a18;
+
+        // Background for line highlighting or other code content that appears below the language name.
+        background-color: rgba($code-block-background-color, 0.7);
+        border-radius: $block-border-radius;
+        line-height: 1.4em;
+        padding: 0 0.3em;
+      }
     }
   }
 
@@ -83,6 +105,7 @@ pre {
     }
   }
 }
+
 
 > pre, .highlight {
   margin: 1em 0;

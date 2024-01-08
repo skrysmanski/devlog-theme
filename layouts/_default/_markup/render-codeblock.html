@@ -1,10 +1,46 @@
 {{- /* https://gohugo.io/templates/render-hooks/#render-hooks-for-code-blocks */ -}}
-{{- $lang := .Type -}}
-{{- if transform.CanHighlight $lang -}}
-  {{- /* For options, see: https://gohugo.io/functions/transform/highlight/#options */ -}}
-  {{- $opts := dict "noClasses" false -}}
-  {{- $highlightingResult := transform.HighlightCodeBlock . $opts -}}
-  <pre><code class="chroma" data-lang="{{ $lang }}">{{ $highlightingResult.Inner }}</code></pre>
+
+{{- /* To test changes to this file, use the "code-block-test.md" page. */ -}}
+
+{{- $originalLang := .Type -}}
+{{- $supportedLanguage := transform.CanHighlight $originalLang -}}
+
+{{- $originalOptions := dict -}}
+{{- if $supportedLanguage -}}
+  {{- $originalOptions = .Options -}}
 {{- else -}}
-  <pre><code class="bg" data-lang="{{ $lang }}">{{ .Inner }}</code></pre>
-{{ end }}
+  {{- $originalOptions = .Attributes -}}
+{{- end -}}
+
+{{- /* For options, see: https://gohugo.io/functions/transform/highlight/#options */ -}}
+{{- /*
+  NOTE: We use "lineNos = false" here because using CSS to do the line numbers is much easier
+    and reliable than using the built-in methods:
+
+    * lineNos = inline: When the code is copied - for each line copied Firefox will also copy an empty line
+        (which is not what we want). See: https://bugzilla.mozilla.org/show_bug.cgi?id=1273836
+    * lineNos = table: Creates much more complicated HTML which requires us to make our CSS much more complicated.
+        Also, the CSS classes used are not that good (e.g. both the line numbers column and the content column have
+        the exact same CSS class - making it hard to differentiate them in CSS). See also:
+        https://github.com/alecthomas/chroma/issues/722
+*/ -}}
+{{- $overrideOptions := merge $originalOptions (dict
+  "noClasses" false
+  "lineNos" false
+) -}}
+
+{{- $codeBlockHtml := "" -}}
+{{- if $supportedLanguage -}}
+  {{- $codeBlockHtml = highlight .Inner $originalLang $overrideOptions -}}
+{{- else -}}
+  {{- $codeBlockHtml = highlight .Inner "text" $overrideOptions -}}
+  {{- $codeBlockHtml = replace $codeBlockHtml "data-lang=\"text\"" (printf "data-lang=\"%s\"" $originalLang) -}}
+{{- end -}}
+
+{{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
+{{- if $showLineNumbers -}}
+  {{- /* Enable line numbers with CSS. */ -}}
+  {{- $codeBlockHtml = replace $codeBlockHtml "class=\"chroma\"" "class=\"chroma with-line-numbers\"" -}}
+{{- end -}}
+
+{{- $codeBlockHtml | safeHTML -}}
