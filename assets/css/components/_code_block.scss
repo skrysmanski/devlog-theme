@@ -8,26 +8,28 @@ div.highlight {
     font-size: 0.9em;
     line-height: 1.4em;
 
-    padding: 0;
-
     border-radius: $block-border-radius;
 
     &.with-line-numbers > code {
       counter-reset: line-numbering;
-      & > .line::before {
-        display: inline-block;
-        // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
-        // will shrink to its minimum.
-        // NOTE: The surrounding line requires "display: flex" so that line highlights span the
-        //   whole code block width (and not just the line's length).
-        flex-shrink: 0;
+      & > .line {
+        // Reduce left padding.
+        padding-left: 0.5em;
 
-        content: counter(line-numbering);
-        counter-increment: line-numbering;
+        &::before {
+          // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
+          // will shrink to its minimum.
+          // NOTE: The surrounding line requires "display: flex" so that line highlights span the
+          //   whole code block width (and not just the line's length).
+          flex-shrink: 0;
 
-        margin-right: .8em;
-        width: 2em;
-        text-align: right;
+          content: counter(line-numbering);
+          counter-increment: line-numbering;
+
+          margin-right: .8em;
+          width: 1.5em;
+          text-align: right;
+        }
       }
     }
 
@@ -42,7 +44,12 @@ div.highlight {
       overflow: auto;
       // NOTE: Especially the bottom padding is necessary when there is a horizontal scroll bar (which
       //   otherwise would overlap the content).
-      padding: 1em;
+      padding: 1em 0;
+
+      .line {
+        // NOTE: We define the horizontal padding here so that line highlights extend the full width.
+        padding: 0 1em;
+      }
 
       // Displays the language of the code block.
       &[data-lang]::before {
