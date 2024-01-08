@@ -188,8 +188,10 @@ main.page > article {
 
   //
   // Regular tables
+  // NOTE: We restrict the selector like this so that this style doesn't mess with tables used in
+  //  other elements (e.g. code blocks with line numbers).
   //
-  table {
+  & > table, section > table {
     font-size: 90%;
 
     border-spacing: 0;
