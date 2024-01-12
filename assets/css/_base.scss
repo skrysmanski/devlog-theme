@@ -85,6 +85,11 @@ a > code {
   background: $selection-color;
 }
 
+abbr[aria-label] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
 //
 // Print
 //
