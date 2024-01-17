@@ -90,6 +90,21 @@ abbr[aria-label] {
   cursor: help;
 }
 
+.center-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // NOTE: The next two rules are required to avoid double margins (although
+  //   it's not really clear to me why this is necessary).
+  & > *:first-child {
+    margin-top: 0;
+  }
+  & > * {
+    margin-bottom: 0;
+  }
+}
+
 //
 // Print
 //
