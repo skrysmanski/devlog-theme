@@ -65,22 +65,22 @@ export function renderDates() {
     $('[data-date]').each((_, dateElement) => {
         const date = new Date(dateElement.getAttribute('data-date')!);
 
-        let dateTimeString : string;
+        let dateAsString : string;
 
         const dateConversionType = dateElement.getAttribute('data-date-type');
         if (dateConversionType === "date-ago") {
-            dateTimeString = convertDateToDateAgo(date);
+            dateAsString = convertDateToDateAgo(date);
         }
         else {
-            dateTimeString = `${date.getDate()}. ${MONTH_NAMES[date.getMonth()]} ${date.getFullYear()} ${formatDoubleDigitNumber(date.getHours())}:${formatDoubleDigitNumber(date.getMinutes())}`;
+            dateAsString = `${date.getDate()}. ${MONTH_NAMES[date.getMonth()]} ${date.getFullYear()}`;
         }
 
         const dateTargetAttribute = dateElement.getAttribute('data-date-target-attrib');
         if (dateTargetAttribute) {
-            dateElement.setAttribute(dateTargetAttribute, dateTimeString);
+            dateElement.setAttribute(dateTargetAttribute, dateAsString);
         }
         else {
-            dateElement.innerText = dateTimeString;
+            dateElement.innerText = dateAsString;
         }
     });
 }
