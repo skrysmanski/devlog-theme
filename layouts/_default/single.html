@@ -23,13 +23,15 @@
     <h1 id="page-title"{{ if $includeInSearch }} data-pagefind-body data-pagefind-meta="title"{{ end }}>{{ .Title }}</h1>
 
     {{- if $isPrimaryContent }}
-    {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
+      {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
 
-    <!-- This will contain the "old page" note, if the page is older than a certain threshold. See "old-page-note.module.ts".
-         NOTE: This is done dynamically via TypeScript (instead of via Hugo) so that this dynamically appears without
-           the need to rebuild/republish the whole site.
-    -->
-    <div class="old-page-note hidden" data-page-date="{{ .Page.Date.UTC.Format "2006-01-02" }}"></div>
+      {{- if (.Params.oldContentWarning | default true) -}}
+        <!-- This will contain the "old page" note, if the page is older than a certain threshold. See "old-page-note.module.ts".
+            NOTE: This is done dynamically via TypeScript (instead of via Hugo) so that this dynamically appears without
+              the need to rebuild/republish the whole site.
+        -->
+        <div class="old-page-note hidden" data-page-date="{{ .Page.Date.UTC.Format "2006-01-02" }}"></div>
+      {{- end -}}
 
     {{- end }}
 
