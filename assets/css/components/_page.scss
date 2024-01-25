@@ -67,8 +67,17 @@ main.page > article {
       color: $permalink-color;
       font-size: 0.7em;
       text-decoration: none;
+    }
 
-      &:hover {
+    // Make permalink appear only on hover - but only if the device supports hover (i.e. make it
+    // permanently visible on mobile devices).
+    @media (hover: hover) {
+      a.permalink {
+        opacity: 0;
+        transition: opacity 0.35s;
+      }
+      &:hover a.permalink {
+        opacity: 1;
         color: $link-color;
       }
     }
