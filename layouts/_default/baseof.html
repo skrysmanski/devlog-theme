@@ -22,7 +22,7 @@
            * form-action 'self' - doesn't fallback to 'default-src'; recommended
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'sha256-WsVntvbxSjl//k+sMKS3WUXlRBr4jnyklJkpoQESebs=' 'wasm-unsafe-eval'; object-src 'none'; base-uri 'none'; form-action 'self'"
+          content="default-src 'self'; script-src 'self' 'sha256-yEPkwJi3QZblic86++vurdOuNakfLKWmO5GLmfWrMa4=' 'wasm-unsafe-eval'; object-src 'none'; base-uri 'none'; form-action 'self'"
     />
 
     <meta charset="utf-8" />
@@ -175,8 +175,11 @@
       IMPORTANT 2: The content of this script element is allowed via CSP (see above) via hashes (https://content-security-policy.com/hash/).
         Whenever you change its content, you need to update the hash in the CSP above. You can calculate the hash via:
 
-          echo -n 'window.fixupHtmlBeforeShow();' | openssl sha256 -binary | openssl base64
+          echo -n 'window.fixupHtmlBeforeShow()' | openssl sha256 -binary | openssl base64
+
+        Note that Hugo may change this code if run with "--minify" (e.g. remove trailing ;). Thus, it's recommended to let Hugo minify this script before
+        calculating the hash.
     -->
-    <script>window.fixupHtmlBeforeShow();</script>
+    <script>window.fixupHtmlBeforeShow()</script>
 </body>
 </html>
