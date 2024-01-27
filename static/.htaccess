@@ -21,6 +21,11 @@ Header always set X-Content-Type-Options: nosniff
 # See: https://infosec.mozilla.org/guidelines/web_security#referrer-policy
 Header always set Referrer-Policy: no-referrer
 
+# Enable HSTS
+# See: https://hstspreload.org/
+# NOTE: "max-age" is in seconds. 63072000 is 2 years.
+Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
 
 #
 # Rewrite URLs [mod_rewrite]
