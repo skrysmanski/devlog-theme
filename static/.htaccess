@@ -6,6 +6,8 @@ ErrorDocument 404 /404
 
 #
 # Set security headers
+# NOTE: "set" only sets headers on successful response - whereas "always set" always sets the header.
+#  See: https://stackoverflow.com/a/39551910/614177
 #
 
 # See: https://infosec.mozilla.org/guidelines/web_security#x-frame-options
