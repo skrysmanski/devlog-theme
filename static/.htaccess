@@ -5,6 +5,14 @@ ErrorDocument 404 /404
 
 
 #
+# Disable server-side scripting language
+# This way, we can upload script samples without them being executed.
+#
+RemoveHandler .php .phtml
+RemoveType .php .phtml
+
+
+#
 # Set security headers
 # NOTE: "set" only sets headers on successful response - whereas "always set" always sets the header.
 #  See: https://stackoverflow.com/a/39551910/614177
