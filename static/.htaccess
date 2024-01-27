@@ -27,37 +27,31 @@ Header always set Referrer-Policy: no-referrer
 # Needs to be explicitly enabled.
 RewriteEngine On
 
+#
+# Strip trailing / from URLs
+#
+
 # Disable default index.html handling. (We don't need it.) [mod_dir]
 DirectoryIndex disabled
 # Don't add trailing slash to directories. [mod_dir]
 # NOTE: We need this even if "DirectoryIndex disabled" is set.
 DirectorySlash Off
 
-#
 # Redirect: /index.html -> /
-#
 RewriteRule ^index\.html$ / [QSA,R=permanent,END]
 
-#
 # Redirect: .../my-page/index.html -> .../my-page
-#
 RewriteRule ^(.+)/+index\.html$ /$1 [QSA,R=permanent,END]
 
-#
 # Redirect: .../my-page/ -> .../my-page
-#
 RewriteCond '%{REQUEST_FILENAME}/index.html' -f
 # NOTE: Must be "(.*)" - instead of "(.+)" - to also match the home page.
 RewriteRule ^(.*)/+$ /$1 [QSA,R=permanent,END]
 
-#
 # Rewrite: .../my-page -> .../my-page/index.html
-#
 RewriteCond '%{REQUEST_FILENAME}/index.html' -f
 # NOTE: Must be "(.*)" - instead of "(.+)" - to also match the home page.
 RewriteRule ^(.*)$ $1/index.html [QSA,END]
 
-#
 # NOTE: Use this and curl to print the various values. You must disable all other rules and conditions for this to work.
-#
 #RewriteRule ^(.*)$ '%{REQUEST_URI}__/__%{REQUEST_FILENAME}__/__$1__/' [QSA,R,END]
