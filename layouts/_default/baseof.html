@@ -7,18 +7,22 @@
          make a request to a server hosted in the US.
 
          See:
+           * https://content-security-policy.com
            * https://infosec.mozilla.org/guidelines/web_security#content-security-policy
            * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
          NOTES:
            * This should be the first <meta> element in <head>.
            * Violations will be printed by browsers to the dev console.
-           * script-src 'wasm-unsafe-eval' is required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
-           * script-src 'unsafe-inline' is required for the inline <script> tags.
-           * object-src 'none' is recommended as we don't need any browser plugins.
+           * Some directives don't fallback to default-src. See: https://content-security-policy.com/default-src/
+           * script-src 'wasm-unsafe-eval' - required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
+           * script-src 'unsafe-inline' - required for the inline <script> tags.
+           * object-src 'none' - recommended as we don't need any browser plugins.
+           * base-uri 'none' - doesn't fallback to 'default-src'; recommended as we don't use <base href="...">. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+           * form-action 'self' - doesn't fallback to 'default-src'; recommended
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'; base-uri 'none'; form-action 'self'"
     />
 
     <meta charset="utf-8" />
