@@ -16,13 +16,13 @@
            * Violations will be printed by browsers to the dev console.
            * Some directives don't fallback to default-src. See: https://content-security-policy.com/default-src/
            * script-src 'wasm-unsafe-eval' - required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
-           * script-src 'unsafe-inline' - required for the inline <script> tags.
+           * script-src 'sha256-...' - required for the single inline <script> element at the end of this file. See: https://content-security-policy.com/hash/
            * object-src 'none' - recommended as we don't need any browser plugins.
            * base-uri 'none' - doesn't fallback to 'default-src'; recommended as we don't use <base href="...">. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
            * form-action 'self' - doesn't fallback to 'default-src'; recommended
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'; base-uri 'none'; form-action 'self'"
+          content="default-src 'self'; script-src 'self' 'sha256-WsVntvbxSjl//k+sMKS3WUXlRBr4jnyklJkpoQESebs=' 'wasm-unsafe-eval'; object-src 'none'; base-uri 'none'; form-action 'self'"
     />
 
     <meta charset="utf-8" />
@@ -166,12 +166,17 @@
       </div>
     </footer>
 
-    <script>
-      // IMPORTANT: This method must be called here - instead of in the "ready" event - to avoid "flickering" when changing the
-      //   HTML content (i.e. the user first sees the unchanged content and then, some milliseconds later, the updated content).
-      //
-      //   It seems, using an inline script tag is the only way to achieve this. See: https://stackoverflow.com/a/5642299/614177
-      window.fixupHtmlBeforeShow();
-    </script>
+    <!--
+      IMPORTANT: This method must be called here - instead of in the "ready" event - to avoid "flickering" when changing the
+        HTML content (i.e. the user first sees the unchanged content and then, some milliseconds later, the updated content).
+
+        It seems, using an inline script tag is the only way to achieve this. See: https://stackoverflow.com/a/5642299/614177
+
+      IMPORTANT 2: The content of this script element is allowed via CSP (see above) via hashes (https://content-security-policy.com/hash/).
+        Whenever you change its content, you need to update the hash in the CSP above. You can calculate the hash via:
+
+          echo -n 'window.fixupHtmlBeforeShow();' | openssl sha256 -binary | openssl base64
+    -->
+    <script>window.fixupHtmlBeforeShow();</script>
 </body>
 </html>
