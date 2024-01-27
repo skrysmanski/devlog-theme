@@ -2,6 +2,8 @@
 
 {{- /* To test changes to this file, use the "code-block-test.md" page. */ -}}
 
+{{- /* NOTE: This render hook is NOT executed for code blocks created with indentation (4 spaces) rather than ```. */ -}}
+
 {{- $originalLang := .Type -}}
 {{- $supportedLanguage := transform.CanHighlight $originalLang -}}
 

@@ -34,10 +34,11 @@ $cssFileContents = @"
 //
 
 `$code-block-background-color: $BACKGROUND_COLOR;
+`$code-block-text-color: $TEXT_COLOR;
 `$code-block-line-number-color: $LINE_NUMBER_COLOR;
 
 &::selection, *::selection {
-  background-color: rgba($TEXT_COLOR, .3);
+  background-color: rgba(`$code-block-text-color, .3);
 }
 
 .chroma {

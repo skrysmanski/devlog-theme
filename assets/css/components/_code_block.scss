@@ -1,78 +1,86 @@
-div.highlight {
+@import 'components/_code_block_highlighting';
+
+pre {
   // Required for "position: absolute" of the copy button and the language name.
   position: relative;
 
-  @import 'components/_code_block_highlighting';
+  font-size: 0.9em;
+  line-height: 1.4em;
 
-  & > pre {
-    font-size: 0.9em;
-    line-height: 1.4em;
+  border-radius: $block-border-radius;
 
-    border-radius: $block-border-radius;
+  // Set background color and text color.
+  // This is for code blocks created via indention (rather than ```).
+  @extend .chroma;
 
-    &.with-line-numbers > code {
-      counter-reset: line-numbering;
-      & > .line {
-        // Reduce left padding.
-        padding-left: 0.5em;
+  &.with-line-numbers > code {
+    counter-reset: line-numbering;
+    & > .line {
+      // Reduce left padding.
+      padding-left: 0.5em;
 
-        &::before {
-          content: counter(line-numbering);
-          counter-increment: line-numbering;
+      &::before {
+        content: counter(line-numbering);
+        counter-increment: line-numbering;
 
-          // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
-          // will shrink to its minimum.
-          // NOTE: The surrounding line requires "display: flex" so that line highlights span the
-          //   whole code block width (and not just the line's length).
-          flex-shrink: 0;
+        // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
+        // will shrink to its minimum.
+        // NOTE: The surrounding line requires "display: flex" so that line highlights span the
+        //   whole code block width (and not just the line's length).
+        flex-shrink: 0;
 
-          color: $code-block-line-number-color;
+        color: $code-block-line-number-color;
 
-          margin-right: .8em;
-          width: 1.5em;
-          text-align: right;
-        }
+        margin-right: .8em;
+        width: 1.5em;
+        text-align: right;
       }
     }
+  }
 
-    & > code {
-      // Required because "code" is usually an inline element - which can't have a "width" element.
-      display: block;
-      // IMPORTANT: Without this, "overflow: auto" won't cause any scrolling.
-      width: 100%;
-      // IMPORTANT: This must be defined here (rather than on the outer pre element) because otherwise:
-      // 1. it would hide the tooltip from the copy button.
-      // 2. the copy button would not stay in place when scrolling horizontally.
-      overflow: auto;
-      // NOTE: Especially the bottom padding is necessary when there is a horizontal scroll bar (which
-      //   otherwise would overlap the content).
-      padding: 1em 0;
+  $horizontal-code-margin: 1.2em;
+  & > code .line {
+      // NOTE: For code blocks with ".chroma", we define the horizontal padding here (instead of the code block) so that
+      //   the background of highlighted lines extend the full width.
+      padding: 0 $horizontal-code-margin;
+  }
+  &:not(.chroma) {
+    // This is for code blocks created via indention (rather than ```) as they don't use ".line" classes.
+    padding-left: $horizontal-code-margin;
+  }
 
-      .line {
-        // NOTE: We define the horizontal padding here so that line highlights extend the full width.
-        padding: 0 1.2em;
-      }
+  & > code {
+    // Required because "code" is usually an inline element - which can't have a "width" element.
+    display: block;
+    // IMPORTANT: Without this, "overflow: auto" won't cause any scrolling.
+    width: 100%;
+    // IMPORTANT: This must be defined here (rather than on the outer pre element) because otherwise:
+    // 1. it would hide the tooltip from the copy button.
+    // 2. the copy button would not stay in place when scrolling horizontally.
+    overflow: auto;
+    // NOTE: Especially the bottom padding is necessary when there is a horizontal scroll bar (which
+    //   otherwise would overlap the content).
+    padding: 1em 0;
 
-      // Displays the language of the code block.
-      &[data-lang]::before {
-        position: absolute;
-        top: 0.7em;
-        right: 0.7em;
-        // Show above code block.
-        z-index: 2;
+    // Displays the language of the code block.
+    &[data-lang]::before {
+      position: absolute;
+      top: 0.7em;
+      right: 0.7em;
+      // Show above code block.
+      z-index: 2;
 
-        content: attr(data-lang);
-        text-transform: uppercase;
+      content: attr(data-lang);
+      text-transform: uppercase;
 
-        font-size: 0.7em;
-        color: #ff7a18;
+      font-size: 0.7em;
+      color: #ff7a18;
 
-        // Background for line highlighting or other code content that appears below the language name.
-        background-color: rgba($code-block-background-color, 0.7);
-        border-radius: $block-border-radius;
-        line-height: 1.4em;
-        padding: 0 0.3em;
-      }
+      // Background for line highlighting or other code content that appears below the language name.
+      background-color: rgba($code-block-background-color, 0.7);
+      border-radius: $block-border-radius;
+      line-height: 1.4em;
+      padding: 0 0.3em;
     }
   }
 
@@ -115,8 +123,7 @@ div.highlight {
   }
 }
 
-
-> pre, .highlight {
+> pre, > div.highlight {
   margin: 1em 0;
 }
 
