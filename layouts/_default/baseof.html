@@ -7,14 +7,15 @@
          make a request to a server hosted in the US.
 
          See:
-         * https://infosec.mozilla.org/guidelines/web_security#content-security-policy
-         * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+           * https://infosec.mozilla.org/guidelines/web_security#content-security-policy
+           * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
          NOTES:
-         * This should be the first <meta> element in <head>.
-         * script-src 'wasm-unsafe-eval' is required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
-         * script-src 'unsafe-inline' is required for the inline <script> tags.
-         * object-src 'none' is recommended as we don't need any browser plugins.
+           * This should be the first <meta> element in <head>.
+           * Violations will be printed by browsers to the dev console.
+           * script-src 'wasm-unsafe-eval' is required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
+           * script-src 'unsafe-inline' is required for the inline <script> tags.
+           * object-src 'none' is recommended as we don't need any browser plugins.
     -->
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'"
