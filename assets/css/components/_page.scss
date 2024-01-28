@@ -13,6 +13,16 @@ main.page {
   align-items: start;
 }
 
+// Used to size the margin/padding between content and footer dynamically (see "dynamic-end-of-page-margin.module.ts").
+#dynamic-end-of-page {
+  // NOTE: This prevents the dynamic "end-of-page" gap to become too small. (Works especially if "height" is set to 0.)
+  min-height: 3em;
+
+  &.hidden {
+    display: none;
+  }
+}
+
 main.page > header {
   grid-row: 1;
   grid-column: 1;

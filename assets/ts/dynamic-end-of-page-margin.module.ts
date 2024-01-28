@@ -27,10 +27,13 @@ function resizeEndOfPageMargin(contentRoot: JQuery<HTMLElement>) {
     const lastSectionHeight = lastSection.outerHeight(true)!;
 
     if (mainViewHeight > lastSectionHeight) {
+        endOfPage.removeClass('hidden');
+        $('#main-container').addClass('use-dynamic-end-of-page-margin');
         endOfPage.css('height', `${mainViewHeight - lastSectionHeight}px`);
     }
     else {
-        endOfPage.css('height', '0');
+        $('#main-container').removeClass('use-dynamic-end-of-page-margin');
+        endOfPage.addClass('hidden');
     }
 }
 

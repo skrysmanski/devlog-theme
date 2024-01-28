@@ -188,7 +188,7 @@ body {
 //   we can't set the background on "main" element (or the background would not extend to the whole width of the browser window).
 #main-container {
   display: grid;
-  align-items: start; // required if "dynamic-end-of-page" is disabled
+  align-items: start;
 
   justify-content: start;
   @media (min-width: #{$content-width}) {
@@ -197,6 +197,13 @@ body {
   }
 
   background: $background-color;
+
+  padding-bottom: 3em;
+
+  &.use-dynamic-end-of-page-margin {
+    // The margin/padding between content and footer is sized dynamically (see "dynamic-end-of-page-margin.module.ts").
+    padding-bottom: 0;
+  }
 
   main {
     // Padding for mobile view.
@@ -221,16 +228,6 @@ body {
         scroll-margin-top: calc((#{$header-height} + #{$header-footer-separator-line-height}) * #{$small-screen-size-factor});
       }
     }
-  }
-
-  // Creates the gap between the content and the footer.
-  // NOTE: As far as scrolling behavior is concerned, this works much better than a padding on ".main-container".
-  #static-end-of-page {
-    height: 3em;
-  }
-  #dynamic-end-of-page {
-    // NOTE: This prevents the dynamic "end-of-page" gap to become too small. (Works especially if "height" is set to 0.)
-    min-height: 3em;
   }
 }
 

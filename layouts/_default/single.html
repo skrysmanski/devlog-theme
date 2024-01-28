@@ -44,6 +44,16 @@
       {{ .Content }}
     </div>
 
+    {{- if $isPrimaryContent }}
+    <!-- Creates an adjustable gap between the last line of content and the footer.
+         See "dynamic-end-of-page-margin.module.ts" for more details.
+
+         NOTE: This element must be here (instead of inside #main-container div) so that the ToC's sticky
+           position works properly even at the end of the page.
+    -->
+    <div id="dynamic-end-of-page" class="hide-in-print"></div>
+    {{ end }}
+
   </article>
 
 </main>

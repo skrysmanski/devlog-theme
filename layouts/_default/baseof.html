@@ -158,14 +158,6 @@
       {{ block "main" . }}
         {{ .Content }}
       {{ end }}
-
-      {{- if $isPrimaryContent }}
-      <!-- Creates an adjustable gap between the last line of content and the footer. -->
-      <div id="dynamic-end-of-page" class="hide-in-print"></div>
-      {{ else }}
-      <!-- Creates a fixed gap between the last line of content and the footer. -->
-      <div id="static-end-of-page" class="hide-in-print"></div>
-      {{ end }}
     </div>
 
     <footer id="main-footer">
