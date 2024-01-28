@@ -19,11 +19,6 @@ $BACKGROUND_COLOR = '#282c34'
 # From .ln
 $LINE_NUMBER_COLOR = '#7f7f7f'
 
-# Background color for when selecting text.
-$SELECTION_COLOR = "rgba($TEXT_COLOR, .3)"
-# Override text color for comments when they're selected.
-$COMMENT_SELECTION_COLOR = 'white'
-
 # Replace colors with different colors. Especially comment colors are often barely readable - especially with line highlights.
 # NOTE: Use "@(," to force creating a list (otherwise PowerShell will "unpack" the outer list if it has only one element).
 $REPLACE_COLORS = @(,
@@ -57,19 +52,6 @@ $cssFileContents = @"
 `$code-block-background-color: $BACKGROUND_COLOR;
 `$code-block-text-color: $TEXT_COLOR;
 `$code-block-line-number-color: $LINE_NUMBER_COLOR;
-
-&::selection, *::selection {
-  background-color: $SELECTION_COLOR;
-}
-
-.chroma {
-  // Make comments easier to read when selected.
-  .c, .ch, .cm, .c1, .cs, .cp, .cpf {
-    &::selection {
-      color: $COMMENT_SELECTION_COLOR;
-    }
-  }
-}
 
 $cssRules
 "@

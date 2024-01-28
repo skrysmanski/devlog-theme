@@ -10,19 +10,6 @@ $code-block-background-color: #282c34;
 $code-block-text-color: #c9c9c9;
 $code-block-line-number-color: #7f7f7f;
 
-&::selection, *::selection {
-  background-color: rgba(#c9c9c9, .3);
-}
-
-.chroma {
-  // Make comments easier to read when selected.
-  .c, .ch, .cm, .c1, .cs, .cp, .cpf {
-    &::selection {
-      color: white;
-    }
-  }
-}
-
 /* Background */ .bg { color: #c9c9c9; background-color: #282c34; }
 /* PreWrapper */ .chroma { color: #c9c9c9; background-color: #282c34; }
 /* Other */ .chroma .x {  }
