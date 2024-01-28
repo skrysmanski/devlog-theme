@@ -18,6 +18,9 @@ $TEXT_COLOR = '#c9c9c9'
 $BACKGROUND_COLOR = '#282c34'
 # From .ln
 $LINE_NUMBER_COLOR = '#7f7f7f'
+
+# Background color for when selecting text.
+$SELECTION_COLOR = "rgba($TEXT_COLOR, .3)"
 # Override text color for comments when they're selected.
 $COMMENT_SELECTION_COLOR = 'white'
 
@@ -56,7 +59,7 @@ $cssFileContents = @"
 `$code-block-line-number-color: $LINE_NUMBER_COLOR;
 
 &::selection, *::selection {
-  background-color: rgba(`$code-block-text-color, .3);
+  background-color: $SELECTION_COLOR;
 }
 
 .chroma {

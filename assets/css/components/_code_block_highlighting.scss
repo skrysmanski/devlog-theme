@@ -11,7 +11,7 @@ $code-block-text-color: #c9c9c9;
 $code-block-line-number-color: #7f7f7f;
 
 &::selection, *::selection {
-  background-color: rgba($code-block-text-color, .3);
+  background-color: rgba(#c9c9c9, .3);
 }
 
 .chroma {
