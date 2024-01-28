@@ -24,7 +24,7 @@
 // NOTE: "break-after: avoid" doesn't seem to work properly - but this hack does.
 // NOTE 2: Only works with "before", not with "after".
 // See: https://stackoverflow.com/a/68268825/614177
-.main-container {
+#main-container {
   h1, h2, h3, h4, h5, h6 {
     &:before {
       content: "";

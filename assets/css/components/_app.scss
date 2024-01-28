@@ -8,7 +8,7 @@ body {
   // is shorter than the screen's height.
   min-height: 100vh;
 
-  // For details on this, see ".main-container" below.
+  // For details on this, see "#main-container" below.
   background: $header-footer-background;
 }
 
@@ -179,14 +179,14 @@ body {
 //
 // Main Content
 //
-// NOTE: We have this separate ".main-container" for mobile devices with rounded corners or similar irregular shapes.
+// NOTE: We have this separate "#main-container" for mobile devices with rounded corners or similar irregular shapes.
 //   On these devices, the browser makes sure the website's content don't get hidden behind this shape. It does this
 //   by starting and/or ending the page just before the irregular shape begins. By doing so, it creates an empty space
 //   at the beginning and/or end of the page which can only be styled with the body background. Because of this, we
 //   have to set the body's background to the same color as the header and footer. To make the primary text readable
 //   again, we have to set the background for this container explicitly. And since the main content is centered via margins,
 //   we can't set the background on "main" element (or the background would not extend to the whole width of the browser window).
-.main-container {
+#main-container {
   display: grid;
   align-items: start; // required if "dynamic-end-of-page" is disabled
 

@@ -39,7 +39,7 @@ export function initReadingProgressBar() {
         progressElement = $('.reading-progress-bar > .progress');
 
         // The element we observe for scrolling.
-        readingProgressContent = $('main.page').closest('.main-container');
+        readingProgressContent = $('main.page').closest('#main-container');
         readingProgressContentYPosition = readingProgressContent.position().top;
 
         const $mainHeader = $('#main-header');
