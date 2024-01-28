@@ -88,10 +88,26 @@
 
     {{- $isPrimaryContent := and .IsPage (in site.MainSections .Type) -}}
 
-    <!-- NOTE: We need this dedicated "top" link element for the scroll to top button - because
-           some pages (like the start page) don't have a main title we can scroll to (see "simplifyTopLinks()").
+    <!-- This collects all divs that aren't the "primary content" (i.e. header, content, footer).
+         This is to simplify the grid layout in _app.scss that makes sure the main content spans
+         the whole height.
     -->
-    <div id="top" />
+    <div>
+      <!-- NOTE: We need this dedicated "top" link element for the scroll to top button - because
+            some pages (like the start page) don't have a main title we can scroll to (see "simplifyTopLinks()").
+      -->
+      <div id="top"></div>
+
+      <div id="page-backdrop"></div>
+
+      <div id="search-overlay-container" class="hide-in-print">
+        <div id="search-overlay"></div>
+      </div>
+
+      <div class="back-to-top-wrapper">
+        <a href="#top"><i class="fa-solid fa-chevron-up"></i></a>
+      </div>
+    </div>
 
     <header id="main-header" class="app-header">
 
@@ -136,12 +152,6 @@
       </div>
     </header>
 
-    <div id="page-backdrop"></div>
-
-    <div id="search-overlay-container" class="hide-in-print">
-      <div id="search-overlay"></div>
-    </div>
-
     <!-- See CSS for reason we have this "main-container". -->
     <div class="main-container">
       <!-- Defines the "main" block. For an explanation of blocks, watch this video: https://gohugo.io/templates/base/ -->
@@ -156,10 +166,6 @@
       <!-- Creates a fixed gap between the last line of content and the footer. -->
       <div id="static-end-of-page" class="hide-in-print"></div>
       {{ end }}
-    </div>
-
-    <div class="back-to-top-wrapper">
-      <a href="#top"><i class="fa-solid fa-chevron-up"></i></a>
     </div>
 
     <footer id="main-footer">

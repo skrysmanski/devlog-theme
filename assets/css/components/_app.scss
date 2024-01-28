@@ -1,6 +1,8 @@
 body {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  // NOTE: The first row is the "collector" div - which is 0px high.
+  // NOTE 2: To test this, use the "short-page" test page.
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
 
   // This basically makes sure the footer sticks to the bottom of the page - even if the page's content
   // is shorter than the screen's height.
