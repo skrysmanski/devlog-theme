@@ -6,12 +6,19 @@ $script:ErrorActionPreference = 'Stop'
 # For an overview of all available styles, see:
 # * https://xyproto.github.io/splash/docs/all.html (short snippets)
 # * https://xyproto.github.io/splash/docs/longer/all.html (longer snippets)
-$THEME = 'catppuccin-macchiato'
+$THEME = 'vulcan'
 
-# Adopt these colors from the selected theme.
-$BACKGROUND_COLOR = '#24273a'
-$TEXT_COLOR = '#cad3f5'
-$LINE_NUMBER_COLOR = '#8087a2'
+#
+# Adopt these colors from the selected theme:
+#
+
+# From .bg/.chroma
+$TEXT_COLOR = '#c9c9c9'
+# From .bg/.chroma
+$BACKGROUND_COLOR = '#282c34'
+# From .ln
+$LINE_NUMBER_COLOR = '#7f7f7f'
+# Override text color for comments when they're selected.
 $COMMENT_SELECTION_COLOR = 'white'
 
 ####################################################################################
