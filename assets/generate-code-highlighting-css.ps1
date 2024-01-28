@@ -6,13 +6,25 @@ $script:ErrorActionPreference = 'Stop'
 # For an overview of all available styles, see:
 # * https://xyproto.github.io/splash/docs/all.html (short snippets)
 # * https://xyproto.github.io/splash/docs/longer/all.html (longer snippets)
-$THEME = 'catppuccin-macchiato'
+$THEME = 'vulcan'
 
-# Adopt these colors from the selected theme.
-$BACKGROUND_COLOR = '#24273a'
-$TEXT_COLOR = '#cad3f5'
-$LINE_NUMBER_COLOR = '#8087a2'
-$COMMENT_SELECTION_COLOR = 'white'
+#
+# Adopt these colors from the selected theme:
+#
+
+# From .bg/.chroma
+$TEXT_COLOR = '#c9c9c9'
+# From .bg/.chroma
+$BACKGROUND_COLOR = '#282c34'
+# From .ln
+$LINE_NUMBER_COLOR = '#7f7f7f'
+
+# Replace colors with different colors. Especially comment colors are often barely readable - especially with line highlights.
+# NOTE: Use "@(," to force creating a list (otherwise PowerShell will "unpack" the outer list if it has only one element).
+$REPLACE_COLORS = @(,
+    # Replace comment color with comment color from pygments lightbulb style.
+    @('#3e4460', '#7e8aa1')
+)
 
 ####################################################################################
 
@@ -23,6 +35,10 @@ if (-Not $?) {
 }
 
 $cssRules = $output -join "`n" | Out-String
+
+foreach ($replaceTuple in $REPLACE_COLORS) {
+    $cssRules = $cssRules.Replace($replaceTuple[0], $replaceTuple[1])
+}
 
 $cssFileContents = @"
 //
@@ -36,19 +52,6 @@ $cssFileContents = @"
 `$code-block-background-color: $BACKGROUND_COLOR;
 `$code-block-text-color: $TEXT_COLOR;
 `$code-block-line-number-color: $LINE_NUMBER_COLOR;
-
-&::selection, *::selection {
-  background-color: rgba(`$code-block-text-color, .3);
-}
-
-.chroma {
-  // Make comments easier to read when selected.
-  .c, .ch, .cm, .c1, .cs, .cp, .cpf {
-    &::selection {
-      color: $COMMENT_SELECTION_COLOR;
-    }
-  }
-}
 
 $cssRules
 "@
