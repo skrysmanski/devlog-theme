@@ -232,6 +232,34 @@ body {
   }
 }
 
+// "Back to top" link (displayed in the bottom right corner)
+.back-to-top-wrapper {
+  position: fixed;
+
+  // NOTE: 20px works great with the rounded screen corner of newer iPhones.
+  right: 20px;
+  bottom: 20px;
+
+  background-color: $header-footer-background;
+  border-radius: $block-border-radius;
+
+  width: 40px;
+  text-align: center;
+
+  opacity: 0.4;
+  transition: opacity 0.35s;
+
+  a {
+    font-size: 25px;
+    color: $header-text-color;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+
 //
 // Footer
 //

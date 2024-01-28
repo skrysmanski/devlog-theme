@@ -88,6 +88,11 @@
 
     {{- $isPrimaryContent := and .IsPage (in site.MainSections .Type) -}}
 
+    <!-- NOTE: We need this dedicated "top" link element for the scroll to top button - because
+           some pages (like the start page) don't have a main title we can scroll to (see "simplifyTopLinks()").
+    -->
+    <div id="top" />
+
     <header id="main-header" class="app-header">
 
       <div class="main-header-content">
@@ -151,6 +156,10 @@
       <!-- Creates a fixed gap between the last line of content and the footer. -->
       <div id="static-end-of-page" class="hide-in-print"></div>
       {{ end }}
+    </div>
+
+    <div class="back-to-top-wrapper">
+      <a href="#top"><i class="fa-solid fa-chevron-up"></i></a>
     </div>
 
     <footer id="main-footer">

@@ -8,12 +8,12 @@ let targetClearedClassAdded = false;
 // Change "top links" so that they don't leave an anchor in the URL.
 //
 function simplifyTopLinks() {
-    const $topLinks = $('a.top-link');
+    const $topLinks = $('a[href="#top"]');
     if ($topLinks.length > 0) {
         $topLinks.attr('href', '');
         $topLinks.on('click', () => {
             clearUrlAnchor();
-            $("#page-title")[0].scrollIntoView();
+            $("#top")[0].scrollIntoView();
             return false;
         });
     }
