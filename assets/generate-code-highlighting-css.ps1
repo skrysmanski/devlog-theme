@@ -21,9 +21,11 @@ $LINE_NUMBER_COLOR = '#7f7f7f'
 
 # Replace colors with different colors. Especially comment colors are often barely readable - especially with line highlights.
 # NOTE: Use "@(," to force creating a list (otherwise PowerShell will "unpack" the outer list if it has only one element).
-$REPLACE_COLORS = @(,
+$REPLACE_COLORS = @(
     # Replace comment color with comment color from pygments lightbulb style.
-    @('#3e4460', '#7e8aa1')
+    @(' color: #3e4460', ' color: #7e8aa1'),
+    # Replace shell output colors
+    @(' color: #43454f', ' color: #7e8aa1')
 )
 
 ####################################################################################
@@ -37,6 +39,7 @@ if (-Not $?) {
 $cssRules = $output -join "`n" | Out-String
 
 foreach ($replaceTuple in $REPLACE_COLORS) {
+    Write-Host "Replacing '$($replaceTuple[0])' with '$($replaceTuple[1])'."
     $cssRules = $cssRules.Replace($replaceTuple[0], $replaceTuple[1])
 }
 

@@ -5,6 +5,16 @@
 {{- /* NOTE: This render hook is NOT executed for code blocks created with indentation (4 spaces) rather than ```. */ -}}
 
 {{- $originalLang := .Type -}}
+
+{{- /* Normalize languages. */ -}}
+{{- if or (eq $originalLang "console") (eq $originalLang "shell-session") -}}
+  {{- $originalLang = "shell" -}}
+{{- end -}}
+
+{{- /*
+  To find all aliases/names for supported language, see https://github.com/alecthomas/chroma
+  and search for "<alias>NAME</alias>" or "<name>NAME</name>".
+*/ -}}
 {{- $supportedLanguage := transform.CanHighlight $originalLang -}}
 
 {{- $originalOptions := dict -}}
@@ -31,19 +41,31 @@
   "lineNos" false
 ) -}}
 
-{{- $codeBlockHtml := "" -}}
+{{- $overrideLanguage := "" -}}
 {{- if $supportedLanguage -}}
-  {{- $codeBlockHtml = highlight .Inner $originalLang $overrideOptions -}}
+  {{- if eq $originalLang "shell" -}}
+    {{- /* "shell" is used in VSCode as "shell" but in chroma it's actually "shell-session". */ -}}
+    {{- $overrideLanguage = "shell-session" -}}
+  {{- end -}}
 {{- else -}}
   {{- $overrideLanguage := "text" -}}
 
   {{- if eq $originalLang "c++/cli" -}}
+    {{- /* "c++/cli" is not supported; fallback to "c++". */ -}}
     {{- $overrideLanguage = "c++" -}}
   {{- end -}}
+{{- end -}}
 
+{{- $codeBlockHtml := "" -}}
+{{- if $overrideLanguage -}}
   {{- $codeBlockHtml = highlight .Inner $overrideLanguage $overrideOptions -}}
   {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $overrideLanguage) (printf "data-lang=\"%s\"" $originalLang) -}}
+{{- else -}}
+  {{- $codeBlockHtml = highlight .Inner $originalLang $overrideOptions -}}
 {{- end -}}
+
+{{- /* "data-lang-supported" is primarily for diagnostic purposes when trying to analyze problems with syntax highlighting. */ -}}
+{{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $originalLang) (printf "data-lang=\"%s\" data-lang-supported=\"%v\"" $originalLang $supportedLanguage) -}}
 
 {{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
 {{- if $showLineNumbers -}}

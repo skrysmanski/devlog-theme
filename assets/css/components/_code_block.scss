@@ -82,6 +82,12 @@ pre {
       line-height: 1.4em;
       padding: 0 0.3em;
     }
+    // Use terminal icon for shell code instead of the name "shell".
+    &[data-lang="shell"]::before {
+      @extend %fa-icon;
+      @extend .fa-solid;
+      content: fa-content($fa-var-terminal);
+    }
   }
 
   .copy-code-button {
