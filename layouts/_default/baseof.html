@@ -17,12 +17,13 @@
            * Some directives don't fallback to default-src. See: https://content-security-policy.com/default-src/
            * script-src 'wasm-unsafe-eval' - required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
            * script-src 'sha256-...' - required for the single inline <script> element at the end of this file. See: https://content-security-policy.com/hash/
+           * style-src 'unsafe-inline' - required for color shortcode.
            * object-src 'none' - recommended as we don't need any browser plugins.
            * base-uri 'none' - doesn't fallback to 'default-src'; recommended as we don't use <base href="...">. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
            * form-action 'self' - doesn't fallback to 'default-src'; recommended
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'sha256-yEPkwJi3QZblic86++vurdOuNakfLKWmO5GLmfWrMa4=' 'wasm-unsafe-eval'; object-src 'none'; base-uri 'none'; form-action 'self'"
+          content="default-src 'self'; script-src 'self' 'sha256-yEPkwJi3QZblic86++vurdOuNakfLKWmO5GLmfWrMa4=' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'self'"
     />
 
     <meta charset="utf-8" />
