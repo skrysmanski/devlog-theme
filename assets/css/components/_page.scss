@@ -63,7 +63,7 @@ main.page > article {
   // Headings and sections
   //
   h2, h3, h4, h5, h6 {
-    border-top: 1px solid #dfdfdf;
+    border-top: 1px solid $separator-color;
     margin-top: 2em;
     padding-top: 0.7em;
 
@@ -192,6 +192,14 @@ main.page > article {
       text-align: center; // only relevant if the text spans multiple lines
 
       color: lighten($text-color, 15%);
+    }
+
+    // Separator to signal end of figure
+    &::after {
+      content: '';
+      border-bottom: 1px solid $separator-color;
+      width: 50%;
+      margin: 1.5em 0;
     }
   }
 
