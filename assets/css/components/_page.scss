@@ -74,7 +74,6 @@ main.page > article {
     //   this way it's easier to discover and it's also usable on mobile devices (where there
     //   is no hover).
     a.permalink {
-      color: $permalink-color;
       font-size: 0.7em;
       text-decoration: none;
     }
@@ -88,7 +87,6 @@ main.page > article {
       }
       &:hover a.permalink {
         opacity: 1;
-        color: $link-color;
       }
     }
   }
@@ -127,10 +125,6 @@ main.page > article {
       padding: 0.2em 0.6em;
       background-color: $heading-background-target;
       border-radius: $block-border-radius;
-
-      a.permalink {
-        color: $permalink-color-target;
-      }
     }
   }
   h2, h3, h4, h5, h6 { // before sections are created
@@ -139,10 +133,6 @@ main.page > article {
       padding: 0.2em 0.6em;
       background-color: $heading-background-target;
       border-radius: $block-border-radius;
-
-      a.permalink {
-        color: $permalink-color-target;
-      }
     }
   }
 
@@ -245,7 +235,7 @@ main.page > article {
 //
 main.page-main-section #page-content {
   @include heading-numbers {
-    color: $permalink-color;
+    color: $heading-number-color;
     font-size: 0.5em;
     font-weight: normal;
   }
