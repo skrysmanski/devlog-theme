@@ -1,10 +1,11 @@
-{{- if .IsHome -}}{{ strings.TrimSuffix "/" site.BaseURL -}}
+{{- if .IsHome -}}
+  {{- strings.TrimSuffix "/" site.BaseURL -}}
 {{- else if .Paginator -}}
-{{- /*
-  NOTE: If the current page is paged, we need to use the ".Paginator" to figure out the
-    url - "permalink.html" will always point to page 1.
-*/ -}}
-{{- strings.TrimSuffix "/" site.BaseURL }}{{ strings.TrimSuffix "/" .Paginator.URL -}}
+  {{- /*
+    NOTE: If the current page is paged, we need to use the ".Paginator" to figure out the
+      url - "permalink.html" will always point to page 1.
+  */ -}}
+  {{- strings.TrimSuffix "/" site.BaseURL }}{{ strings.TrimSuffix "/" .Paginator.URL -}}
 {{- else -}}
-{{- strings.TrimSuffix "/" .Permalink -}}
+  {{- strings.TrimSuffix "/" .Permalink -}}
 {{- end -}}
