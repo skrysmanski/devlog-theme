@@ -1,6 +1,6 @@
 <a class="term" href="{{ partial "permalink-rel.html" .Term }}">
   {{- if (.Term.Params.brand | default false) -}}
-    <i class="tag-icon fa-brands fa-docker"></i>
+    <i class="tag-icon fa-brands fa-{{ lower .Term.Name }}"></i>
   {{- else -}}
     <i class="tag-icon fa-solid fa-tag"></i>
   {{- end -}}
