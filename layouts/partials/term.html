@@ -1,5 +1,9 @@
 <a class="term" href="{{ partial "permalink-rel.html" .Term }}">
-  <i class="tag-icon fa-solid fa-tag"></i>
+  {{- if (.Term.Params.brand | default false) -}}
+    <i class="tag-icon fa-brands fa-docker"></i>
+  {{- else -}}
+    <i class="tag-icon fa-solid fa-tag"></i>
+  {{- end -}}
   <span class="name{{ if .WithTermCount }} with-count{{ end }}">{{ partial "term-name.html" .Term.Name }}</span>
   {{ if .WithTermCount }}
   <span class="count">{{ len .Term.Pages }}</span>
