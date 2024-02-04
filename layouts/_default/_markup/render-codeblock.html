@@ -48,11 +48,16 @@
     {{- $overrideLanguage = "shell-session" -}}
   {{- end -}}
 {{- else -}}
-  {{- $overrideLanguage := "text" -}}
-
   {{- if eq $originalLang "c++/cli" -}}
     {{- /* "c++/cli" is not supported; fallback to "c++". */ -}}
     {{- $overrideLanguage = "c++" -}}
+  {{- else if eq $originalLang ".gitattributes" -}}
+    {{- /* ".gitattributes" is not supported; fallback to ".gitconfig".
+           https://github.com/alecthomas/chroma/issues/128
+    */ -}}
+    {{- $overrideLanguage = ".gitconfig" -}}
+  {{- else -}}
+    {{- $overrideLanguage := "text" -}}
   {{- end -}}
 {{- end -}}
 
