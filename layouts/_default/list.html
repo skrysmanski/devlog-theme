@@ -1,15 +1,20 @@
 {{- /* See: https://gohugo.io/templates/lists/ */ -}}
+{{- /* Also used for listing the pages in a single term from a taxonomy (topic/tag). */ -}}
 {{ define "main" }}
 <main class="pages-list">
   <header>
     {{ if eq .Kind "term" -}}
     <h1>
-      <span class="list-type">{{ strings.FirstUpper .Data.Singular }}</span>
-      <span>{{ partial "term-name.html" .Name }}</span>
+      <span class="list-type">{{ strings.FirstUpper .Data.Singular }}</span> {{- /* Term type (e.g. "topic") */ -}}
+      <span>{{ partial "term-name.html" .Name }}</span> {{- /* Name of the term (e.g. "Hugo") */ -}}
     </h1>
     {{- else -}}
     <h1>All {{ .Title }}</h1>
     {{- end }}
+
+    {{ with .Content }}
+    <p>{{ . }}</p>
+    {{ end }}
 
     <div class="page-count">
       {{ $pageCount := len .Pages -}}
