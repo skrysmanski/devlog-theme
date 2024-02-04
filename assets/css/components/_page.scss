@@ -160,6 +160,7 @@ main.page > article {
     font-size: 80%;
   }
 
+
   //
   // Code blocks
   //
@@ -202,6 +203,13 @@ main.page > article {
       margin: 1.5em 0;
     }
   }
+
+  // Hide figure separator if the figure is the last element in an info box.
+  .info-box-content > p:last-child > .figure.standalone::after {
+    border: none;
+    margin: 0;
+  }
+
 
   //
   // Regular tables
