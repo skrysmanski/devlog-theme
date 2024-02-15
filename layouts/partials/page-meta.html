@@ -1,4 +1,5 @@
 <div class="page-meta">
+
   <div class="primary-meta">
 
     <span{{ if .IsSinglePage }} data-date="{{ .Page.Date.UTC.Format "2006-01-02T15:04:05Z" }}" data-date-target-attrib="aria-label" aria-label="{{ .Page.Date.UTC }}" data-tooltip-dir="top"{{ end }}>
@@ -12,26 +13,26 @@
       {{ .Page.ReadingTime }} min read
     </span>
 
-    {{- range $taxonomyName, $taxonomy := site.Taxonomies -}}
-    {{- with $.Page.GetTerms $taxonomyName }}
+    {{- range $taxonomyName, $taxonomy := site.Taxonomies }}
+    {{ with $.Page.GetTerms $taxonomyName }}
     <span>
-      {{- range (sort .) -}}
+      {{ range (sort .) -}}
         {{ partial "term.html" ( dict "Term" . ) }}
-      {{- end }}
+      {{- end -}}
     </span>
     {{- end -}}
     {{- end }}
 
   </div>
 
-  {{- $gitRepoUrl := .Page.Scratch.Get "git-repo-url" -}}
+  {{ $gitRepoUrl := .Page.Scratch.Get "git-repo-url" -}}
   {{- $gitBranch := .Page.Scratch.Get "git-branch" -}}
-  {{ if and $gitRepoUrl $gitBranch .IsSinglePage }}
+  {{- if and $gitRepoUrl $gitBranch .IsSinglePage -}}
   <div class="secondary-meta">
 
-    {{- $parsedGitRepoUrl := urls.Parse $gitRepoUrl -}}
+    {{ $parsedGitRepoUrl := urls.Parse $gitRepoUrl -}}
 
-    {{- if and (eq site.Params.discussions "github") (hasSuffix (lower $parsedGitRepoUrl.Hostname) "github.com") -}}
+    {{- if and (eq site.Params.discussions "github") (hasSuffix (lower $parsedGitRepoUrl.Hostname) "github.com") }}
     <div class="discussion-meta hide-in-print">
       <i class="fa-regular fa-comments"></i>
       <a href="{{ $gitRepoUrl }}/discussions?discussions_q={{ with .Page.Slug }}{{ . }}{{ else }}{{ .Page.File.BaseFileName }}{{ end }}"
@@ -40,9 +41,9 @@
          data-tooltip-dir="top"
          rel="noopener noreferrer">Discuss</a>
     </div>
-    {{- end -}}
+    {{- end }}
 
-    {{- if hasSuffix (lower $parsedGitRepoUrl.Hostname) "github.com" -}}
+    {{ if hasSuffix (lower $parsedGitRepoUrl.Hostname) "github.com" }}
     <div class="git-meta hide-in-print">
       <nav class="popup-menu auto-close">
         <!-- NOTE: This must be a label so that clicking it toggles the checkbox. -->
@@ -64,7 +65,7 @@
         </ul>
       </nav>
     </div>
-    {{- end -}}
+    {{- end }}
 
   </div>
   {{ end }}

@@ -9,7 +9,7 @@ async function beautifyHtmlFiles(rootPath) {
 
     const htmlFilePaths = await glob(`${rootPath}/**/*.html`);
 
-    // See: https://www.npmjs.com/package/js-beautify
+    // See: https://www.npmjs.com/package/js-beautify?activeTab=readme#css--html
     const beautifyOptions = {
         "indent_size": 2,
         "space_in_empty_paren": true,
@@ -17,7 +17,7 @@ async function beautifyHtmlFiles(rootPath) {
         "max_preserve_newlines": 1,
         // NOTE: We exclude <script> from reformatting to not break CSP hashes.
         "content_unformatted": [ 'pre', 'script' ],
-        "extra_liners": [ 'head', '/head', 'body', '/body' ],
+        "extra_liners": [ 'head', '/head', 'body', '/body', 'p', 'table' ],
     };
 
     const beautifyHtmlPromises = htmlFilePaths.map(async (filePath) => {

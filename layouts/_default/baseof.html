@@ -94,9 +94,10 @@
          the whole height.
     -->
     <div>
-      <!-- NOTE: We need this dedicated "top" link element for the scroll to top button - because
-            some pages (like the start page) don't have a main title we can scroll to (see "simplifyTopLinks()").
-      -->
+      {{- /*
+        NOTE: We need this dedicated "top" link element for the scroll to top button - because
+          some pages (like the start page) don't have a main title we can scroll to (see "simplifyTopLinks()").
+      */ -}}
       <div id="top"></div>
 
       <div id="page-backdrop"></div>
@@ -120,9 +121,8 @@
           <h1 class="app-header-title"><a href="/">{{ site.Title }}</a></h1>
         </div>
 
+        <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
         <div class="main-header-navigation">
-
-          <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
           <nav class="app-header-menu hide-in-print">
             <button id="open-search-dialog-button" aria-label="Search site - keyboard shortcut: ." data-tooltip-dir="bottom-right"><i class="fa-solid fa-magnifying-glass"></i></button>
             {{ range $name, $taxonomy := site.Taxonomies -}}
@@ -151,6 +151,7 @@
       <div class="reading-progress-bar hide-in-print{{ if $isPrimaryContent }} enabled{{ end }}" aria-hidden="true">
         <div class="progress"></div>
       </div>
+
     </header>
 
     <!-- See CSS for reason we have this "main-container". -->
