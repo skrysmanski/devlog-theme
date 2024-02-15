@@ -21,9 +21,14 @@ async function beautifyHtmlFiles(rootPath) {
     };
 
     const beautifyHtmlPromises = htmlFilePaths.map(async (filePath) => {
-         const fileContents = await fs.readFile(filePath, { encoding: 'utf8' });
+        const fileContents = await fs.readFile(filePath, { encoding: 'utf8' });
 
-        const beautifiedHtml = beautify.html(fileContents, beautifyOptions);
+        let beautifiedHtml = beautify.html(fileContents, beautifyOptions);
+
+        // Unescape some uselessly escaped characters.
+        beautifiedHtml = beautifiedHtml.replaceAll('&#39;', "'")
+                                       .replaceAll('&#43;', "+")
+                                       .replaceAll('&#34;', "&quot;");
 
         fs.writeFile(filePath, beautifiedHtml, { encoding: 'utf8' });
 
