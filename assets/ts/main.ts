@@ -9,9 +9,6 @@ import { renderDates } from "./date-time-utils.module.js";
 import { initAnchorManagementModule } from "./anchor-management.module.js";
 import { renderOldContentNote } from "./old-page-note.module.js";
 
-// Prints fontawesome license to the browser's dev tools console.
-import "../node_modules/@fortawesome/fontawesome-free/attribution.js";
-
 //
 // Adds the "standalone" class to all images that are don't have any surrounding text.
 //
