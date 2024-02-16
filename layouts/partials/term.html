@@ -12,7 +12,7 @@
     <i class="tag-icon fa-solid fa-tag"></i>
   {{- end -}}
   <span class="name{{ if .WithTermCount }} with-count{{ end }}">{{ partial "term-name.html" .Term.Name }}</span>
-  {{ if .WithTermCount }}
+  {{- if .WithTermCount -}}
   <span class="count">{{ len .Term.Pages }}</span>
-  {{ end }}
+  {{- end -}}
 </a>

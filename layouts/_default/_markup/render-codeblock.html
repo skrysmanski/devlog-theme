@@ -76,6 +76,7 @@
 {{- if $showLineNumbers -}}
   {{- /* Enable line numbers with CSS. */ -}}
   {{- $codeBlockHtml = replace $codeBlockHtml "class=\"chroma\"" "class=\"chroma with-line-numbers\"" -}}
-{{- end -}}
+{{- end }}
 
-{{- $codeBlockHtml | safeHTML -}}
+{{ $codeBlockHtml | safeHTML }}
+

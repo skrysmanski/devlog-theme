@@ -1,0 +1,9 @@
+{
+  "name": "devlog-theme-utils",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "glob": "^10.3.10",
+    "js-beautify": "^1.14.11"
+  }
+}
