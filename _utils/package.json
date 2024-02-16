@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "glob": "^10.3.10",
-    "js-beautify": "^1.15.0"
+    "js-beautify": "^1.15.0",
+    "pagefind": "^1.0.4"
   }
 }

@@ -15,9 +15,9 @@ if (-Not $?) {
     Write-Error 'hugo publish failed'
 }
 
-Push-Location './assets'
+Push-Location './_utils'
 # See: https://pagefind.app/docs/running-pagefind/
-& npx pagefind --site $tempOutputDir --output-path $pageFindDir
+& npx pagefind --site $tempOutputDir.Replace('\', '/') --output-path $pageFindDir.Replace('\', '/')
 Pop-Location
 
 Remove-Item $tempOutputDir -Recurse -Force
