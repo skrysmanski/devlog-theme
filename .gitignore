@@ -31,4 +31,3 @@
 # Repository custom ignores
 #
 node_modules/
-.publish-temp/

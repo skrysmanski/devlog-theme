@@ -59,4 +59,4 @@ $cssFileContents = @"
 $cssRules
 "@
 
-$cssFileContents.TrimStart().Replace("`r", '') | Out-File "$PSScriptRoot/css/components/_code_block_highlighting.scss" -Encoding utf8 -NoNewline
+$cssFileContents.TrimStart().Replace("`r", '') | Out-File "$PSScriptRoot/assets/css/components/_code_block_highlighting.scss" -Encoding utf8 -NoNewline
