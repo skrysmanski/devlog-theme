@@ -48,5 +48,7 @@ async function beautifyHtmlFiles(rootPath) {
     console.log(`Beautifying files in: ${rootPath}`);
     console.log();
 
+    // NOTE: We only beautify HTML files. JavaScript and CSS files can't be beautified because
+    //   this would break their integrity hashes.
     await beautifyHtmlFiles(rootPath);
 })();

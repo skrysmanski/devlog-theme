@@ -4,6 +4,6 @@
   "private": true,
   "dependencies": {
     "glob": "^10.3.10",
-    "js-beautify": "^1.14.11"
+    "js-beautify": "^1.15.0"
   }
 }
