@@ -68,8 +68,11 @@
 
     <!--
       JavaScript
+      NOTE: We put jQuery in a separate <script> element so that we can use the minified version but still can keep
+        our own JavaScript/TypeScript code un-minified (for readability).
     -->
-    {{ partial "js.html" "ts/main.ts" }}
+    {{ partial "js-static.html" "node_modules/jquery/dist/jquery.slim.min.js" }}
+    {{ partial "js-build.html" "ts/main.ts" }}
 
     <!--
       FavIcon
