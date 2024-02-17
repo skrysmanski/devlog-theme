@@ -20,4 +20,7 @@
     #   (see: https://caniuse.com/mdn-http_headers_cache-control_immutable). However, adding it doesn't break anything
     #   for browsers that don't support it - so it can be safely added.
     Header set Cache-Control: "max-age=31536000, immutable"
+
+    # For more details, see main .htaccess file.
+    Header unset ETag
 </Files>
