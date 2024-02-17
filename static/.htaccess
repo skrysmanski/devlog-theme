@@ -48,6 +48,18 @@ Header always set Strict-Transport-Security: "max-age=63072000; includeSubDomain
 #   If the webserver returns HTTP 304 (file not modified), the browser uses the cached version.
 Header set Cache-Control: "no-cache"
 
+# We must unset the "ETag" as it breaks caching for JavaScript files (pagefind-ui.js in our case) - or, to be more precise:
+# It breaks caching for files that are transferred compressed.
+#
+# "Breaking" here means that the server always returns a HTTP 200 (file modified) instead of a HTTP 304 (file not modified) -
+# even if the file hasn't been modified.
+#
+# Unsetting this doesn't breake anything since Apache bases the ETag on the file's last modification date (rather than the file's
+# contents) and the last modification date is already sent via the "last-modified" response header.
+#
+# For more details, see: https://serverfault.com/a/696832/71268
+Header unset ETag
+
 
 #
 # Rewrite URLs [mod_rewrite]
