@@ -58,8 +58,8 @@
     <!--
       CSS
     -->
-    {{ partial "css.html" (dict "File" "css/main.scss") }}
-    {{ partial "css.html" (dict "File" "css/print.scss" "Media" "print") }}
+    {{ partial "css.html" (dict "File" "styles/main.scss") }}
+    {{ partial "css.html" (dict "File" "styles/print.scss" "Media" "print") }}
 
     <!-- Make Hugo "aware" of the fontawesome fonts. (See: https://gohugo.io/methods/resource/publish/) -->
     {{- range (resources.Match "node_modules/@fortawesome/fontawesome-free/webfonts/*") -}}
