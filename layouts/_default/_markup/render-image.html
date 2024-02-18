@@ -9,23 +9,24 @@
 
   NOTE: This code doesn't differentiate between inline and block images (there doesn't seem to
     be a way). So, this differentiation is done in JavaScript.
-*/ -}}
+*/}}
 <span class="figure">
   {{- /*
     By default, .Destination is simply the image name. And since we strip the trailing slash from
     URLs, browser will use the wrong URL when fetching images (i.e. "../parent-folder/image.png" instead
     of "../parent-folder/my-article/image.png"). So we make the url "absolute" here.
-  */ -}}
-  {{- $imageUrl := .Destination -}}
+  */}}
+  {{ $imageUrl := .Destination -}}
   {{- $isExternal := strings.HasPrefix $imageUrl "http" -}}
   {{- if not $isExternal -}}
     {{- with .Page.Resources.GetMatch .Destination -}}
-      {{- $imageUrl = .RelPermalink -}}
+      <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" />
     {{- else -}}
       {{- warnf "Page '%v': Could not locate image '%v'." .Page.File.Path .Destination -}}
     {{- end -}}
-  {{- end }}
-  <img src="{{ $imageUrl | safeURL }}" />
+  {{- else -}}
+    <img src="{{ $imageUrl | safeURL }}" />
+  {{- end -}}
   {{- with .Text }}
   <span class="figcaption">{{ . | safeHTML }}</span>
   {{- end }}
