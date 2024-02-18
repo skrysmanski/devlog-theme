@@ -20,16 +20,21 @@
   {{- $isExternal := strings.HasPrefix $imageUrl "http" -}}
   {{- if not $isExternal -}}
     {{- with .Page.Resources.GetMatch $imageUrl -}}
-      {{- $imageFileBaseName := (urls.Parse .Permalink).Path | path.BaseName -}}
-      {{- /*
-        If the file name ends with "@2x", interpret it as 192 DPI (instead of the regular 96 DPI) and thus halve its size.
-        NOTE: At the moment, this is a workaround because I couldn't find a way to get the DPI value(s) from the image itself.
-          See: https://discourse.gohugo.io/t/new-dpi-property-for-image-resources/48333
-      */ -}}
-      {{- if (hasSuffix $imageFileBaseName "@2x") -}}
-        <img src="{{ .RelPermalink }}" width="{{ div .Width 2 }}" height="{{ div .Height 2 }}" />
+      {{- if eq .MediaType.SubType "svg" -}}
+        {{- /* ".Width" and ".Height" are only available for rater images - but not for vector images like SVG. */ -}}
+        <img src="{{ .RelPermalink }}" />
       {{- else -}}
-        <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" />
+        {{- $imageFileBaseName := (urls.Parse .Permalink).Path | path.BaseName -}}
+        {{- /*
+          If the file name ends with "@2x", interpret it as 192 DPI (instead of the regular 96 DPI) and thus halve its size.
+          NOTE: At the moment, this is a workaround because I couldn't find a way to get the DPI value(s) from the image itself.
+            See: https://discourse.gohugo.io/t/new-dpi-property-for-image-resources/48333
+        */ -}}
+        {{- if (hasSuffix $imageFileBaseName "@2x") -}}
+          <img src="{{ .RelPermalink }}" width="{{ div .Width 2 }}" height="{{ div .Height 2 }}" />
+        {{- else -}}
+          <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" />
+        {{- end -}}
       {{- end -}}
     {{- else -}}
       {{- warnf "Page '%v': Could not locate image '%v'." .Page.File.Path $imageUrl -}}
