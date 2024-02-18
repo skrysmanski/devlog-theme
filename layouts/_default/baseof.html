@@ -63,7 +63,7 @@
 
     <!-- Make Hugo "aware" of the fontawesome fonts. (See: https://gohugo.io/methods/resource/publish/) -->
     {{- range (resources.Match "node_modules/@fortawesome/fontawesome-free/webfonts/*") -}}
-    {{- .Publish -}}
+      {{- .Publish -}}
     {{- end -}}
 
     <!--
