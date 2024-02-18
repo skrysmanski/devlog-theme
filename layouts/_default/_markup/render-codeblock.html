@@ -1,5 +1,10 @@
 {{- /* https://gohugo.io/templates/render-hooks/#render-hooks-for-code-blocks */ -}}
 
+{{- /*
+  To find all aliases/names for supported language, see https://github.com/alecthomas/chroma
+  and search for "<alias>NAME</alias>" or "<name>NAME</name>".
+*/ -}}
+
 {{- /* To test changes to this file, use the "code-block-test.md" page. */ -}}
 
 {{- /* NOTE: This render hook is NOT executed for code blocks created with indentation (4 spaces) rather than ```. */ -}}
@@ -11,10 +16,6 @@
   {{- $originalLang = "shell" -}}
 {{- end -}}
 
-{{- /*
-  To find all aliases/names for supported language, see https://github.com/alecthomas/chroma
-  and search for "<alias>NAME</alias>" or "<name>NAME</name>".
-*/ -}}
 {{- $supportedLanguage := transform.CanHighlight $originalLang -}}
 
 {{- $originalOptions := dict -}}
