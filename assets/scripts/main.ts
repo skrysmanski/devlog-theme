@@ -8,6 +8,7 @@ import { initSearch } from "./search.module.js";
 import { renderDates } from "./date-time-utils.module.js";
 import { initAnchorManagementModule } from "./anchor-management.module.js";
 import { renderOldContentNote } from "./old-page-note.module.js";
+import { enhanceAllCodeBlocks } from "./syntax-highlighting.module.js";
 
 //
 // Adds the "standalone" class to all images that are don't have any surrounding text.
@@ -79,6 +80,7 @@ function fixupHtmlBeforeShow() {
     renderDates();
     detectStandaloneImages();
     renderOldContentNote();
+    enhanceAllCodeBlocks();
 }
 
 // Execute when DOM is loaded. https://api.jquery.com/ready/
