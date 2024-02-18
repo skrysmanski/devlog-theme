@@ -19,10 +19,10 @@
   {{ $imageUrl := .Destination -}}
   {{- $isExternal := strings.HasPrefix $imageUrl "http" -}}
   {{- if not $isExternal -}}
-    {{- with .Page.Resources.GetMatch .Destination -}}
+    {{- with .Page.Resources.GetMatch $imageUrl -}}
       <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" />
     {{- else -}}
-      {{- warnf "Page '%v': Could not locate image '%v'." .Page.File.Path .Destination -}}
+      {{- warnf "Page '%v': Could not locate image '%v'." .Page.File.Path $imageUrl -}}
     {{- end -}}
   {{- else -}}
     <img src="{{ $imageUrl | safeURL }}" />
