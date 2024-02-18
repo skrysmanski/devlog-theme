@@ -4,7 +4,8 @@ See: https://www.sitemaps.org/protocol.html
 See: https://gohugo.io/methods/page/sitemap/
 */}}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{{- range .Pages }}
+{{- /* NOTE: We sort the pages by URL so that they always appear in the same order (makes it better diffable). */ -}}
+{{- range sort .Pages "Permalink" }}
   <url>
     <loc>{{ strings.TrimSuffix "/" .Permalink }}</loc>
     {{ if not .Lastmod.IsZero -}}
