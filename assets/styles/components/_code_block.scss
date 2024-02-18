@@ -58,9 +58,11 @@ pre {
     // 1. it would hide the tooltip from the copy button.
     // 2. the copy button would not stay in place when scrolling horizontally.
     overflow: auto;
-    // NOTE: Especially the bottom padding is necessary when there is a horizontal scroll bar (which
-    //   otherwise would overlap the content).
-    padding: 1em 0;
+    // NOTES:
+    // * The bottom padding is especially necessary when there is a horizontal scroll bar (which otherwise would
+    //   overlap the content).
+    // * The top padding is necessary/useful to prevent a long first line to intersect with the language name.
+    padding: 1.3em 0;
 
     // Displays the language of the code block.
     &[data-lang]::before {
