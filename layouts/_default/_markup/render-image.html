@@ -27,8 +27,8 @@
         {{- $imageFileBaseName := (urls.Parse .Permalink).Path | path.BaseName -}}
         {{- /*
           If the file name ends with "@2x", interpret it as 192 DPI (instead of the regular 96 DPI) and thus halve its size.
-          NOTE: At the moment, this is a workaround because I couldn't find a way to get the DPI value(s) from the image itself.
-            See: https://discourse.gohugo.io/t/new-dpi-property-for-image-resources/48333
+          NOTE: At the time of writing, there's no way in Hugo to get the DPI value(s) from the image itself - and it also
+            doesn't look like this will be supported any time soon: https://discourse.gohugo.io/t/new-dpi-property-for-image-resources/48333
         */ -}}
         {{- if (hasSuffix $imageFileBaseName "@2x") -}}
           <img src="{{ .RelPermalink }}" width="{{ div .Width 2 }}" height="{{ div .Height 2 }}" />
