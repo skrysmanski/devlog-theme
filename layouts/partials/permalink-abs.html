@@ -1,6 +1,6 @@
 {{- if .IsHome -}}
   {{- strings.TrimSuffix "/" site.BaseURL -}}
-{{- else if .Paginator -}}
+{{- else if and .IsNode .Paginator -}}
   {{- /*
     NOTE: If the current page is paged, we need to use the ".Paginator" to figure out the
       url - "permalink.html" will always point to page 1.
