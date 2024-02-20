@@ -65,7 +65,7 @@
         {{- $cssClass = "page" -}}
 
         {{- /*
-          IMPORTANT: Do NOT use "site.GetPage" here as this may result in a "page reference is ambiguous" error when there are
+          IMPORTANT: Do NOT use "site.GetPage" first(!) as this may result in a "page reference is ambiguous" error when there are
             multiple pages with the same name and we can't suppress/catch this error here. Unlike "site.GetPage", ".Page.GetPage"
             supports relative paths (i.e. it "first" checks if the page exists in the same folder). This is the first check
             we want to do.
