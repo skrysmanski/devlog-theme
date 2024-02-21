@@ -16,6 +16,7 @@
 {{- $text := .Text -}}
 {{- $openInNewTab := false -}}
 {{- $cssClass := "" -}}
+{{- $resolveScope := "" -}} {{- /* This is primarily for debugging purposes to see which resolution was used to find the target page. */ -}}
 
 {{- if $link -}}
   {{- $compactUriMatch := findRESubmatch `^([a-zA-Z0-9]+):(.+)$` $link -}}
@@ -71,13 +72,16 @@
             we want to do.
         */ -}}
         {{- $targetPage := .Page.GetPage $url.Path -}}
+        {{- $resolveScope = "page" -}}
         {{- if and (not $targetPage) (strings.HasPrefix $url.Path "/") -}}
           {{- /* Page not found. Try prepending source page's section (e.g. convert "/cpp/my-article.md" in "/articles/cpp/my-article.md"). */ -}}
           {{- $targetPage = site.GetPage (printf "/%s%s" .Page.Section $url.Path) -}}
+          {{- $resolveScope = "section" -}}
         {{- end -}}
         {{- if not $targetPage -}}
           {{- /* Page still not found. Try site wide search. */ -}}
           {{- $targetPage = site.GetPage $url.Path -}}
+          {{- $resolveScope = "site" -}}
         {{- end -}}
 
         {{- with $targetPage -}}
@@ -130,4 +134,4 @@
   {{- $text = htmlEscape .Destination -}}
 {{- end -}}
 
-<a href="{{ $link | safeURL }}" class="{{ $cssClass }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $openInNewTab }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>
+<a href="{{ $link | safeURL }}" class="{{ $cssClass }}"{{ with $resolveScope }} data-resolve-scope="{{ . }}"{{ end }}{{ with .Title }} title="{{ . }}"{{ end }}{{ if $openInNewTab }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>
