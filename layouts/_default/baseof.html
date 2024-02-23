@@ -30,7 +30,12 @@
 
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ partial "page-title.html" . }} // {{ site.Title }}{{ end }}</title>
 
-    {{ hugo.Generator }}
+    {{- /*
+      NOTE: We do NOT use 'hugo.Generator' here as this means, which every new Hugo version, every generated file changes
+        (because the version number is updated). This makes it harder to spot actual differences in generated files between
+        Hugo versions.
+    */ -}}
+
     <!-- NOTE: maximum-scale=1 is necessary to prevent the auto zoom feature on iOS when typing into
            a text box (e.g. the search box).
            Apparently, this breaks zooming on Android (but not on iOS) - but since we don't have many
