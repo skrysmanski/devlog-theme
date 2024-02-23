@@ -69,6 +69,12 @@
         {{- $cssClass = "page" -}}
         {{- $pathToResolve := $url.Path -}}
 
+        {{- /* Remove ".md" file extension as .GetPage seems to work better this way.
+               See: https://github.com/gohugoio/hugo/issues/12120 */ -}}
+        {{- if strings.HasSuffix (lower $pathToResolve) ".md" -}}
+          {{- $pathToResolve = substr $pathToResolve 0 -3 -}}
+        {{- end -}}
+
         {{- /*
           IMPORTANT: Do NOT use "site.GetPage" first(!) as this may result in a "page reference is ambiguous" error when there are
             multiple pages with the same name and we can't suppress/catch this error here. Unlike "site.GetPage", ".Page.GetPage"
