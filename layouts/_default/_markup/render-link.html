@@ -44,10 +44,12 @@
       {{- end -}}
 
     {{- end -}}
+
   {{- else -}}
+    {{- /* Internal link that's not a compact URI. */ -}}
 
     {{- with .Page.Resources.GetMatch .Destination -}}
-      {{- /* Resource, not a page. */ -}}
+      {{- /* Not a page but a resource (e.g. image, attachment). */ -}}
       {{- $link = .RelPermalink -}}
       {{- $cssClass = printf "resource resource-%s" .ResourceType -}}
 
@@ -57,6 +59,7 @@
       {{- end -}}
 
     {{- else -}}
+      {{- /* Regular page link */ -}}
       {{- /* Parse URL to get URL without fragment (e.g. "#my-anchor"): $url.Path */ -}}
       {{- $url := urls.Parse $link -}}
 
@@ -64,6 +67,7 @@
       {{- if $url.Path -}}
         {{- /* Not just a fragment. */ -}}
         {{- $cssClass = "page" -}}
+        {{- $pathToResolve := $url.Path -}}
 
         {{- /*
           IMPORTANT: Do NOT use "site.GetPage" first(!) as this may result in a "page reference is ambiguous" error when there are
@@ -71,16 +75,16 @@
             supports relative paths (i.e. it "first" checks if the page exists in the same folder). This is the first check
             we want to do.
         */ -}}
-        {{- $targetPage := .Page.GetPage $url.Path -}}
+        {{- $targetPage := .Page.GetPage $pathToResolve -}}
         {{- $resolveScope = "page" -}}
-        {{- if and (not $targetPage) (strings.HasPrefix $url.Path "/") -}}
+        {{- if and (not $targetPage) (strings.HasPrefix $pathToResolve "/") -}}
           {{- /* Page not found. Try prepending source page's section (e.g. convert "/cpp/my-article.md" in "/articles/cpp/my-article.md"). */ -}}
-          {{- $targetPage = site.GetPage (printf "/%s%s" .Page.Section $url.Path) -}}
+          {{- $targetPage = site.GetPage (printf "/%s%s" .Page.Section $pathToResolve) -}}
           {{- $resolveScope = "section" -}}
         {{- end -}}
         {{- if not $targetPage -}}
           {{- /* Page still not found. Try site wide search. */ -}}
-          {{- $targetPage = site.GetPage $url.Path -}}
+          {{- $targetPage = site.GetPage $pathToResolve -}}
           {{- $resolveScope = "site" -}}
         {{- end -}}
 
