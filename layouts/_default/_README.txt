@@ -12,11 +12,12 @@ Additional useful links:
 * The "blocks" concept: https://gohugo.io/templates/base/
 * Context (aka "the dot"): https://gohugo.io/templates/introduction/#the-dot
   * NOTE: "$." (aka "global context") is not(!) passed to partials
-* The ".Page" object: https://gohugo.io/variables/page/
+* The ".Page" object: https://gohugo.io/methods/page/
   * Page Kind: https://gohugo.io/methods/page/kind/
     * IsPage: https://gohugo.io/methods/page/ispage/
-* The ".Site" object: https://gohugo.io/variables/site/
+* The ".Site" object: https://gohugo.io/methods/site/
 * Pass variables to partials: https://mertbakir.gitlab.io/hugo/pass-arguments-in-partials-hugo/
+* Hugo functions: https://gohugo.io/functions/
 
 To print a slice or map, use:
 
