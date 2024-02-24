@@ -9,7 +9,7 @@
       <span>{{ partial "term-name.html" .Title }}</span> {{- /* Name of the term (e.g. "Hugo") */ -}}
     </h1>
     {{- else -}}
-    <h1>All {{ .Title }}</h1>
+    <h1>{{ partial "page-title.html" . }}</h1>
     {{- end }}
 
     {{ with .Content }}
