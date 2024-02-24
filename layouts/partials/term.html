@@ -2,7 +2,7 @@
   {{- if (.Term.Params.brand | default false) -}}
     {{- /* Use brand icon instead of tag icon. */ -}}
     {{- if eq .Term.Params.brand true -}}
-      {{- /* Use term name as brand name. */ -}}
+      {{- /* Use term name (but not its title) as brand name. */ -}}
       <i class="tag-icon fa-brands fa-{{ lower .Term.Name }}"></i>
     {{- else -}}
       {{- /* Use value of "brand" frontmatter as brand name. */ -}}
@@ -11,7 +11,7 @@
   {{- else -}}
     <i class="tag-icon fa-solid fa-tag"></i>
   {{- end -}}
-  <span class="name{{ if .WithTermCount }} with-count{{ end }}">{{ partial "term-name.html" .Term.Name }}</span>
+  <span class="name{{ if .WithTermCount }} with-count{{ end }}">{{ partial "term-name.html" .Term.Title }}</span>
   {{- if .WithTermCount -}}
   <span class="count">{{ len .Term.Pages }}</span>
   {{- end -}}

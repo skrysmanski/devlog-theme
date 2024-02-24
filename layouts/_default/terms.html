@@ -15,7 +15,7 @@
   {{- $terms_by_letters := dict -}}
   {{- range $terms -}}
     {{- $term := . -}}
-    {{- $first_letter := upper ( substr $term.Name 0 1 ) -}}
+    {{- $first_letter := upper ( substr $term.Title 0 1 ) -}}
     {{- if not (in $letters $first_letter) -}}
       {{- $first_letter = "#" -}}
     {{- end -}}

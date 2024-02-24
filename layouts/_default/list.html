@@ -6,7 +6,7 @@
     {{ if eq .Kind "term" -}}
     <h1>
       <span class="list-type">{{ strings.FirstUpper .Data.Singular }}</span> {{- /* Term type (e.g. "topic") */ -}}
-      <span>{{ partial "term-name.html" .Name }}</span> {{- /* Name of the term (e.g. "Hugo") */ -}}
+      <span>{{ partial "term-name.html" .Title }}</span> {{- /* Name of the term (e.g. "Hugo") */ -}}
     </h1>
     {{- else -}}
     <h1>All {{ .Title }}</h1>
