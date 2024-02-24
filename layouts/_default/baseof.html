@@ -138,12 +138,12 @@
             <button id="open-search-dialog-button" aria-label="Search site - keyboard shortcut: ." data-tooltip-dir="bottom-right"><i class="fa-solid fa-magnifying-glass"></i></button>
             {{ range $name, $taxonomy := site.Taxonomies -}}
             {{- with site.GetPage $name -}}
-            <a href="{{ partial "permalink-rel.html" . }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
+            <a href="{{ partial "permalink-rel.html" . }}" aria-label="All {{ partial "auto-title.html" .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
             {{- end -}}
             {{- end }}
             {{ range site.MainSections -}}
             {{- with site.GetPage . -}}
-            <a href="{{ partial "permalink-rel.html" . }}" aria-label="All {{ .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
+            <a href="{{ partial "permalink-rel.html" . }}" aria-label="All {{ partial "auto-title.html" .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
             {{- end -}}
             {{- end }}
           </nav>
