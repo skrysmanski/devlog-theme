@@ -14,6 +14,9 @@
 {{- $supportedLanguage := transform.CanHighlight $originalLang -}}
 
 {{- /* Normalize languages. */ -}}
+{{- /* We convert the original language to lower case so that our comparisons work even for upper-case language names
+       (like "C++/CLI" instead of "c++/cli"). */ -}}
+{{- $originalLang = lower $originalLang -}}
 {{- if or (eq $originalLang "console") (eq $originalLang "shell-session") -}}
   {{- $originalLang = "shell" -}}
 {{- end -}}
