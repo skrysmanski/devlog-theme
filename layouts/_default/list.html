@@ -23,8 +23,8 @@
   </header>
 
   <ul class="pages-list">
-    {{ $paginator := .Paginate .Pages.ByTitle 10 }}
-    {{ range $paginator.Pages }}
+    {{- /* This paginator is defined in "site-paginators.html". */ -}}
+    {{ range .Paginator.Pages }}
     {{ partial "list-item.html" . }}
     {{ end }}
   </ul>
