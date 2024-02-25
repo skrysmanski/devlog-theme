@@ -9,7 +9,7 @@
       <span>{{ partial "term-name.html" .Title }}</span> {{- /* Name of the term (e.g. "Hugo") */ -}}
     </h1>
     {{- else -}}
-    <h1>All {{ .Title }}</h1>
+    <h1>{{ partial "page-title.html" . }}</h1>
     {{- end }}
 
     {{ with .Content }}
@@ -23,8 +23,8 @@
   </header>
 
   <ul class="pages-list">
-    {{ $paginator := .Paginate .Pages.ByTitle 10 }}
-    {{ range $paginator.Pages }}
+    {{- /* This paginator is defined in "site-paginators.html". */ -}}
+    {{ range .Paginator.Pages }}
     {{ partial "list-item.html" . }}
     {{ end }}
   </ul>
