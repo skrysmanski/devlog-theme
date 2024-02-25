@@ -11,12 +11,12 @@
 
 {{- $originalLang := .Type -}}
 
+{{- $supportedLanguage := transform.CanHighlight $originalLang -}}
+
 {{- /* Normalize languages. */ -}}
 {{- if or (eq $originalLang "console") (eq $originalLang "shell-session") -}}
   {{- $originalLang = "shell" -}}
 {{- end -}}
-
-{{- $supportedLanguage := transform.CanHighlight $originalLang -}}
 
 {{- $originalOptions := dict -}}
 {{- if $supportedLanguage -}}
@@ -66,6 +66,17 @@
   {{- $overrideLanguage = "shell-session" -}}
 {{- end -}}
 
+{{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
+{{- $showLineHighlights := ne (index $originalOptions "hl_lines" | default "") "" -}}
+
+{{- if or (eq $originalLang "") (eq $originalLang "plaintext") -}}
+  {{- if and (not $showLineNumbers) (not $showLineHighlights) -}}
+    {{- /* If the block is plain text and doesn't need any special options (line highlights or line numbers), simply print it as is (i.e. without line spans). */ -}}
+    {{- $originalLang = "" }}
+    {{- $overrideLanguage = "" -}}
+  {{- end -}}
+{{- end -}}
+
 {{- $codeBlockHtml := "" -}}
 {{- if $overrideLanguage -}}
   {{- $codeBlockHtml = highlight .Inner $overrideLanguage $overrideOptions -}}
@@ -81,7 +92,6 @@
   {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $originalLang) (printf "data-lang=\"%s\" data-lang-supported=\"%v\"" $originalLang $supportedLanguage) -}}
 {{- end -}}
 
-{{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
 {{- if $showLineNumbers -}}
   {{- /* Enable line numbers with CSS. */ -}}
   {{- $codeBlockHtml = replace $codeBlockHtml "class=\"chroma\"" "class=\"chroma with-line-numbers\"" -}}
