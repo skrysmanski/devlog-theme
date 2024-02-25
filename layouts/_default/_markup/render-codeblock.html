@@ -43,12 +43,10 @@
 ) -}}
 
 {{- $overrideLanguage := "" -}}
-{{- if $supportedLanguage -}}
-  {{- if eq $originalLang "shell" -}}
-    {{- /* "shell" is used in VSCode as "shell" but in chroma it's actually "shell-session". */ -}}
-    {{- $overrideLanguage = "shell-session" -}}
-  {{- end -}}
-{{- else -}}
+
+{{- if not $supportedLanguage -}}
+  {{- /* Unsupported language. Fall back to a similar language.*/ -}}
+
   {{- if eq $originalLang "c++/cli" -}}
     {{- /* "c++/cli" is not supported; fallback to "c++". */ -}}
     {{- $overrideLanguage = "c++" -}}
@@ -58,8 +56,14 @@
     */ -}}
     {{- $overrideLanguage = ".gitconfig" -}}
   {{- else -}}
-    {{- $overrideLanguage := "text" -}}
+    {{- $overrideLanguage = "plaintext" -}}
   {{- end -}}
+
+{{- end -}}
+
+{{- if eq $originalLang "shell" -}}
+  {{- /* "shell" is used in VSCode as "shell" but in chroma it's actually "shell-session". */ -}}
+  {{- $overrideLanguage = "shell-session" -}}
 {{- end -}}
 
 {{- $codeBlockHtml := "" -}}
@@ -71,7 +75,11 @@
 {{- end -}}
 
 {{- /* "data-lang-supported" is primarily for diagnostic purposes when trying to analyze problems with syntax highlighting. */ -}}
-{{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $originalLang) (printf "data-lang=\"%s\" data-lang-supported=\"%v\"" $originalLang $supportedLanguage) -}}
+{{- if $overrideLanguage -}}
+  {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $originalLang) (printf "data-lang=\"%s\" data-lang-supported=\"%v\"" $originalLang $overrideLanguage) -}}
+{{- else -}}
+  {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $originalLang) (printf "data-lang=\"%s\" data-lang-supported=\"%v\"" $originalLang $supportedLanguage) -}}
+{{- end -}}
 
 {{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
 {{- if $showLineNumbers -}}
