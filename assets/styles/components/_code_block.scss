@@ -1,8 +1,14 @@
-@import 'components/_code_block_highlighting';
+// For all themes, see: https://highlightjs.org/examples
+// IMPORTANT: Do NOT add ".css" to the end or else the file won't be inlined (and thus trigger a CSP violation - at least during dev)!!!
+@import '../../node_modules/@highlightjs/cdn-assets/styles/felipec';
+$code-block-background-color: #1e1e22;
+$highlight-background-color: #3d4148;
 
 pre {
   // Required for "position: absolute" of the copy button and the language name.
   position: relative;
+
+  margin: 1em 0;
 
   font-size: 0.9em;
   line-height: 1.4em;
@@ -10,44 +16,7 @@ pre {
   border-radius: $block-border-radius;
 
   // Set background color and text color.
-  // This is for code blocks created via indention (rather than ```).
-  @extend .chroma;
-
-  &.with-line-numbers > code {
-    counter-reset: line-numbering;
-    & > .line {
-      // Reduce left padding.
-      padding-left: 0.5em;
-
-      &::before {
-        content: counter(line-numbering);
-        counter-increment: line-numbering;
-
-        // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
-        // will shrink to its minimum.
-        // NOTE: The surrounding line requires "display: flex" so that line highlights span the
-        //   whole code block width (and not just the line's length).
-        flex-shrink: 0;
-
-        color: $code-block-line-number-color;
-
-        margin-right: .8em;
-        width: 1.5em;
-        text-align: right;
-      }
-    }
-  }
-
-  $horizontal-code-margin: 1.2em;
-  & > code .line {
-      // NOTE: For code blocks with ".chroma", we define the horizontal padding here (instead of the code block) so that
-      //   the background of highlighted lines extend the full width.
-      padding: 0 $horizontal-code-margin;
-  }
-  &:not(.chroma) {
-    // This is for code blocks created via indention (rather than ```) as they don't use ".line" classes.
-    padding-left: $horizontal-code-margin;
-  }
+  @extend .hljs;
 
   & > code {
     // Required because "code" is usually an inline element - which can't have a "width" element.
@@ -64,7 +33,55 @@ pre {
     // * The top padding is necessary/useful to prevent a long first line to intersect with the language name.
     padding: 1.3em 0;
 
+    $horizontal-code-margin: 1.2em;
+
+    &:not(.with-lines) {
+      // This is for code blocks that have no dedicated line spans (i.e. because they don't use line numbers or line highlights).
+      padding-left: $horizontal-code-margin;
+    }
+
+    .line {
+      display: flex;
+      padding: 0 $horizontal-code-margin;
+
+      // Highlighted line
+      &.hl {
+        background-color: $highlight-background-color;
+      }
+    }
+
+    //
+    // Line numbers
+    //
+    &.with-line-numbers {
+      counter-reset: line-numbering;
+      & > .line {
+        // Reduce left padding.
+        padding-left: 0.5em;
+
+        &::before {
+          content: counter(line-numbering);
+          counter-increment: line-numbering;
+
+          // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
+          // will shrink to its minimum.
+          // NOTE: The surrounding line requires "display: flex" so that line highlights span the
+          //   whole code block width (and not just the line's length).
+          flex-shrink: 0;
+
+          // Use the same text color as comments for line numbers.
+          @extend .hljs-comment;
+
+          margin-right: .8em;
+          width: 1.5em;
+          text-align: right;
+        }
+      }
+    }
+
+    //
     // Displays the language of the code block.
+    //
     &[data-lang]::before {
       position: absolute;
       top: 0.7em;
@@ -129,10 +146,6 @@ pre {
       color: white;
     }
   }
-}
-
-> pre, > div.highlight {
-  margin: 1em 0;
 }
 
 pre:hover .copy-code-button {

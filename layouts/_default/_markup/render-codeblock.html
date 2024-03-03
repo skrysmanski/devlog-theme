@@ -1,105 +1,25 @@
 {{- /* https://gohugo.io/templates/render-hooks/#render-hooks-for-code-blocks */ -}}
 
-{{- /*
-  To find all aliases/names for supported language, see https://github.com/alecthomas/chroma
-  and search for "<alias>NAME</alias>" or "<name>NAME</name>".
-*/ -}}
-
 {{- /* To test changes to this file, use the "code-block-test.md" page. */ -}}
 
 {{- /* NOTE: This render hook is NOT executed for code blocks created with indentation (4 spaces) rather than ```. */ -}}
 
+{{- /* NOTE: We don't use Hugo's Chroma for highlighting but rather a JavaScript syntax highlighter; see: https://github.com/skrysmanski/devlog-theme/pull/6. */ -}}
+
 {{- $originalLang := .Type -}}
 
-{{- $supportedLanguage := transform.CanHighlight $originalLang -}}
-
-{{- /* Normalize languages. */ -}}
-{{- /* We convert the original language to lower case so that our comparisons work even for upper-case language names
-       (like "C++/CLI" instead of "c++/cli"). */ -}}
-{{- $originalLang = lower $originalLang -}}
-{{- if or (eq $originalLang "console") (eq $originalLang "shell-session") -}}
-  {{- $originalLang = "shell" -}}
-{{- end -}}
-
 {{- $originalOptions := dict -}}
-{{- if $supportedLanguage -}}
+{{- if transform.CanHighlight $originalLang -}}
   {{- $originalOptions = .Options -}}
 {{- else -}}
   {{- $originalOptions = .Attributes -}}
 {{- end -}}
 
-{{- /* For options, see: https://gohugo.io/functions/transform/highlight/#options */ -}}
-{{- /*
-  NOTE: We use "lineNos = false" here because using CSS to do the line numbers is much easier
-    and reliable than using the built-in methods:
-
-    * lineNos = inline: When the code is copied - for each line copied Firefox will also copy an empty line
-        (which is not what we want). See: https://bugzilla.mozilla.org/show_bug.cgi?id=1273836
-    * lineNos = table: Creates much more complicated HTML which requires us to make our CSS much more complicated.
-        Also, the CSS classes used are not that good (e.g. both the line numbers column and the content column have
-        the exact same CSS class - making it hard to differentiate them in CSS). See also:
-        https://github.com/alecthomas/chroma/issues/722
-*/ -}}
-{{- $overrideOptions := merge $originalOptions (dict
-  "noClasses" false
-  "lineNos" false
-) -}}
-
-{{- $overrideLanguage := "" -}}
-
-{{- if not $supportedLanguage -}}
-  {{- /* Unsupported language. Fall back to a similar language.*/ -}}
-
-  {{- if eq $originalLang "c++/cli" -}}
-    {{- /* "c++/cli" is not supported; fallback to "c++". */ -}}
-    {{- $overrideLanguage = "c++" -}}
-  {{- else if eq $originalLang ".gitattributes" -}}
-    {{- /* ".gitattributes" is not supported; fallback to ".gitconfig".
-           https://github.com/alecthomas/chroma/issues/128
-    */ -}}
-    {{- $overrideLanguage = ".gitconfig" -}}
-  {{- else -}}
-    {{- $overrideLanguage = "plaintext" -}}
-  {{- end -}}
-
-{{- end -}}
-
-{{- if eq $originalLang "shell" -}}
-  {{- /* "shell" is used in VSCode as "shell" but in chroma it's actually "shell-session". */ -}}
-  {{- $overrideLanguage = "shell-session" -}}
-{{- end -}}
-
 {{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
-{{- $showLineHighlights := ne (index $originalOptions "hl_lines" | default "") "" -}}
-
-{{- if or (eq $originalLang "") (eq $originalLang "plaintext") -}}
-  {{- if and (not $showLineNumbers) (not $showLineHighlights) -}}
-    {{- /* If the block is plain text and doesn't need any special options (line highlights or line numbers), simply print it as is (i.e. without line spans). */ -}}
-    {{- $originalLang = "" }}
-    {{- $overrideLanguage = "" -}}
-  {{- end -}}
-{{- end -}}
-
-{{- $codeBlockHtml := "" -}}
-{{- if $overrideLanguage -}}
-  {{- $codeBlockHtml = highlight .Inner $overrideLanguage $overrideOptions -}}
-  {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $overrideLanguage) (printf "data-lang=\"%s\"" $originalLang) -}}
-{{- else -}}
-  {{- $codeBlockHtml = highlight .Inner $originalLang $overrideOptions -}}
-{{- end -}}
-
-{{- /* "data-lang-supported" is primarily for diagnostic purposes when trying to analyze problems with syntax highlighting. */ -}}
-{{- if $overrideLanguage -}}
-  {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $originalLang) (printf "data-lang=\"%s\" data-lang-supported=\"%v\"" $originalLang $overrideLanguage) -}}
-{{- else -}}
-  {{- $codeBlockHtml = replace $codeBlockHtml (printf "data-lang=\"%s\"" $originalLang) (printf "data-lang=\"%s\" data-lang-supported=\"%v\"" $originalLang $supportedLanguage) -}}
-{{- end -}}
-
-{{- if $showLineNumbers -}}
-  {{- /* Enable line numbers with CSS. */ -}}
-  {{- $codeBlockHtml = replace $codeBlockHtml "class=\"chroma\"" "class=\"chroma with-line-numbers\"" -}}
-{{- end -}}
+{{- $lineHighlights := index $originalOptions "hl_lines" | default "" -}}
 
 {{- /* Line Break Keeper Comment */}}
-{{ $codeBlockHtml | safeHTML }}
+<pre><code{{ if $showLineNumbers }} class="with-line-numbers"{{ end }}{{ with $originalLang }} data-lang="{{ . }}"{{ end }}{{ with $lineHighlights }} data-line-highlights="{{ . }}"{{ end }}>
+{{ .Inner }}
+</code></pre>
 

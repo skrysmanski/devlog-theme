@@ -81,6 +81,8 @@
         our own JavaScript/TypeScript code un-minified (for readability).
     -->
     {{ partial "js-static.html" "node_modules/jquery/dist/jquery.slim.min.js" }}
+    {{ partial "js-static.html" "node_modules/@highlightjs/cdn-assets/highlight.min.js" }}
+
     {{ partial "js-build.html" "scripts/main.ts" }}
 
     <!--
