@@ -65,6 +65,14 @@
     <link rel="canonical" href="{{ partial "permalink-abs.html" . }}" />
 
     <!--
+      FavIcon
+    -->
+    {{ partial "favicon" . }}
+
+    <!-- Enable OpenGraph support. -->
+    {{ partial "opengraph.html" . }}
+
+    <!--
       CSS
     -->
     {{ partial "css-build.html" (dict "File" "styles/main.scss") }}
@@ -85,17 +93,9 @@
 
     {{ partial "js-build.html" "scripts/main.ts" }}
 
-    <!--
-      FavIcon
-    -->
-    {{ partial "favicon" . }}
-
     <!-- For static site search. -->
     <!-- For meaning of "defer", see: https://www.w3schools.com/tags/att_script_defer.asp -->
     <script src="/pagefind/pagefind-ui.js" defer></script>
-
-    <!-- Enable OpenGraph support. -->
-    {{ partial "opengraph.html" . }}
   </head>
 
   <body>
