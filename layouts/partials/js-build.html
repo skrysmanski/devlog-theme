@@ -3,7 +3,14 @@
 {{- $jsBuildOptions.Set "minify" false -}}
 {{- /* NOTE: Do NOT set "sourceMap" to "internal" or it will increase the .js size (by about 40kb). */ -}}
 {{- $jsBuildOptions.Set "sourceMap" "external" -}}
-{{- with resources.Get . | js.Build $jsBuildOptions.Values | fingerprint -}}
-{{- /* IMPORTANT: We can't use "defer" here because we need to execute one of the methods before the page is rendered (see script tag in baseof.html). */ -}}
-<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+
+{{- $scripts := resources.Get . | js.Build $jsBuildOptions.Values -}}
+
+{{- if eq (printf "%v" (site.Params.enableFingerprinting | default true)) "true" -}}
+  {{- $scripts = $scripts | fingerprint -}}
+{{- end -}}
+
+{{- with $scripts -}}
+  {{- /* IMPORTANT: We can't use "defer" here because we need to execute one of the methods before the page is rendered (see script tag in baseof.html). */ -}}
+  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
 {{- end -}}
