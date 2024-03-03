@@ -98,7 +98,8 @@
 {{- if $showLineNumbers -}}
   {{- /* Enable line numbers with CSS. */ -}}
   {{- $codeBlockHtml = replace $codeBlockHtml "class=\"chroma\"" "class=\"chroma with-line-numbers\"" -}}
-{{- end }}
+{{- end -}}
 
+{{- /* Line Break Keeper Comment */}}
 {{ $codeBlockHtml | safeHTML }}
 
