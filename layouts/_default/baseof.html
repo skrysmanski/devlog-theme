@@ -85,11 +85,17 @@
 
     <!--
       JavaScript
+
       NOTE: We put jQuery in a separate <script> element so that we can use the minified version but still can keep
         our own JavaScript/TypeScript code un-minified (for readability).
     -->
     {{ partial "js-static.html" "node_modules/jquery/dist/jquery.slim.min.js" }}
+
+    <!--
+      NOTE: List of supported languages: https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
+    -->
     {{ partial "js-static.html" "node_modules/@highlightjs/cdn-assets/highlight.min.js" }}
+    {{ partial "js-static.html" "node_modules/@highlightjs/cdn-assets/languages/powershell.min.js" }}
 
     {{ partial "js-build.html" "scripts/main.ts" }}
 
