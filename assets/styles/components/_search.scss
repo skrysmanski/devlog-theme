@@ -177,7 +177,7 @@ $search-overlay-width: 800px;
 
         mark {
           font-weight: bold;
-          background: none;
+          background: $search-result-mark-background;
           color: inherit;
         }
       }

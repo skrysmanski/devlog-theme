@@ -49,6 +49,8 @@ $heading-background-target: #ffefce;
 $page-meta-background: #f6f6f6;
 $page-meta-padding: 1em 1.5em;
 
+$search-result-mark-background: lighten($link-color, 45%);
+
 $tags-base-color: lighten($link-color, 25%);
 
 $toc-separator-color: rgb(224, 224, 224);
