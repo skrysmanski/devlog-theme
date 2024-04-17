@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "glob": "^10.3.10",
-    "js-beautify": "^1.15.0",
-    "pagefind": "^1.0.4"
+    "glob": "^10.3.12",
+    "js-beautify": "^1.15.1",
+    "pagefind": "^1.1.0"
   }
 }
