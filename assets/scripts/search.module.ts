@@ -5,15 +5,20 @@ import { registerGlobalKeyboardShortcut } from "./keyboard-shortcuts.module.js";
 declare global {
     interface PagefindUIOptions {
         element?: string;
-        showSubResults: boolean;
-        pageSize: number;
-        showImages: boolean;
-        resetStyles: boolean;
+        showSubResults?: boolean;
+        pageSize?: number;
+        showImages?: boolean;
+        resetStyles?: boolean;
+        autofocus?: boolean;
     }
 
     class PagefindUI {
         constructor(options?: PagefindUIOptions);
     }
+}
+
+function getSearchBoxElement(): JQuery<HTMLElement> {
+    return $('input.pagefind-ui__search-input');
 }
 
 function hideSearchOverlay() {
@@ -29,7 +34,7 @@ function showSearchOverlay() : boolean {
     }
 
     $container.addClass('visible');
-    $('.pagefind-ui__search-input').trigger('focus');
+    getSearchBoxElement().trigger('focus'); // make sure the search box has the focus
     showBackdrop('page', hideSearchOverlay);
 
     return false;
@@ -60,13 +65,16 @@ export function initSearch() {
             // We don't have images. No need to show any.
             showImages: false,
             // Removes any inline styles from the generated HTML elements.
-            resetStyles: false
+            resetStyles: false,
+            // NOTE: Unfortunately, "autofocus" doesn't work in our case (it won't auto focus).
+            //   So, we have to keep setting the focus manually in "showSearchOverlay()".
+            //autofocus: true
         });
 
         //
         // Improve search box
         //
-        const $searchBox = $('input.pagefind-ui__search-input');
+        const $searchBox = getSearchBoxElement();
         // Replace placeholder text.
         $searchBox.attr('placeholder', 'Search content...')
         // iOS: Replace "search" with "done" as searching is done automatically (and not on hitting return).
