@@ -55,6 +55,8 @@
     <meta name="theme-color" content="#282a36" />
 
     <meta name="author" content="{{ site.Params.author }}" />
+    <!-- See: https://blog.joinmastodon.org/2024/07/highlighting-journalism-on-mastodon/ -->
+    {{ if site.Params.social.mastodon_alt }}<meta name="fediverse:creator" content="{{ site.Params.social.mastodon_alt }}" />{{ end }}
     {{ with site.Params.robots -}}
     <meta name="robots" content="{{ . }}" />
     {{- end }}
