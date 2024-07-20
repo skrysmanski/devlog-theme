@@ -34,6 +34,7 @@ function formatNumberWithUnit(number : number, oneUnit: string, manyUnit : strin
 
 function convertDateToDateAgo(date : Date) : string {
     const dateAsString = date.toDateString();
+
     if (dateAsString == todayAsString) {
         return 'Today';
     }
@@ -54,7 +55,7 @@ function convertDateToDateAgo(date : Date) : string {
 
     const diffAsMonths = diffAsDays / 30;
     if (diffAsMonths < 15) {
-        return formatNumberWithUnit(diffAsDays, "month", "months") + " ago";
+        return formatNumberWithUnit(diffAsMonths, "month", "months") + " ago";
     }
 
     const diffAsYears = diffAsDays / 365;
