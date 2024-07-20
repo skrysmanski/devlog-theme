@@ -26,6 +26,14 @@
     <h1 id="page-title"{{ if $includeInSearch }} data-pagefind-body data-pagefind-meta="title"{{ end }}>{{ .Title }}</h1>
 
     {{ if $isPrimaryContent -}}
+
+      {{ if .Description }}
+        <div class="summary">{{ .Description }}</div>
+      {{ else if hugo.IsServer }}
+        <!-- Print the auto summary only in "hugo server" mode - to communicate more easily to the writer that a custom summary should be added. -->
+        <div class="summary auto-summary">{{ .Summary }}</div>
+      {{ end }}
+
       {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
 
       {{- if (.Params.oldContentWarning | default true) -}}
