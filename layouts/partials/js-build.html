@@ -6,7 +6,7 @@
 
 {{- $scripts := resources.Get . | js.Build $jsBuildOptions.Values -}}
 
-{{- if eq (printf "%v" (site.Params.enableFingerprinting | default true)) "true" -}}
+{{- if eq (printf "%v" (site.Params.enableAssetFingerprinting | default true)) "true" -}}
   {{- $scripts = $scripts | fingerprint -}}
 {{- end -}}
 

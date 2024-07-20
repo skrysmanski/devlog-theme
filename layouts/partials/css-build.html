@@ -3,7 +3,7 @@
 */ -}}
 {{- $styles := resources.Get .File | toCSS (dict "enableSourceMap" true) }}
 
-{{- if eq (printf "%v" (site.Params.enableFingerprinting | default true)) "true" -}}
+{{- if eq (printf "%v" (site.Params.enableAssetFingerprinting | default true)) "true" -}}
   {{- $styles = $styles | fingerprint -}}
 {{- end -}}
 
