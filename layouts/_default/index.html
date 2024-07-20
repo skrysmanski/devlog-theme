@@ -14,9 +14,9 @@
       {{ warnf "No 'mainSections' specified." }}
     {{- end }}
 
-    {{ if eq 0 (len site.RegularPages) }}
+    {{- if eq 0 (len site.RegularPages) -}}
       {{ warnf "No pages found. Do you have a '/content/index.md' file? If so, rename it to '_index.md'." }}
-    {{ end }}
+    {{- end }}
 
     <ul class="pages-list">
       <!-- Show the newest X articles from all types considered main sections (that explicitly excludes the "terms & privacy" page).
