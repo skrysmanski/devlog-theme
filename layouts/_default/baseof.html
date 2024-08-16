@@ -192,8 +192,9 @@
       </div>
 
       <div class="social-links hide-in-print">
-        {{ if site.Params.social.github }}<a href="https://github.com/{{ site.Params.social.github }}" title="Find me on GitHub"><i class="fa-brands fa-github"></i></a>{{ end }}
-        {{ if site.Params.social.mastodon }}<a href="{{ site.Params.social.mastodon }}" title="Find me on Mastodon"><i class="fa-brands fa-mastodon"></i></a>{{ end }}
+        {{ if site.Params.social.github }}<a href="https://github.com/{{ site.Params.social.github }}" rel="me" title="Find me on GitHub"><i class="fa-brands fa-github"></i></a>{{ end }}
+        <!-- NOTE: rel="me" is required for verification on Mastodon. -->
+        {{ if site.Params.social.mastodon }}<a href="{{ site.Params.social.mastodon }}" rel="me" title="Find me on Mastodon"><i class="fa-brands fa-mastodon"></i></a>{{ end }}
       </div>
     </footer>
 
