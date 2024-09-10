@@ -5,6 +5,6 @@
   "dependencies": {
     "glob": "^10.4.5",
     "js-beautify": "^1.15.1",
-    "pagefind": "^1.1.0"
+    "pagefind": "^1.1.1"
   }
 }
