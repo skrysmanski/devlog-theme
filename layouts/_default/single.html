@@ -28,9 +28,13 @@
     {{ if $isPrimaryContent -}}
 
       {{ if .Description }}
+        <!-- Displays as small sub text under the main heading. -->
         <div class="summary">{{ .Description }}</div>
       {{ else if hugo.IsServer }}
-        <!-- Print the auto summary only in "hugo server" mode - to communicate more easily to the writer that a custom summary should be added. -->
+        <!-- Print the auto summary only in "hugo server" mode - to communicate more easily to the writer that a
+             custom description (https://gohugo.io/methods/page/description/) or
+             summary (https://gohugo.io/content-management/summaries/) should be added.
+        -->
         <div class="summary auto-summary">{{ .Summary }}</div>
       {{ end }}
 
